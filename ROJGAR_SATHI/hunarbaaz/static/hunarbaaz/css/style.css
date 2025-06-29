@@ -20,12 +20,12 @@
 
 .hero-img {
   height: 85vh;
-  object-fit: cover;
+  object-fit: contain;
   filter: brightness(60%);
 }
 
 .carousel-caption {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: none !important;
   padding: 2rem;
   border-radius: 10px;
 }
