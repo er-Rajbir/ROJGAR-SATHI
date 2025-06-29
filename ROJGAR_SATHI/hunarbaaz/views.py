@@ -3,7 +3,8 @@ from django.shortcuts import render
 
 # Home page view
 def home(request):
-    return render(request, 'hunarbaaz/home.html')
+    categories = ['Electrician', 'Plumber', 'Technician', 'Construction', 'Painter', 'Welder']
+    return render(request, 'home.html', {'categories': categories})
 
 # Karigar list page
 def karigar_list(request):

@@ -43,7 +43,15 @@
   <div class="container">
     <h2 class="mb-4">Popular Categories</h2>
     <div class="row g-4">
-      {% for item in ['Electrician', 'Plumber', 'Technician', 'Construction', 'Painter', 'Welder'] %}
+     {% for item in categories %}
+  <div class="col-md-4">
+    <div class="category-box p-4 border rounded shadow-sm">
+      <i class="fs-1 text-primary bi bi-tools"></i>
+      <h5 class="mt-3">{{ item }}</h5>
+    </div>
+  </div>
+{% endfor %}
+
       <div class="col-md-4">
         <div class="category-box p-4 border rounded shadow-sm">
           <i class="fs-1 text-primary bi bi-tools"></i>
