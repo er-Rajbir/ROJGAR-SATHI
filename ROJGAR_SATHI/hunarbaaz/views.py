@@ -24,4 +24,9 @@ def employer_register(request):
 # Login page view
 def login_view(request):
     return render(request, 'hunarbaaz/login.html')
-# Create your views here.
+
+def about_view(request):
+    return render(request, 'hunarbaaz/about.html')
+
+def privacy_terms_view(request):
+    return render(request, 'hunarbaaz/privacy-terms.html')

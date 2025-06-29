@@ -8,4 +8,6 @@ urlpatterns = [
     path('karigars/', views.karigar_list, name='karigar_list'),
     path('employer/register/', views.employer_register, name='employer_register'),
     path('login/', views.login_view, name='login'),
+    path('about/', views.about_view, name='about'),
+    path('privacy-terms/', views.privacy_terms_view, name='privacy_terms'),
 ]
