@@ -1,0 +1,19 @@
+#cont-below-nav{
+    background:linear-gradient(to top, #0958a7, #232b56);
+    /* background-color: rgb(63, 184, 249);
+ */
+}
+#below-nav{
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+    color: white;
+    height:45vh;
+    padding-top: 5vh;
+    font-size: 150%;
+}
+
+@media (max-width: 768px) {
+  #below-nav h1 {
+    font-size: 2rem;}}
