@@ -60,18 +60,30 @@
 <!-- ✅ Counters -->
 <section class="stats py-5 bg-primary text-white text-center">
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h1 class="counter" data-target="500">0</h1>
+    <div class="row justify-content-center">
+
+      <!-- Happy Clients -->
+      <div class="col-md-6 mb-3">
+        <div class="d-flex justify-content-center align-items-baseline stat-block">
+          <span class="counter" data-target="500">0</span>
+          <span class="plus-sign">+</span>
+        </div>
         <p>Happy Clients</p>
       </div>
-      <div class="col-md-6">
-        <h1 class="counter" data-target="150">0</h1>
+
+      <!-- Registered Hunarbaaz -->
+      <div class="col-md-6 mb-3">
+        <div class="d-flex justify-content-center align-items-baseline stat-block">
+          <span class="counter" data-target="150">0</span>
+          <span class="plus-sign">+</span>
+        </div>
         <p>Registered Hunarbaaz</p>
       </div>
+
     </div>
   </div>
 </section>
+
 
 <!-- ✅ Reviews -->
 <section class="reviews py-5 bg-light">
@@ -98,4 +110,40 @@
     </div>
   </div>
 </section>
+<script>
+  const counters = document.querySelectorAll('.counter');
+
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const speed = 200; // lower = faster
+
+    const updateCount = () => {
+      const count = +counter.innerText;
+      const increment = Math.ceil(target / speed);
+
+      if (count < target) {
+        counter.innerText = count + increment;
+        setTimeout(updateCount, 10);
+      } else {
+        counter.innerText = target;
+      }
+    };
+
+    updateCount();
+  });
+</script>
+<script>
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+  const animationObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        animationObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  animatedElements.forEach(el => animationObserver.observe(el));
+</script>
 {% endblock %}

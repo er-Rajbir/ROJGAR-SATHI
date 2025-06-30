@@ -43,10 +43,10 @@
 }
 
 .aos-left {
-  animation: slideInLeft 1s forwards;
+  animation: slideInLeft 3s forwards;
 }
 .aos-right {
-  animation: slideInRight 1s forwards;
+  animation: slideInRight 3s forwards;
 }
 @keyframes slideInLeft {
   from { transform: translateX(-100px); opacity: 0; }
@@ -55,4 +55,22 @@
 @keyframes slideInRight {
   from { transform: translateX(100px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
+}
+
+.counter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  
+}
+
+.stat-block {
+  font-size: 2.5rem;
+  font-weight: bold;
+  gap: 5px; /* space between number and + */
+}
+
+.plus-sign {
+  font-size: 2rem;
+  line-height: 1;
+  vertical-align: top;
 }
