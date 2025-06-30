@@ -218,3 +218,20 @@ body {
 .login-form .inputBox input[type="submit"]:hover {
   background: #1e88e5;
 }
+/*login css done*/
+#carousel-caption-bg
+{background-color: rgba(0, 0, 0, 0.5);
+   align-items:center ;
+   justify-content: center; 
+   align-content: center;
+   justify-items: center;
+    height:100%;
+    width: 100%;
+    padding:0;
+    margin-left: 0;
+    z-index:2;
+    position:absolute;
+    color: white;
+    font-size: 2rem;
+    
+}
