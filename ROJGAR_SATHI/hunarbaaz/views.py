@@ -3,7 +3,15 @@ from django.shortcuts import render
 
 # Home page view
 def home(request):
-    return render(request, 'hunarbaaz/home.html')
+    categories = ['Electrician', 'Plumber', 'Technician', 'Construction', 'Painter', 'Welder']
+    reviews = [
+    {"text": "Amazing service! Got a skilled plumber within minutes.", "name": "Client A", "stars": 4},
+    {"text": "Quick and reliable electrician. Fully satisfied!", "name": "Client B", "stars": 5},
+    {"text": "Professional and polite workers!", "name": "Client C", "stars": 4},
+    {"text": "Very helpful during emergency work.", "name": "Client D", "stars": 5},
+]
+
+    return render(request, 'hunarbaaz/home.html', {'categories': categories, 'reviews':reviews})
 
 # Karigar list page
 def karigar_list(request):
@@ -16,4 +24,9 @@ def employer_register(request):
 # Login page view
 def login_view(request):
     return render(request, 'hunarbaaz/login.html')
-# Create your views here.
+
+def about_view(request):
+    return render(request, 'hunarbaaz/about.html')
+
+def privacy_terms_view(request):
+    return render(request, 'hunarbaaz/privacy-terms.html')

@@ -1,34 +1,12 @@
 {% extends 'hunarbaaz/base.html' %}
-{% load static %}
+
+{%load static%}
 
 {% block content %}
-<div class="container-fluid" id="cont-below-nav">
-  <div id="below-nav" >
-  <i><h3>600+ Active users on</h4>
-  <h1 style="font-family:Arial, Helvetica, sans-serif;font-size: 300%;"><b>ROJGAR SATHI</b></h1>
-  <h4>Discover now!</h4>
 
-
-<input type="text"placeholder="SEARCH">
-<button class="btn btn-outline-light">SEARCH</button>
-</i>
-</div></div>
-
-    
-</div>
-
-<div class="container">
-
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-    
-  </div>
-  <div class="carousel-inner">
+<!-- ✅ Hero Carousel -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner container-fluid">
     <div class="carousel-item active">
       <img src="{% static 'hunarbaaz/images/mistry.jpg' %}" class="d-block w-100" alt="...">
     </div>
@@ -45,18 +23,133 @@
       <img src="{% static 'hunarbaaz/images/pop.jpg' %}" class="d-block w-100" alt="...">
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+  <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+    <h1 class="display-4 text-white">Welcome to Rojgar Sathi</h1>
+    <p class="lead text-light">Connecting Clients with Skilled Hunarbaaz Across Punjab</p>
+  </div>
 </div>
 
+<!-- ✅ Search Section -->
+<section class="search-section py-4 bg-light">
+  <div class="container">
+    <form class="row g-3 justify-content-center">
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Search Skill (e.g. Electrician)">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Location (e.g. Amritsar)">
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ✅ Categories Section -->
+<section class="categories py-5 text-center">
+  <div class="container">
+    <h2 class="mb-4">Popular Categories</h2>
+    <div class="row g-4">
+     {% for item in categories %}
+  <div class="col-md-4">
+    <div class="category-box p-4 border rounded shadow-sm">
+      <i class="fs-1 text-primary bi bi-tools"></i>
+      <h5 class="mt-3">{{ item }}</h5>
+    </div>
+  </div>
+{% endfor %}
+
+    
+</section>
+
+<!-- ✅ Counters -->
+<section class="stats py-5 bg-primary text-white text-center">
+  <div class="container">
+    <div class="row justify-content-center">
+
+      <!-- Happy Clients -->
+      <div class="col-md-6 mb-3">
+        <div class="d-flex justify-content-center align-items-baseline stat-block">
+          <span class="counter" data-target="500">0</span>
+          <span class="plus-sign">+</span>
+        </div>
+        <p>Happy Clients</p>
+      </div>
+
+      <!-- Registered Hunarbaaz -->
+      <div class="col-md-6 mb-3">
+        <div class="d-flex justify-content-center align-items-baseline stat-block">
+          <span class="counter" data-target="150">0</span>
+          <span class="plus-sign">+</span>
+        </div>
+        <p>Registered Hunarbaaz</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 
+<!-- ✅ Reviews -->
+<section class="reviews py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">What People Say</h2>
+    <div class="row g-4">
+      {% for r in reviews %}
+  <div class="col-md-6 {% cycle 'aos-left' 'aos-right' %}">
+    <div class="p-4 shadow rounded bg-white">
+      <p>"{{ r.text }}"</p>
+      <strong>– {{ r.name }}</strong>
+      <div class="text-warning mt-2">
+ {% for i in "12345" %}
+    {% if forloop.counter <= r.stars %}
+      ★
+    {% else %}
+      ☆
+    {% endif %}
+  {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+  const counters = document.querySelectorAll('.counter');
 
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const speed = 200; // lower = faster
+
+    const updateCount = () => {
+      const count = +counter.innerText;
+      const increment = Math.ceil(target / speed);
+
+      if (count < target) {
+        counter.innerText = count + increment;
+        setTimeout(updateCount, 10);
+      } else {
+        counter.innerText = target;
+      }
+    };
+
+    updateCount();
+  });
+</script>
+<script>
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+  const animationObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        animationObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  animatedElements.forEach(el => animationObserver.observe(el));
+</script>
 {% endblock %}

@@ -26,3 +26,60 @@ img{
 @media (max-width: 768px) {
   #below-nav h1 {
     font-size: 2rem;}}
+
+.hero-img {
+  height: 85vh;
+  object-fit: contain;
+  filter: brightness(60%);
+}
+
+.carousel-caption {
+  background-color: none !important;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.category-box {
+  transition: transform 0.3s ease;
+}
+.category-box:hover {
+  transform: scale(1.1);
+}
+
+.counter {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.aos-left {
+  animation: slideInLeft 3s forwards;
+}
+.aos-right {
+  animation: slideInRight 3s forwards;
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.counter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  
+}
+
+.stat-block {
+  font-size: 2.5rem;
+  font-weight: bold;
+  gap: 5px; /* space between number and + */
+}
+
+.plus-sign {
+  font-size: 2rem;
+  line-height: 1;
+  vertical-align: top;
+}
