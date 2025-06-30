@@ -83,41 +83,42 @@
         <div class="stat-block">
           <span class="counter" data-target="500">0</span><span class="plus-sign">+</span>
         </div>
-        <p><i>Happy Clients</i></p>
+        <h4><i>Happy Clients</i></h4>
       </div>
       <!-- Add more counters similarly -->
     <div class="col-md-6 mb-3">
         <div class="stat-block">
           <span class="counter" data-target="450">0</span><span class="plus-sign">+</span></div>
-        <p><i>hunarbaaz registred</i></p>
+        <h4><i>hunarbaaz registred</i></h4>
   </div></div>
 </section>
 
 
 <!-- ✅ Reviews -->
+{% comment %} leave for now plaese {% endcomment %}
+
+
+
 <section class="reviews py-5 bg-light">
   <div class="container">
     <h2 class="text-center mb-4">What People Say</h2>
     <div class="row g-4">
       {% for r in reviews %}
-  <div class="col-md-6 {% cycle 'aos-left' 'aos-right' %}">
-    <div class="p-4 shadow rounded bg-white">
-      <p>"{{ r.text }}"</p>
-      <strong>– {{ r.name }}</strong>
-      <div class="text-warning mt-2">
- {% for i in "12345" %}
-    {% if forloop.counter <= r.stars %}
-      ★
-    {% else %}
-      ☆
-    {% endif %}
-  {% endfor %}
-      </div>
-    </div>
-  </div>
-{% endfor %}
+        <div class="col-md-6" data-aos="{% cycle 'fade-right' 'fade-left' %}">
+          <div class="p-4 shadow rounded bg-white">
+            <p>"{{ r.text }}"</p>
+            <strong>– {{ r.name }}</strong>
+            <div class="text-warning mt-2">
+              {% for i in "12345" %}
+                {% if forloop.counter <= r.stars %}★{% else %}☆{% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">No reviews yet.</p>
+      {% endfor %}
     </div>
   </div>
 </section>
-
 {% endblock %}

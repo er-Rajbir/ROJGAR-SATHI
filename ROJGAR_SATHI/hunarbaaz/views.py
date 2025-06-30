@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Home page view
 def home(request):
@@ -30,3 +31,13 @@ def about_view(request):
 
 def privacy_terms_view(request):
     return render(request, 'hunarbaaz/privacy-terms.html')
+
+
+
+
+def home(request):
+    return render(request, 'hunarbaaz/home.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'hunarbaaz/dashboard.html')
