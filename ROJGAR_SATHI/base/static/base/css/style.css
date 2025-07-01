@@ -114,7 +114,7 @@ color: white;
 }
 
 /* login hunarbaaz page css */
-/* 
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
 
 body {
@@ -225,7 +225,7 @@ body {
     background-color: purple;
     height:20vh;
     width: 10vw;
-} */
+} 
 /*login css done*/
 #carousel-caption-bg
 {background-color: rgba(0, 0, 0, 0.5);
@@ -243,57 +243,5 @@ body {
     font-size: 2rem;
     
 }
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
 
- /* *{ box-sizing: border-box; margin:0; padding:0; }
-body { font-family: 'Poppins', sans-serif; background: #f2f2f2; display:flex; justify-content:center; align-items:center; height:100vh; } */
-
-.auth-wrapper {
-  width: 800px; height: 500px;
-  position: relative; overflow: hidden;
-  border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.form-box {
-  position: absolute; width: 50%; height:100%;
-  top:0; left:0; padding:40px;
-  transition: left 0.6s ease-in-out;
-  background: #fff;
-}
-
-.wave-panel {
-  position: absolute; right:0; top:0;
-  width:50%; height:100%;
-  background: #E6E6FA;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
-  display:flex; justify-content:center; align-items:center;
-  transition: right 0.6s ease-in-out;
-}
-
-.wave-content { text-align:center; padding:20px; }
-.wave-content h3 { margin-bottom:10px; color:#4B0082; }
-.wave-content p  { color:#333; }
-
-.form {
-  position:absolute; width:100%; top:50%; transform: translateY(-50%);
-  opacity:0; transition: opacity 0.4s ease;
-}
-.form.active { opacity:1; }
-
-/* Input & button */
-input {
-  display:block; width:100%; padding:12px; margin:12px 0;
-  border:1px solid #ccc; border-radius:6px;
-}
-button {
-  width:100%; padding:12px; border:none; background:#4B0082;
-  color:#fff; border-radius:6px; cursor:pointer;
-  transition: background 0.3s;
-}
-button:hover { background:#3A0066; }
-p { margin-top:20px; }
-p span {
-  color:#4B0082; cursor:pointer;
-  font-weight:500;
-}
 

@@ -1,42 +1,35 @@
- {% extends 'base/base.html' %}
- 
-{% load static %}
+{% extends 'base/base.html' %}
+{%load static%}
 {% block content %}
 
-<div class="auth-wrapper">
-  <div class="form-box">
-    <!-- Login Form -->
-    <form id="login-form" class="form active" method="post">
-      {% csrf_token %}
-      <h2>Login</h2>
-      <input type="text" name="username" placeholder="Username" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-      <p>Not registered yet? <span id="to-register">Register here →</span></p>
-    </form>
 
-    <!-- Register Form -->
-    <form id="register-form" class="form">
-      {% csrf_token %}
-      <h2>Register</h2>
-      <input type="text" name="username" placeholder="Choose a username" required>
-      <input type="password" name="password1" placeholder="Password" required>
-      <input type="password" name="password2" placeholder="Confirm Password" required>
-      <button type="submit">Register</button>
-      <p>Already have an account? <span id="to-login">← Login</span></p>
-    </form>
-  </div>
+<div class="login-container">
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    <h2><b>Login to your Account</b></h2>
 
-  <div class="wave-panel">
-    <div class="wave-content" id="wave-content">
-      <!-- Content changes on toggle -->
-      <h3>Welcome Back!</h3>
-      <p>Login to access your account</p>
+    <div class="inputBox">
+      <input type="text" name="username" required>
+      <span>Username</span>
+      <i></i>
     </div>
-  </div>
+
+    <div class="inputBox">
+      <input type="password" name="password" required>
+      <span>Password</span>
+      <i></i>
+    </div>
+
+    <div class="links">
+      <a href="#">Forgot Password?</a>
+    </div>
+
+    <div class="inputBox">
+      <input type="submit" value="Login">
+    </div>
+  </form>
 </div>
 
-<script src="{% static 'hunarbazz/js/scripts.js' %}" defer></script>
-{% endblock %}
+{%endblock%}
  
 

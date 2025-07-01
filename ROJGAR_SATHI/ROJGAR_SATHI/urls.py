@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('hunarbaaz.urls')),
+    #path('',include('hunarbaaz.urls')),
     path('',include('base.urls')),
-]
+    path('hunarbaaz/', include(('hunarbaaz.urls', 'hunarbaaz'), namespace='hunarbaaz')),
+    path('', include(('base.urls', 'base'), namespace='base')),  # Optional, if base has URLs
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

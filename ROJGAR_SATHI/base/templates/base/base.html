@@ -21,7 +21,7 @@
   <div class="container">
     <a class="navbar-brand" href="{% url 'home' %}">Rozgaar Saathi</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
+      <div class="navbar-toggler-icon"></div>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNav">
@@ -29,12 +29,12 @@
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'home' %}">Home</a>
         </li>
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link" href="{% url 'karigar_list' %}">Hunarbaaz</a>
-        </li>
-        <li class="nav-item">
+        </li> {% endcomment %}
+        {% comment %} <li class="nav-item">
           <a class="nav-link" href="{% url 'employer_register' %}">Client Register</a>
-        </li>
+        </li> {% endcomment %}
         <li class="nav-item">
           <a class="nav-link " href="{% url 'about' %}">About us</a>
         </li>
@@ -76,8 +76,8 @@
         <h5>Quick Links</h5>
         <ul class="list-unstyled">
           <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></li>
-          <li><a href="{% url 'karigar_list' %}" class="text-white text-decoration-none">Karigars</a></li>
-          <li><a href="{% url 'employer_register' %}" class="text-white text-decoration-none">Employer Register</a></li>
+          {% comment %} <li><a href="{% url 'karigar_list' %}" class="text-white text-decoration-none">Karigars</a></li>
+          <li><a href="{% url 'employer_register' %}" class="text-white text-decoration-none">Employer Register</a></li> {% endcomment %}
           <li><a href="{% url 'login' %}" class="text-white text-decoration-none">Login</a></li>
           <li><a href="{% url 'about' %}" class="text-white text-decoration-none">About Us</a></li>
           <li><a href="{% url 'privacy_terms' %}" class="text-white text-decoration-none">Privacy & Terms</a></li>

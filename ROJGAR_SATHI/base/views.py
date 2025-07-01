@@ -39,3 +39,6 @@ def home(request):
 @login_required
 def dashboard(request):
     return render(request, 'hunarbaaz/dashboard.html')
+#@login_required
+#def edit_profile(request):
+ #   return render (request,'hunarbaaz/edit_profile.html')
