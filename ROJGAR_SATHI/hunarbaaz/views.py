@@ -90,6 +90,19 @@ def hunarbaaz_dashboard(request):
     return render(request, 'hunarbaaz/dashboard.html',context)
 @login_required
 def edit_profile(request):
-    return render (request,'hunarbaaz/edit_profile.html')
+    try:
+        hunarbaaz = Hunarbaaz.objects.get(user=request.user)
+    except Hunarbaaz.DoesNotExist:
+        return redirect('hunarbaaz:register_hunarbaaz')
+
+    if request.method == 'POST':
+        form = HunarbaazProfileForm(request.POST, request.FILES, instance=hunarbaaz)
+        if form.is_valid():
+            form.save()
+            return redirect('hunarbaaz:hunarbaaz_dashboard')
+    else:
+        form = HunarbaazProfileForm(instance=hunarbaaz)
+
+    return render (request,'hunarbaaz/edit_profile.html',{'form': form})
 
 
