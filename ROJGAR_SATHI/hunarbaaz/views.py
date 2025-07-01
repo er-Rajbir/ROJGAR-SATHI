@@ -26,6 +26,7 @@ def employer_register(request):
 
 # Login page view
 def login_view(request):
+    redirect('dashboard')
     return render(request, 'hunarbaaz/login.html')
 
 def about_view(request):
@@ -69,25 +70,37 @@ def register_hunarbaaz(request):
 @login_required
 def hunarbaaz_dashboard(request):
     user = request.user
-    hunarbaaz = get_object_or_404(Hunarbaaz, user=user)
+
+    try:
+        hunarbaaz = Hunarbaaz.objects.get(user=user)
+        name = hunarbaaz.full_name or "User"
+        location = hunarbaaz.location or "Not Set"
+        skills = [hunarbaaz.skill or "Not Set"]
+        aadhaar_verified = hunarbaaz.is_verified
+        profile_pic = hunarbaaz.profile_pic.url if hunarbaaz.profile_pic else None
+    except Hunarbaaz.DoesNotExist:
+        # User has not created a profile yet
+        name = None
+        location = None
+        skills = None
+        aadhaar_verified = False
+        profile_pic = None
 
     context = {
-        'name': hunarbaaz.full_name,
-        'location': hunarbaaz.location,
-        'skills': [hunarbaaz.skill],  # you can make this a ManyToMany if needed later
-        'aadhaar_verified': hunarbaaz.is_verified,
-        'profile_pic': hunarbaaz.profile_pic.url if hunarbaaz.profile_pic else None,
-        'completed_jobs': 0,  # Replace with actual logic later
-        'pending_requests': 0,  # Replace with actual logic later
-        'ongoing_jobs': 0,  # Replace with actual logic later
-        'rating': 4.2,  # Temporary static value; can link later
-        'recent_reviews': [
-            {'client': 'Gurpreet', 'text': 'Very professional and skilled'},
-            {'client': 'Harpreet', 'text': 'Quick and clean job done'},
-        ]
+        'name': name,
+        'location': location,
+        'skills': skills,
+        'aadhaar_verified': aadhaar_verified,
+        'profile_pic': profile_pic,
+        'completed_jobs': 0,
+        'pending_requests': 0,
+        'ongoing_jobs': 0,
+        'rating': 0,
+        'recent_reviews': [],
     }
 
-    return render(request, 'hunarbaaz/dashboard.html',context)
+    return render(request, 'hunarbaaz/dashboard.html', context)
+
 @login_required
 def edit_profile(request):
     try:
