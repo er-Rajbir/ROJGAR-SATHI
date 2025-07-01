@@ -36,8 +36,8 @@ def privacy_terms_view(request):
 
 
 def home(request):
-    return render(request, 'hunarbaaz/home.html')
+    return render(request, 'base/home.html')
 
 @login_required
 def dashboard(request):
-    return render(request, 'hunarbaaz/dashboard.html')
+    return render(request, 'base/dashboard.html')
