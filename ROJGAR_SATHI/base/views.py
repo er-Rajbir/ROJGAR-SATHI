@@ -1,6 +1,8 @@
 from django.shortcuts import render,HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
 
 # Home page view
 def home(request):
@@ -14,18 +16,12 @@ def home(request):
 
     return render(request, 'base/home.html', {'categories': categories, 'reviews':reviews})
 
-# Karigar list page
 
 
-# Employer registration page
 
-
-# Login page view
-def login_view(request):
-    return render(request, 'base/login.html')
 
 def about_view(request):
-    return render(request, 'base/about.html')
+     return render(request, 'base/about.html')
 
 def privacy_terms_view(request):
     return render(request, 'base/privacy-terms.html')
@@ -33,12 +29,21 @@ def privacy_terms_view(request):
 
 
 
-def home(request):
-    return render(request, 'base/home.html')
 
 @login_required
 def dashboard(request):
     return render(request, 'hunarbaaz/dashboard.html')
-#@login_required
-#def edit_profile(request):
- #   return render (request,'hunarbaaz/edit_profile.html')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        ...
+        user = authenticate(...)
+        if user is not None:
+            login(request, user)
+            if hasattr(user, 'hunarbaazprofile'):
+                return redirect('hunarbaaz:hunarbaaz_dashboard')
+            elif hasattr(user, 'clientprofile'):
+                return redirect('client:client_dashboard')
+            else:
+                return redirect('home')

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'base',
     'hunarbaaz',
     'client',
+    'widget_tweaks',
 
 ]
 
