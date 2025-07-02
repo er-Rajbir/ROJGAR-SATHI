@@ -16,3 +16,19 @@ class Hunarbaaz(models.Model):
 
     def __str__(self):
         return self.full_name
+
+class WorkRequest(models.Model):
+    client_name = models.CharField(max_length=100)
+    hunarbaaz = models.ForeignKey(Hunarbaaz, on_delete=models.CASCADE, related_name='work_requests')
+    description = models.TextField()
+    status_choices = (
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+        ('completed', 'Completed'),
+    )
+    status = models.CharField(max_length=10, choices=status_choices, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request from {self.client_name} to {self.hunarbaaz.full_name}"

@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-
 from django.db import models
 from django.contrib.auth.models import User
+from hunarbaaz.models import Hunarbaaz  # assuming this exists
+
 
 class ClientProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -16,3 +17,15 @@ class ClientProfile(models.Model):
 
     def __str__(self):
         return f"ClientProfile: {self.user.username}"
+    
+class PostRequest(models.Model):
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_requests')
+    hunarbaaz = models.ForeignKey(Hunarbaaz, on_delete=models.CASCADE, related_name='received_requests')
+    job_description = models.TextField()
+    location = models.CharField(max_length=100)
+    scheduled_date = models.DateField()
+    is_accepted = models.BooleanField(null=True, blank=True)  # None = Pending, True = Accepted, False = Rejected
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Request from {self.client.username} to {self.hunarbaaz.full_name}"

@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Work Requests Received</h2>
+  
+  {% if requests %}
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Client Name</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>  <!-- New column -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for req in requests %}
+        <tr>
+          <td>{{ req.client_name }}</td>
+          <td>{{ req.description }}</td>
+          <td>{{ req.created_at|date:"M d, Y" }}</td>
+          <td>
+            {% if req.status == "pending" %}
+              <span class="badge bg-warning text-dark">Pending</span>
+            {% elif req.status == "accepted" %}
+              <span class="badge bg-success">Accepted</span>
+            {% elif req.status == "rejected" %}
+              <span class="badge bg-danger">Rejected</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if req.status == "pending" %}
+            <form method="post" action="{% url 'hunarbaaz:respond_request' req.id %}">
+              {% csrf_token %}
+              <button type="submit" name="action" value="accept" class="btn btn-sm btn-success">Accept</button>
+              <button type="submit" name="action" value="reject" class="btn btn-sm btn-danger">Reject</button>
+            </form>
+            {% else %}
+              <span class="text-muted">No action available</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">No work requests yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

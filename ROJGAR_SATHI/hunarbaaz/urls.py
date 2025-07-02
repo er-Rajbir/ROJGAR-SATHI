@@ -10,4 +10,6 @@ urlpatterns = [
     path('dashboard/', views.hunarbaaz_dashboard, name='hunarbaaz_dashboard'),
     path('register/', views.register_hunarbaaz, name='register_hunarbaaz'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('requests/', views.view_requests, name='view_requests'),
+    path('request/<int:pk>/reply/', views.respond_to_request, name='respond_request'),
 ]

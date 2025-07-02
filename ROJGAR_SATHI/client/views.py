@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .models import ClientProfile
-from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm
+from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
 from django.contrib.auth import login
 
 
@@ -83,3 +83,16 @@ def edit_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+@login_required
+def create_work_request(request):
+    if request.method == 'POST':
+        form = PostRequestForm(request.POST)
+        if form.is_valid():
+            work_request = form.save(commit=False)
+            work_request.client = request.user
+            work_request.save()
+            return redirect('client:client_dashboard')  # update this to your actual dashboard URL name
+    else:
+        form = PostRequestForm()
+    return render(request, 'client/post_request.html', {'form': form})

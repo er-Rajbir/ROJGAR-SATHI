@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h3>Post Work Request</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Send Request</button>
+    </form>
+</div>
+{% endblock %}
