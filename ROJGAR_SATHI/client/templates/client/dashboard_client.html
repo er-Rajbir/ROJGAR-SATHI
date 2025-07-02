@@ -1,9 +1,75 @@
 {% extends 'base/base.html' %}
+
+{% load static %}
+
 {% block content %}
-  <div class="container mt-5">
-    <h2>Welcome, {{ user.username }}!</h2>
-    <p><strong>Organization:</strong> {{ profile.organization }}</p>
-    <p><strong>Location:</strong> {{ profile.location }}</p>
-    <p><strong>Contact:</strong> {{ profile.contact_number }}</p>
+<style>
+  .dashboard-container {
+    background: linear-gradient(to right, #f3f4f6, #ffffff);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .dashboard-title {
+    font-weight: bold;
+    color: #004aad;
+  }
+
+  .profile-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .edit-btn {
+    background-color: #004aad;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    transition: 0.3s ease;
+  }
+
+  .edit-btn:hover {
+    background-color: #002b6f;
+  }
+
+  .profile-pic {
+    max-width: 120px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="dashboard-container">
+    <h2 class="dashboard-title mb-4">Welcome, {{ request.user.username }}</h2>
+
+    <div class="row">
+      <div class="col-md-4 text-center">
+        {% if profile.profile_picture %}
+          <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+        {% else %}
+          <img src="{% static 'base/images/default-user.png' %}" alt="Default Pic" class="profile-pic">
+        {% endif %}
+      </div>
+
+      <div class="col-md-8">
+        <div class="profile-summary">
+          <p><strong>Full Name:</strong> {{ request.user.get_full_name }}</p>
+          <p><strong>Email:</strong> {{ request.user.email }}</p>
+          <p><strong>Phone:</strong> {{ profile.phone }}</p>
+          <p><strong>Company:</strong> {{ profile.company_name }}</p>
+          <p><strong>Address:</strong> {{ profile.address }}</p>
+
+          <a href="{% url 'client:edit_profile' %}">
+            <button class="edit-btn mt-3">Edit Profile</button>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 {% endblock %}

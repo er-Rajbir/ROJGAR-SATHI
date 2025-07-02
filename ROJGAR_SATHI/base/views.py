@@ -30,9 +30,6 @@ def privacy_terms_view(request):
 
 
 
-@login_required
-def dashboard(request):
-    return render(request, 'hunarbaaz/dashboard.html')
 
 
 def login_view(request):
