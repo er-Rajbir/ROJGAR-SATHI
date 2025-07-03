@@ -1,13 +1,16 @@
-from django.shortcuts import render, redirect,get_object_or_404
-
-from .models import ClientProfile,Hunarbaaz
+from django.shortcuts import render, redirect,get_object_or_404,HttpResponse
+from django.utils import timezone
+from django.http import HttpResponseForbidden
+from datetime import timedelta
+from .models import ClientProfile,Hunarbaaz, PostRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
-from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
+from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm
 from django.contrib.auth import login
+from django.contrib import messages
 
 
 
@@ -128,3 +131,46 @@ def hunarbaaz_list(request):
 def hunarbaaz_detail_view(request, id):
     profile = get_object_or_404(Hunarbaaz, id=id)
     return render(request, 'client/hunarbaaz_details.html', {'profile': profile})
+
+@login_required
+def request_status(request):
+    filter_by = request.GET.get("status", "all")
+    base_qs = PostRequest.objects.filter(client=request.user).order_by("-created_at")
+    if filter_by == "pending":
+        requests = base_qs.filter(is_accepted__isnull=True)
+    elif filter_by == "accepted":
+        requests = base_qs.filter(is_accepted=True)
+    elif filter_by == "rejected":
+        requests = base_qs.filter(is_accepted=False)
+    else:
+        requests = base_qs
+
+    context = {
+        "requests": requests,
+        "filter_by": filter_by,
+    }
+    return render(request, "client/request_status.html", context)
+
+@login_required
+def cancel_request(request, pk):
+    req = get_object_or_404(PostRequest, id=pk, client=request.user, is_accepted__isnull=True)
+    if request.method == "POST":
+        req.delete()
+        messages.success(request, "Work request has been cancelled.")
+        return redirect("client:request_status")
+    return HttpResponseForbidden("You are not allowed to cancel this request.")
+
+
+@login_required
+def reschedule_request(request, pk):
+    req = get_object_or_404(PostRequest, id=pk, client=request.user, is_accepted__isnull=True)
+    if request.method == "POST":
+        form = RescheduleRequestForm(request.POST, instance=req)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Work request rescheduled.")
+            return redirect("client:request_status")
+    else:
+        form = RescheduleRequestForm(instance=req)
+    
+    return render(request, "client/reschedule_request.html", {"form": form})
