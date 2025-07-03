@@ -29,3 +29,8 @@ class PostRequestForm(forms.ModelForm):
             'scheduled_date': forms.DateInput(attrs={'type': 'date'}),
             'job_description': forms.Textarea(attrs={'rows': 4}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(PostRequestForm, self).__init__(*args, **kwargs)
+        if self.initial.get('hunarbaaz'):
+            self.fields['hunarbaaz'].widget = forms.HiddenInput()

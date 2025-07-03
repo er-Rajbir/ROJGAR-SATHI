@@ -1,0 +1,123 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .search-bar {
+    max-width: 700px;
+    margin: 30px auto 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .search-bar button {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .search-bar button:hover {
+    background-color: #003080;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    padding: 2rem;
+  }
+
+  .profile-card {
+    display: flex;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: 0.3s ease;
+    padding: 1rem;
+    align-items: center;
+  }
+
+  .profile-card:hover {
+    transform: scale(1.02);
+  }
+
+  .profile-image {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+  }
+
+  .profile-details h5 {
+    margin-bottom: 0.3rem;
+    font-size: 1.6rem;
+    color: #004aad;
+  }
+
+  .profile-details p {
+    margin: 0.2rem 0;
+    color: #444;
+    font-size: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .profile-card {
+      flex-direction: column;
+      text-align: center;
+    }
+    .profile-image {
+      margin-bottom: 15px;
+    }
+  }
+</style>
+
+<h2 style="text-align:center; color:#004aad;">Available Hunarbaaz</h2>
+
+<!-- Search Form -->
+<form method="get" class="search-bar">
+  <input type="text" name="skill" placeholder="Search by skill..." value="{{ request.GET.skill }}">
+  <select name="location">
+    <option value="">All Locations</option>
+    {% for loc in unique_locations %}
+      <option value="{{ loc }}" {% if request.GET.location == loc %}selected{% endif %}>{{ loc }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Search</button>
+</form>
+
+<!-- Cards -->
+<div class="card-grid">
+  {% for profile in profiles %}
+    <a href="{% url 'client:hunarbaaz_details' profile.id %}" style="text-decoration: none;">
+      <div class="profile-card">
+        <img src="{% if profile.profile_pic %}{{ profile.profile_pic.url }}{% else %}{% static 'base/images/default.jpg' %}{% endif %}" class="profile-image" alt="Profile Picture">
+        <div class="profile-details">
+          <h5>{{ profile.user.username }}</h5>
+          <p><strong>Skill:</strong> {{ profile.skill }}</p>
+          <p><strong>Location:</strong> {{ profile.location }}</p>
+          <p><strong>Experience:</strong> {{ profile.experience }} Years</p>
+        </div>
+      </div>
+    </a>
+  {% empty %}
+    <p style="text-align: center;">No Hunarbaaz profiles found.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}

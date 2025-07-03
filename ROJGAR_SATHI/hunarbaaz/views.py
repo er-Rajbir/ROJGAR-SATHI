@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
-
+from django.shortcuts import render
+from .models import Hunarbaaz
 
 
 
@@ -28,39 +29,39 @@ def register_hunarbaaz(request):
         'profile_form': profile_form
 })
 
+from client.models import PostRequest
+
 @login_required
 def hunarbaaz_dashboard(request):
-    user = request.user
-
     try:
-        hunarbaaz = Hunarbaaz.objects.get(user=user)
-        name = hunarbaaz.full_name or "User"
-        location = hunarbaaz.location or "Not Set"
-        skills = [hunarbaaz.skill or "Not Set"]
-        aadhaar_verified = hunarbaaz.is_verified
-        profile_pic = hunarbaaz.profile_pic.url if hunarbaaz.profile_pic else None
+        profile = Hunarbaaz.objects.get(user=request.user)
     except Hunarbaaz.DoesNotExist:
-        # User has not created a profile yet
-        name = None
-        location = None
-        skills = None
-        aadhaar_verified = False
-        profile_pic = None
+        return redirect('hunarbaaz:edit_profile')
+
+    # Fetch requests related to this hunarbaaz
+    requests = PostRequest.objects.filter(hunarbaaz=profile)
+
+    # Calculate status counts
+    pending_requests = requests.filter(is_accepted__isnull=True).count()
+    ongoing_jobs = requests.filter(is_accepted=True).count()
+    completed_jobs = 0  # If you add a completion field, update this
+    rating = 4.7  # Placeholder, if you implement rating system
 
     context = {
-        'name': name,
-        'location': location,
-        'skills': skills,
-        'aadhaar_verified': aadhaar_verified,
-        'profile_pic': profile_pic,
-        'completed_jobs': 0,
-        'pending_requests': 0,
-        'ongoing_jobs': 0,
-        'rating': 0,
-        'recent_reviews': [],
+        'name': profile.full_name,
+        'profile_pic': profile.profile_pic.url if profile.profile_pic else None,
+        'location': profile.location,
+        'skills': [profile.skill] if profile.skill else ['Not Set'],
+        'aadhaar_verified': profile.is_verified,
+        'pending_requests': pending_requests,
+        'ongoing_jobs': ongoing_jobs,
+        'completed_jobs': completed_jobs,
+        'rating': rating,
+        'recent_reviews': []  # Later you can link reviews here
     }
 
     return render(request, 'hunarbaaz/dashboard.html', context)
+
 
 @login_required
 def edit_profile(request):
@@ -79,34 +80,41 @@ def edit_profile(request):
 
     return render (request,'hunarbaaz/edit_profile.html',{'form': form})
 
+
+
+
+# list of hunrabaaaz
+
+
+
+#dashboard requests
 @login_required
 def view_requests(request):
     try:
-        hunarbaaz = Hunarbaaz.objects.get(user=request.user)
+        profile = Hunarbaaz.objects.get(user=request.user)
     except Hunarbaaz.DoesNotExist:
-        # If no profile, redirect or show message
-        context = {'error': 'You must complete your profile first.'}
-        return render(request, 'hunarbaaz/view_requests.html', context)
+        return redirect('hunarbaaz:edit_profile')
 
-    requests = WorkRequest.objects.filter(hunarbaaz=hunarbaaz).order_by('-created_at')
+    requests = PostRequest.objects.filter(hunarbaaz=profile).order_by('-created_at')
 
-    context = {
-        'work_requests': requests,
-    }
-    return render(request, 'hunarbaaz/view_requests.html', context)
+    return render(request, 'hunarbaaz/view_requests.html', {
+        'client_requests': requests
+    })
+from client.models import PostRequest  # Import the model
+
+
 
 @login_required
-def respond_to_request(request, pk):
-    hunarbaaz = get_object_or_404(Hunarbaaz, user=request.user)
-    work_request = get_object_or_404(WorkRequest, pk=pk, hunarbaaz=hunarbaaz)
+def accept_request(request, request_id):
+    req = get_object_or_404(PostRequest, id=request_id, hunarbaaz__user=request.user)
+    req.is_accepted = True
+    req.save()
+    return redirect('hunarbaaz:view_requests')
 
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        if action == 'accept':
-            work_request.status = 'accepted'
-        elif action == 'reject':
-            work_request.status = 'rejected'
-        work_request.save()
-        return redirect('hunarbaaz:view_requests')
+@login_required
+def reject_request(request, request_id):
+    req = get_object_or_404(PostRequest, id=request_id, hunarbaaz__user=request.user)
+    req.is_accepted = False
+    req.save()
+    return redirect('hunarbaaz:view_requests')
 
-    return render(request, 'hunarbaaz/respond_request.html', {'work_request': work_request})

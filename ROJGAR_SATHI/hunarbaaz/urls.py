@@ -11,5 +11,10 @@ urlpatterns = [
     path('register/', views.register_hunarbaaz, name='register_hunarbaaz'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('requests/', views.view_requests, name='view_requests'),
-    path('request/<int:pk>/reply/', views.respond_to_request, name='respond_request'),
+
+    
+    path('request/<int:request_id>/accept/', views.accept_request, name='accept_request'),
+path('request/<int:request_id>/reject/', views.reject_request, name='reject_request'),
+
+    
 ]

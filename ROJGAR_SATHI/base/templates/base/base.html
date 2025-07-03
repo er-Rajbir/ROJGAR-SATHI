@@ -42,13 +42,32 @@
           <a class="nav-link " href="{% url 'about' %}">About us</a>
         </li>
         
-  
+        
+       
 
 
 
          {% if user.is_authenticated %}
-         <li class="nav-item"><a class="nav-link" href="{% url 'hunarbaaz:hunarbaaz_dashboard'%}">Hunar-Dashboard</a></li> 
-         <li class="nav-item"><a class="nav-link" href="{% url 'client:client_dashboard'%}">Client-Dashboard</a></li>        
+      {% if user.is_authenticated %}
+  <!-- Show Client Dashboard only if user has a ClientProfile -->
+  {% if user.clientprofile %}
+  <li class="nav-item">  
+  <a class="nav-link" href="{% url 'client:client_dashboard' %}"class="btn btn-primary">Dashboard</a>
+  </li>
+   <li class="nav-item">
+          <a  class="nav-link" href="{% url 'client:all_profiles' %}" class="btn btn-primary">Browse Hunarbaaz</a>
+
+        </li>
+  {% endif %}
+
+  <!-- Show Hunarbaaz Dashboard only if user has a Hunarbaaz profile -->
+  {% if user.hunarbaaz %}
+   <li class="nav-item"> <a class="nav-link" href="{% url 'hunarbaaz:hunarbaaz_dashboard' %}"class="btn btn-primary" >Dashboard</a>
+   </li>
+    {% endif %}
+
+{% endif %}
+
   <form method="post" action="{% url 'logout' %}" class="d-inline">
     {% csrf_token %}
     <button type="submit" class="btn btn-link nav-link">Logout</button>

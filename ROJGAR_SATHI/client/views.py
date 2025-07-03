@@ -1,13 +1,14 @@
-from django.shortcuts import render, redirect
-from .forms import ClientRegisterForm
-from .models import ClientProfile
+from django.shortcuts import render, redirect,get_object_or_404
+
+from .models import ClientProfile,Hunarbaaz
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-from .models import ClientProfile
+
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
 from django.contrib.auth import login
+
 
 
 
@@ -24,11 +25,7 @@ def edit_profile(request):
 
 
 
-from django.shortcuts import render, redirect
-from .forms import ClientRegisterForm, ClientProfileForm
-from django.contrib.auth.models import User
-from .models import ClientProfile
-from django.contrib.auth import login
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -44,8 +41,8 @@ def register_view(request):
             profile.user = user
             profile.save()
 
-            login(request, user)
-            return redirect('client:client_dashboard')
+            
+            return redirect('base:login')
 
     else:
         user_form = ClientRegisterForm()
@@ -86,13 +83,48 @@ def edit_profile(request):
 
 @login_required
 def create_work_request(request):
+    hunarbaaz_id = request.GET.get('hunarbaaz_id')
+
     if request.method == 'POST':
         form = PostRequestForm(request.POST)
         if form.is_valid():
             work_request = form.save(commit=False)
             work_request.client = request.user
             work_request.save()
-            return redirect('client:client_dashboard')  # update this to your actual dashboard URL name
+            return redirect('client:client_dashboard')  # Update as needed
     else:
-        form = PostRequestForm()
+        if hunarbaaz_id:
+            form = PostRequestForm(initial={'hunarbaaz': hunarbaaz_id})
+        else:
+            form = PostRequestForm()
+
     return render(request, 'client/post_request.html', {'form': form})
+
+
+
+
+def hunarbaaz_list(request):
+    skill_query = request.GET.get('skill', '')
+    location_query = request.GET.get('location', '')
+
+    profiles = Hunarbaaz.objects.all()
+
+    if skill_query:
+        profiles = profiles.filter(skill__icontains=skill_query)
+
+    if location_query:
+        profiles = profiles.filter(location=location_query)
+
+    # Get unique locations for dropdown
+    unique_locations = Hunarbaaz.objects.values_list('location', flat=True).distinct()
+
+    return render(request, 'client/hunarbaaz_list.html', {
+        'profiles': profiles,
+        'unique_locations': unique_locations,
+    })
+
+
+@login_required
+def hunarbaaz_detail_view(request, id):
+    profile = get_object_or_404(Hunarbaaz, id=id)
+    return render(request, 'client/hunarbaaz_details.html', {'profile': profile})

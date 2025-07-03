@@ -1,0 +1,121 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .profile-detail {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    align-items: flex-start;
+  }
+
+  .profile-image {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid #004aad;
+  }
+
+  .profile-info {
+    flex: 1;
+  }
+
+  .profile-info h2 {
+    color: #004aad;
+    margin-bottom: 10px;
+  }
+
+  .profile-info p {
+    font-size: 1rem;
+    margin: 6px 0;
+    color: #333;
+  }
+
+  .verified {
+    display: inline-block;
+    background: #4caf50;
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-left: 10px;
+  }
+
+  .unverified {
+    background: #f44336;
+  }
+
+  .work-sample {
+    margin-top: 20px;
+  }
+
+  .work-sample img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+  }
+
+  .back-btn {
+    margin-top: 30px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: #004aad;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .back-btn:hover {
+    background: #003080;
+  }
+</style>
+
+<div class="profile-detail">
+  <div>
+    {% if profile.profile_pic %}
+      <img src="{{ profile.profile_pic.url }}" alt="Profile Pic" class="profile-image">
+    {% else %}
+      <img src="{% static 'base/images/default.jpg' %}" alt="Default Pic" class="profile-image">
+    {% endif %}
+  </div>
+
+  <div class="profile-info">
+    <h2>{{ profile.full_name }}
+      {% if profile.is_verified %}
+        <span class="verified">Verified</span>
+      {% else %}
+        <span class="verified unverified">Not Verified</span>
+      {% endif %}
+    </h2>
+
+    <p><strong>Username:</strong> {{ profile.user.username }}</p>
+    <p><strong>Mobile:</strong> {{ profile.mobile }}</p>
+    <p><strong>Email:</strong> {{ profile.user.email }}</p>
+    <p><strong>Skill:</strong> {{ profile.skill }}</p>
+    <p><strong>Location:</strong> {{ profile.location }}</p>
+    <p><strong>Experience:</strong> {{ profile.experience }} years</p>
+    <p><strong>Aadhaar No:</strong> {{ profile.aadhaar_number }}</p>
+
+    {% if profile.work_sample %}
+      <div class="work-sample">
+        <strong>Work Sample:</strong><br>
+        <img src="{{ profile.work_sample.url }}" alt="Work Sample">
+      </div>
+    {% endif %}
+      <a href="{% url 'client:create_request' %}?hunarbaaz_id={{ profile.id }}" class="btn btn-success" style="margin-top: 15px;">📩 Hire Hunarbaaz</a>
+
+    <a href="{% url 'client:all_profiles' %}" class="back-btn">← Back to All Profiles</a>
+  </div>
+</div>
+
+{% endblock %}
