@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3>Your Work Request History</h3>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Hunarbaaz</th>
+        <th>Job Description</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for request in requests %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ request.hunarbaaz.full_name }}</td>
+          <td>{{ request.job_description|truncatewords:10 }}</td>
+          <td>{{ request.scheduled_date }}</td>
+          <td>
+            {% if request.is_accepted == True %}
+              <span class="badge bg-success">Accepted</span>
+            {% elif request.is_accepted == False %}
+              <span class="badge bg-danger">Rejected</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">Pending</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="text-center">No work requests yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

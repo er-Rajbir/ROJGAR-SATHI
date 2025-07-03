@@ -40,9 +40,16 @@
       <div class="col-md-4">
         <input type="text" class="form-control" placeholder="Location (e.g. Amritsar)">
       </div>
+      {% if user.is_authenticated %}
       <div class="col-md-2">
-        <button type="submit" class="btn btn-primary w-100">Search</button>
+        <button type="submit" class="btn btn-primary w-100"><a  class="nav-link" href="{% url 'client:all_profiles'%}">Search</a></button>
       </div>
+      {%else%}
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100"><a  class="nav-link" href="login">Search</a></button>
+      </div>
+      {%endif%}
+
     </form>
   </div>
 </section>

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-
+from .models import PostRequest
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
 from django.contrib.auth import login
 
@@ -128,3 +128,11 @@ def hunarbaaz_list(request):
 def hunarbaaz_detail_view(request, id):
     profile = get_object_or_404(Hunarbaaz, id=id)
     return render(request, 'client/hunarbaaz_details.html', {'profile': profile})
+
+
+
+
+@login_required
+def request_history(request):
+    requests = PostRequest.objects.filter(client=request.user).order_by('-created_at')
+    return render(request, 'client/request_history.html', {'requests': requests})

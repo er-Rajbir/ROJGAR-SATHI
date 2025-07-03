@@ -13,6 +13,8 @@ urlpatterns = [
     path('hunarbaaz/<int:id>/', views.hunarbaaz_detail_view, name='hunarbaaz_details'),
     # client/urls.py
 #path('hunarbaaz/<int:pk>/', views.hunarbaaz_details, name='hunarbaaz_details'),
+path('requests/history/', views.request_history, name='request_history'),
+
 
 
 ]
