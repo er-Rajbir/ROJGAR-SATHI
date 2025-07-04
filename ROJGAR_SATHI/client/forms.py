@@ -34,3 +34,11 @@ class PostRequestForm(forms.ModelForm):
         super(PostRequestForm, self).__init__(*args, **kwargs)
         if self.initial.get('hunarbaaz'):
             self.fields['hunarbaaz'].widget = forms.HiddenInput()
+
+class RescheduleRequestForm(forms.ModelForm):
+    class Meta:
+        model = PostRequest
+        fields = ['scheduled_date']
+        widgets = {
+            'scheduled_date': forms.DateInput(attrs={'type': 'date'})
+        }

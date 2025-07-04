@@ -2,10 +2,27 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Hunarbaaz(models.Model):
+    SKILL_CHOICES = [
+        ('', 'Tell us your skill'),  # placeholder
+        ('Construction', 'Construction'),
+        ('Electrician', 'Electrician'),
+        ('Painter', 'Painter'),
+        ('Domestic Worker', 'Domestic Worker'),
+        ('Plumber', 'Plumber'),
+        ('Carpenter', 'Carpenter'),
+        ('Electronics Repair', 'Electronics Repair'),
+        ('Mechanic', 'Mechanic'),
+        ('Welder', 'Welder'),
+        ('Tailor', 'Tailor'),
+        ('Cook', 'Cook'),
+        ('Driver', 'Driver'),
+        ('Others', 'Others'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=15)
-    skill = models.CharField(max_length=100)
+    skill = models.CharField(max_length=50, choices=SKILL_CHOICES)
     location = models.CharField(max_length=100)
     experience = models.PositiveIntegerField(help_text="Years of experience")
     aadhaar_number = models.CharField(max_length=12, unique=True)

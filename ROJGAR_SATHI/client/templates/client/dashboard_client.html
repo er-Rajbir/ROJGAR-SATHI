@@ -97,6 +97,7 @@
           <p><span class="profile-label">Company:</span> <span class="profile-value">{{ profile.company_name }}</span></p>
           <p><span class="profile-label">Address:</span> <span class="profile-value">{{ profile.address }}</span></p>
 
+<<<<<<< HEAD
        <div class="d-flex flex-wrap gap-2 mt-3">
   <a href="{% url 'client:edit_profile' %}">
     <button class="edit-btn">✏️ Edit Profile</button>
@@ -106,6 +107,13 @@
     <button class="edit-btn" style="background-color: #00796b;">📜 View Request History</button>
   </a>
 </div>
+=======
+          <a href="{% url 'client:edit_profile' %}">
+            <button class="edit-btn mt-3">Edit Profile</button>
+            <a href="{% url 'client:request_status' %}" class="btn btn-outline-info mt-3">📋 View My Requests</a>
+
+          </a>
+>>>>>>> c6582e8277132cd48edaf39764b97f047ac6eaeb
         </div>
       </div>
     </div>
