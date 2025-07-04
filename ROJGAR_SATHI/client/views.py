@@ -7,13 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-<<<<<<< HEAD
+
 from .models import PostRequest
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
-=======
+
 
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm
->>>>>>> c6582e8277132cd48edaf39764b97f047ac6eaeb
+
 from django.contrib.auth import login
 from django.contrib import messages
 
@@ -137,7 +137,6 @@ def hunarbaaz_detail_view(request, id):
     profile = get_object_or_404(Hunarbaaz, id=id)
     return render(request, 'client/hunarbaaz_details.html', {'profile': profile})
 
-<<<<<<< HEAD
 
 
 
@@ -145,7 +144,7 @@ def hunarbaaz_detail_view(request, id):
 def request_history(request):
     requests = PostRequest.objects.filter(client=request.user).order_by('-created_at')
     return render(request, 'client/request_history.html', {'requests': requests})
-=======
+
 @login_required
 def request_status(request):
     filter_by = request.GET.get("status", "all")
@@ -188,4 +187,4 @@ def reschedule_request(request, pk):
         form = RescheduleRequestForm(instance=req)
     
     return render(request, "client/reschedule_request.html", {"form": form})
->>>>>>> c6582e8277132cd48edaf39764b97f047ac6eaeb
+
