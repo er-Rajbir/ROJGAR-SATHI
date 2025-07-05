@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="text-center text-success mb-4">Work History</h3>
+
+  {% if completed_jobs %}
+    <div class="row">
+      {% for job in completed_jobs %}
+        <div class="col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title">{{ job.client.username }}</h5>
+              <p><strong>Description:</strong> {{ job.job_description }}</p>
+              <p><strong>Location:</strong> {{ job.location }}</p>
+              <p><strong>Completed On:</strong> {{ job.scheduled_date }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      No work completed yet.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

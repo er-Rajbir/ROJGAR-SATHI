@@ -12,6 +12,7 @@
 <th>Date</th>
 <th>Status</th>
  <th>Actions</th>
+
 </tr>
 </thead>
 <tbody>
@@ -28,6 +29,13 @@
 <span class="badge bg-danger">Rejected</span>
 {% else %}
 <span class="badge bg-warning text-dark">Pending</span>
+{% endif %}
+ {% if request.is_accepted %}
+  {% if not request.is_completed %}
+    <a href="{% url 'client:mark_completed' request.id %}" class="btn btn-sm btn-outline-success">Mark as Completed</a>
+  {% else %}
+    <span class="badge bg-secondary">Completed</span>
+  {% endif %}
 {% endif %}
 </td>
 <td>

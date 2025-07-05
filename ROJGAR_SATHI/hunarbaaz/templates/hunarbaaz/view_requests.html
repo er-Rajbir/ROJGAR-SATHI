@@ -29,6 +29,13 @@
                 <a href="{% url 'hunarbaaz:accept_request' req.id %}" class="btn btn-success btn-sm">Accept</a>
                 <a href="{% url 'hunarbaaz:reject_request' req.id %}" class="btn btn-danger btn-sm">Reject</a>
               {% endif %}
+              {% if req.is_accepted %}
+  {% if not req.is_completed %}
+    <a href="{% url 'hunarbaaz:mark_completed' req.id %}" class="btn btn-sm btn-outline-success">Mark as Completed</a>
+  {% else %}
+    <span class="badge bg-secondary">Completed</span>
+  {% endif %}
+{% endif %}
             </div>
           </div>
         </div>
@@ -39,6 +46,8 @@
       No work requests received yet.
     </div>
   {% endif %}
+  
+
 </div>
 
 {% endblock %}

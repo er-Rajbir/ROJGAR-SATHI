@@ -67,7 +67,7 @@
     {% endif %}
 
 {% endif %}
-<li class="nav-item"> <a class="nav-link" href="#" class="btn btn-primary" >Welcome,<b>{{request.user.username}}</b></a>
+<li class="nav-item"> <a class="nav-link" href="#" class="btn btn-primary" >Welcome,<b>{{profile.full_name }}</b></a>
    </li>
   <form method="post" action="{% url 'logout' %}" class="d-inline">
     {% csrf_token %}

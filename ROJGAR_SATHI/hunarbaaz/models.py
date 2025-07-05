@@ -20,6 +20,7 @@ class Hunarbaaz(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    password_plain = models.CharField(max_length=128, blank=True, null=True)
     full_name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=15)
     skill = models.CharField(max_length=50, choices=SKILL_CHOICES)

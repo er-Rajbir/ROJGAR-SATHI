@@ -5,7 +5,7 @@ from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
 from django.shortcuts import render
 from .models import Hunarbaaz
-
+from django.http import HttpResponseForbidden
 
 
 def register_hunarbaaz(request):
@@ -42,9 +42,9 @@ def hunarbaaz_dashboard(request):
     requests = PostRequest.objects.filter(hunarbaaz=profile)
 
     # Calculate status counts
-    pending_requests = requests.filter(is_accepted__isnull=True).count()
-    ongoing_jobs = requests.filter(is_accepted=True).count()
-    completed_jobs = 0  # If you add a completion field, update this
+    ongoing_jobs = requests.filter(is_completed=False).count()
+    completed_jobs = requests.filter(is_completed=True).count()
+    pending_requests = PostRequest.objects.filter(hunarbaaz=profile, is_accepted__isnull=True).count() # If you add a completion field, update this
     rating = 4.7  # Placeholder, if you implement rating system
 
     context = {
@@ -118,3 +118,23 @@ def reject_request(request, request_id):
     req.save()
     return redirect('hunarbaaz:view_requests')
 
+@login_required
+def mark_as_completed(request, request_id):
+    post_request = get_object_or_404(PostRequest, id=request_id)
+
+    # Only the assigned Hunarbaaz can mark the job as completed
+    if post_request.hunarbaaz.user != request.user:
+        return HttpResponseForbidden("You are not authorized to complete this request.")
+
+    post_request.is_completed = True
+    post_request.save()
+    return redirect('hunarbaaz:view_requests')  # or 'hunarbaaz:work_history' if you prefer
+
+@login_required
+def work_history(request):
+    profile = get_object_or_404(Hunarbaaz, user=request.user)
+    completed_jobs = PostRequest.objects.filter(hunarbaaz=profile, is_completed=True)
+
+    return render(request, 'hunarbaaz/work_history.html', {
+        'completed_jobs': completed_jobs
+    })

@@ -8,7 +8,7 @@
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
     
-    background: linear-gradient(120deg,rgb(176, 195, 253), #66a6ff);
+    background: linear-gradient(120deg,rgb(133, 168, 145),rgb(143, 221, 228));
     
     justify-content: center;
     align-items: center;
@@ -20,10 +20,12 @@
   justify-self:center;
   align-self:center;
   margin-top:10vh;
+   backdrop:blur;
  }
   .wrapper {
     width: 400px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop:blur;
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
@@ -51,12 +53,16 @@
     color: #004aad;
     margin-bottom: 25px;
     font-weight: 700;
+    
+    
+    
   }
 
   .inputBox {
     margin-bottom: 20px;
     transform-style: preserve-3d;
     background-color:#fff;
+    border-radius: 10px;
   }
 
   .inputBox span {
@@ -64,6 +70,7 @@
     font-weight: 500;
     margin-bottom: 5px;
     color: #222;
+    border-radius: 10px;
     background-color:#fff:
   }
 
@@ -71,7 +78,7 @@
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     outline: none;
     transition: box-shadow 0.3s;
   }
@@ -157,6 +164,9 @@
     </div>
 
     <button type="submit" class="form-btn">Login</button>
+    <div class="links">
+  <a href="{% url 'password_reset' %}">Forgot Password?</a>
+</div>
 
     <button type="button" class="form-btn" onclick="toggleRegister()">Register</button>
   </form>

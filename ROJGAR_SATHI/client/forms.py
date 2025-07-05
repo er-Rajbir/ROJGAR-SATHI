@@ -6,10 +6,11 @@ class ClientRegisterForm(forms.ModelForm):
     username = forms.CharField()
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+    fullname=forms.CharField(label='Full Name')
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password','fullname']
 
 class ClientProfileForm(forms.ModelForm):
     class Meta:

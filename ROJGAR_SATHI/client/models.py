@@ -7,6 +7,7 @@ from hunarbaaz.models import Hunarbaaz  # assuming this exists
 
 class ClientProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name=models.CharField( max_length=20,default='client fullname', blank=False)
 
     phone = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
@@ -25,6 +26,7 @@ class PostRequest(models.Model):
     location = models.CharField(max_length=100)
     scheduled_date = models.DateField()
     is_accepted = models.BooleanField(null=True, blank=True)  # None = Pending, True = Accepted, False = Rejected
+    is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

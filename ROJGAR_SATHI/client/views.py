@@ -188,3 +188,14 @@ def reschedule_request(request, pk):
     
     return render(request, "client/reschedule_request.html", {"form": form})
 
+@login_required
+def mark_as_completed(request, request_id):
+    post_request = get_object_or_404(PostRequest, id=request_id)
+
+    # Only the original client can mark the job as completed
+    if post_request.client != request.user:
+        return HttpResponseForbidden("You are not authorized to complete this request.")
+
+    post_request.is_completed = True
+    post_request.save()
+    return redirect('client:request_status')

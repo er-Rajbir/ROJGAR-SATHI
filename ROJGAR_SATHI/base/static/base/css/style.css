@@ -3,7 +3,9 @@
     margin-bottom: 0.1vh;
 }
 
-
+#heroCarousel{
+  height:200vh;
+}
     
     
 
@@ -12,10 +14,13 @@ img{
 
 
 }
+.carousel-inner{
+  height: 300px;
+}
 
 
 .hero-img {
-  height: 85vh;
+  height: 100vh;
   object-fit: contain;
   filter: brightness(60%);
 }
