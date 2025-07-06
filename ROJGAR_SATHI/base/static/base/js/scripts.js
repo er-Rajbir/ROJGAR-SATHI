@@ -90,6 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     register.classList.remove('active'); login.classList.add('active');
     waveText.innerHTML = '<h3>Welcome Back!</h3><p>Login to access your account.</p>';
   };
-});
+}
+);
 
-  
+ 
+ 
