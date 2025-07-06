@@ -6,16 +6,17 @@ class ClientRegisterForm(forms.ModelForm):
     username = forms.CharField()
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
-    fullname=forms.CharField(label='Full Name')
+    
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password','fullname']
+        fields = ['username', 'email', 'password',]
 
 class ClientProfileForm(forms.ModelForm):
+    full_name = forms.CharField(max_length=20, required=True)
     class Meta:
         model = ClientProfile
-        fields = ['phone', 'address', 'company_name', 'profile_picture']
+        fields = ['full_name','phone', 'address', 'company_name', 'profile_picture']
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:

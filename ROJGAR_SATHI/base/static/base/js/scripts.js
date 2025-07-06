@@ -91,3 +91,5 @@ document.addEventListener('DOMContentLoaded', () => {
     waveText.innerHTML = '<h3>Welcome Back!</h3><p>Login to access your account.</p>';
   };
 });
+
+  

@@ -67,11 +67,25 @@
     {% endif %}
 
 {% endif %}
-<li class="nav-item"> <a class="nav-link" href="#" class="btn btn-primary" >Welcome,<b>{{profile.full_name }}</b></a>
-   </li>
+
+{% if request.user.is_authenticated %}
+    {% if request.user.clientprofile %}
+        <li class="nav-item"> <a class="nav-link" href="#">Welcome, {{ request.user.clientprofile.full_name }}</a></li>
+    {% elif request.user.hunarbaaz %}
+        <li class="nav-item"> <a class="nav-link" href="#">Welcome, {{ request.user.hunarbaaz.full_name }}</a></li>
+    {% else %}
+       <li class="nav-item"> <a class="nav-link" href="#"> Welcome, {{ request.user.username }}</a></li>
+    {% endif %}
+{% else %}
+   
+{% endif %}
+
+
+   
   <form method="post" action="{% url 'logout' %}" class="d-inline">
     {% csrf_token %}
-    <button type="submit" class="btn btn-link nav-link">Logout</button>
+   <li> <button type="submit" class="btn nav-link">Logout</button>
+   </li>
   </form>
   
 {% else %}

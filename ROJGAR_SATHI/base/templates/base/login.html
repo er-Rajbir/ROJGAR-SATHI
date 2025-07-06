@@ -1,188 +1,106 @@
- {% extends 'base/base.html' %}
+{% extends 'base/base.html' %}
 {% load static %}
-{% block content %} 
 
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    
-    background: linear-gradient(120deg,rgb(133, 168, 145),rgb(143, 221, 228));
-    
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    
-  }
+        
+       
 
- .login-box{
-  justify-self:center;
-  align-self:center;
-  margin-top:10vh;
-   backdrop:blur;
- }
-  .wrapper {
-    width: 400px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop:blur;
-    padding: 40px;
-    border-radius: 16px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.4s ease;
-    transform-style: preserve-3d;
-    animation: floatUp 1s ease-out;
-  }
+{% block content %}
 
-  @keyframes floatUp {
-    0% {
-      transform: translateY(60px) scale(0.95);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-  }
 
-  .wrapper h2 {
-    text-align: center;
-    color: #004aad;
-    margin-bottom: 25px;
-    font-weight: 700;
-    
-    
-    
-  }
 
-  .inputBox {
-    margin-bottom: 20px;
-    transform-style: preserve-3d;
-    background-color:#fff;
-    border-radius: 10px;
-  }
 
-  .inputBox span {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: #222;
-    border-radius: 10px;
-    background-color:#fff:
-  }
 
-  .inputBox input {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    outline: none;
-    transition: box-shadow 0.3s;
-  }
+<section class="login">
+    <div class="container login-container">
+        <div class="form-box login" >
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <h1 class="title">Login</h1>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="msg {% if message.tags == 'error' %}msg-error{% else %}msg-success{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="input-box">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" name="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <label for="remember" class="centered-flex" style="justify-content: flex-start; margin-bottom: 10px;">
+                    <input type="checkbox" id="remember"> Remember me
+                </label>
 
-  .inputBox input:focus {
-    box-shadow: 0 0 5px rgba(0, 74, 173, 0.5);
-    border-color: #004aad;
-  }
+                <div class="forgot-link">
+                    <a href="#">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p>or login with social platforms</p>
+                <div class="social-icons">
+                    <a href="#"><i class='fab fa-google'></i></a>
+                    <a href="#"><i class='fab fa-facebook'></i></a>
+                    <a href="#"><i class='fab fa-github'></i></a>
+                </div>
+            </form>
+        </div>
 
-  .form-btn {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(to right, #004aad, #66a6ff);
-    color: white;
-    border: none;
-    border-radius: 30px;
-    margin-top: 10px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s ease;
-  }
+        <div class="form-box register">
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="register">
+                <h1>Registration</h1>
+                <div class="input-box">
+                    <a href="{% url 'hunarbaaz:register_hunarbaaz' %}" id="button" class="btn btn-dark" >Register as Hunarbaaz</a>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <a href="{% url 'client:register_view' %}" id="button" class="btn btn-dark">Register as Client</a>
+                    <i class='bx bxs-envelope'></i>
+                </div>
+                
+                
+                <p>or register with social platforms</p>
+                <div class="social-icons">
+                    <a href="#"><i class='bx bxl-google'></i></a>
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                </div>
+            </form>
+        </div>
 
-  .form-btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-  }
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Hello, Welcome!</h1>
+                <p>Don't have an account?</p>
+                <button class="btn register-btn">Register</button>
+            </div>
 
-  .register-options {
-    display: none;
-    margin-top: 20px;
-    animation: fadeSlide 0.5s ease forwards;
-  }
-
-  .register-options.active {
-    display: block;
-  }
-
-  .register-options a {
-    display: block;
-    margin: 10px 0;
-    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-    padding: 12px;
-    border-radius: 8px;
-    text-align: center;
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-    transition: background 0.3s;
-  }
-
-  .register-options a:hover {
-    background: #ddd;
-  }
-
-  .back-btn {
-    background: #ccc;
-    color: black;
-  }
-
-  @keyframes fadeSlide {
-    from {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-</style>
-<div class="login-box">
-<div class="wrapper">
-  <form method="post">
-    {% csrf_token %}
-    <h2>Login</h2>
-
-    <div class="inputBox">
-      <input type="text" placeholder="Username" name="username" required>
+            <div class="toggle-panel toggle-right">
+                <h1>Welcome Back!</h1>
+                <p>Already have an account?</p>
+                <button class="btn login-btn">Login</button>
+            </div>
+        </div>
     </div>
-
-    <div class="inputBox">
-      <input type="password" placeholder="Password" name="password" required>
-    </div>
-
-    <button type="submit" class="form-btn">Login</button>
-    <div class="links">
-  <a href="{% url 'password_reset' %}">Forgot Password?</a>
-</div>
-
-    <button type="button" class="form-btn" onclick="toggleRegister()">Register</button>
-  </form>
-
-  <div class="register-options" id="registerOptions">
-    <a href="{% url 'hunarbaaz:register_hunarbaaz' %}">Register as Hunarbaaz</a>
-    <a href="{% url 'client:register_view' %}">Register as Client</a>
-    <button class="form-btn back-btn" onclick="toggleRegister()">Back to Login</button>
-  </div>
-</div></div>
+</section>
 
 <script>
-  function toggleRegister() {
-    const regBox = document.getElementById('registerOptions');
-    regBox.classList.toggle('active');
-  }
-</script>
+    const container = document.querySelector('.login-container');
+    const registerBtn = document.querySelector('.register-btn');
+    const loginBtn = document.querySelector('.login-btn');
 
-{% endblock %}
+    registerBtn.addEventListener('click', () => {
+        container.classList.add('active');
+    })
+
+    loginBtn.addEventListener('click', () => {
+        container.classList.remove('active');
+    })
+</script>
+{% endblock content %}
+</body>
