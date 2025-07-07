@@ -1,0 +1,34 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 shadow-lg p-4 rounded bg-light">
+    <h2 class="text-center mb-4">Contact Us / Submit Feedback</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <div class="mb-3">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="mb-3">
+            {{ form.user_type.label_tag }}
+            {{ form.user_type }}
+        </div>
+        <div class="mb-3">
+            {{ form.query_type.label_tag }}
+            {{ form.query_type }}
+        </div>
+        <div class="mb-3">
+            {{ form.message.label_tag }}
+            {{ form.message }}
+        </div>
+      
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+        <button type="reset" class="btn btn-primary w-100">Reset</button>
+    </form>
+</div>
+{% endblock %}
