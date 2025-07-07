@@ -234,10 +234,24 @@ color: white;
     z-index: 1;
     transition: .6s ease-in-out 1.2s, visibility 0s 1s;
 }
-
+.form-box .align{
+    align-self: center;
+    justify-self: center ;
+    align-items: center;
+    padding-top: 5px;
+}
 .login .container.active .form-box {
     right: 50%;
 }
+
+  .btn.login-btn:hover,
+  .btn.register-btn:hover {
+    background-color: white !important;
+    color: black !important;
+    
+  }
+
+
 
 .login .form-box.register {
     visibility: hidden;
@@ -446,7 +460,7 @@ color: white;
         position: relative;
         width: 100%;
         height: auto;
-        padding: 20px;
+        padding: 1px;
         visibility: visible !important;
         transition: none;
         z-index: 3;

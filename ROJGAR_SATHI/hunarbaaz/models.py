@@ -1,5 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+
+aadhaar_validator = RegexValidator(
+    regex=r'^\d{12}$',
+    message="Aadhaar number must be exactly 12 digits"
+)
 
 class Hunarbaaz(models.Model):
     SKILL_CHOICES = [
@@ -12,11 +18,21 @@ class Hunarbaaz(models.Model):
         ('Carpenter', 'Carpenter'),
         ('Electronics Repair', 'Electronics Repair'),
         ('Mechanic', 'Mechanic'),
-        ('Welder', 'Welder'),
-        ('Tailor', 'Tailor'),
-        ('Cook', 'Cook'),
-        ('Driver', 'Driver'),
         ('Others', 'Others'),
+    ]
+    locations=[
+        ('','select you location'),
+        ('Vallah/Verka','Vallah/Verka'),
+        ('Hall Bazaar','Hall Bazaar'),
+        ('Ranjit-Avenue','Ranjit-Avenue'),
+        ('Company-bagh','Company-bagh'),
+        ('Golden-gate','Golden-gate'),
+        ('Putlighar','Putlighar'),
+        ('Ramgharia gate','Ramgharia gate'),
+        ('Batala-road','Batala-road'),
+        ('Majitha-road','Majitha-road'),
+        ('Ram Bagh','Ram Bagh'),
+        ('other','other')
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -24,9 +40,9 @@ class Hunarbaaz(models.Model):
     full_name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=15)
     skill = models.CharField(max_length=50, choices=SKILL_CHOICES)
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, choices=locations)
     experience = models.PositiveIntegerField(help_text="Years of experience")
-    aadhaar_number = models.CharField(max_length=12, unique=True)
+    aadhaar_number = models.CharField(max_length=12,unique=True,validators=[aadhaar_validator])
     profile_pic = models.ImageField(upload_to='hunarbaaz/profile_pics/', null=True, blank=True)
     work_sample = models.ImageField(upload_to='hunarbaaz/work_samples/', null=True, blank=True)
     is_verified = models.BooleanField(default=False)

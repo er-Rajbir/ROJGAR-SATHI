@@ -16,7 +16,7 @@ class ClientProfileForm(forms.ModelForm):
     full_name = forms.CharField(max_length=20, required=True)
     class Meta:
         model = ClientProfile
-        fields = ['full_name','phone', 'address', 'company_name', 'profile_picture']
+        fields = ['full_name','phone', 'address', 'work_type', 'profile_picture']
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
