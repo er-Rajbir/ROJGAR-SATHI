@@ -121,6 +121,39 @@ color: white;
   font-size: 3rem;
   font-weight: bold;
 }
+/*what people say*/
+#id3{
+  
+    display: flex;
+    gap:10vw;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.id3-left{
+    
+    float:left;
+}
+
+.id3-right{
+    
+    float:right;
+}
+#id3-content{
+    background-color: rgb(175, 138, 255);
+    width: 40vw;
+    height: 20vh;
+    align-content: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 30px;
+    border-radius: 30px;
+    padding: 5px;
+    padding-left: 40px;
+    
+}
+/*what people say end */
+
+
 
 .aos-left {
   animation: slideInLeft 3s forwards;
