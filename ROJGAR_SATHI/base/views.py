@@ -59,6 +59,8 @@ def login_view(request):
             return redirect('login')
     else:
         return render(request, 'base/login.html')
+    
+    
 
 
 
