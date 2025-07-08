@@ -1,41 +1,76 @@
 {% extends 'base/base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container mt-5 mb-5">
-  <h2 class="text-center mb-4">Privacy Policy & Terms and Conditions</h2>
+<div class="container my-5">
+  <h2 class="text-success fw-bold text-center mb-4"><u>Privacy Policy & Terms of Use</u></h2>
 
-  <!-- Privacy Policy Section -->
-  <section class="mb-5">
-    <h4>Privacy Policy</h4>
-    <p>
-      Rozgaar Saathi is committed to protecting the privacy of both clients and Hunarbaaz. We collect only essential information such as name, contact number, location, skills, and identification documents (like Aadhaar) to provide seamless services.
-    </p>
-    <ul>
-      <li>🔒 All user data is securely stored and not shared with third parties.</li>
-      <li>🔄 Users can request data correction or deletion anytime.</li>
-      <li>📧 We may use your contact info to send important updates related to your account or services.</li>
-    </ul>
-    <p>
-      By using our platform, you consent to the collection and use of this information as outlined in this policy.
-    </p>
-  </section>
+  <!-- Privacy Policy -->
+  <div class="mb-5">
+    <h4 class="text-primary fw-semibold">Privacy Policy</h4>
+    <p class="text-muted">Effective Date: July 7, 2025</p>
 
-  <!-- Terms and Conditions Section -->
-  <section>
-    <h4>Terms & Conditions</h4>
     <p>
-      These terms govern your use of the Rozgaar Saathi platform:
+      Rozgaar Saathi is committed to protecting the privacy of all users. This policy outlines how we collect, use, and protect your personal information when you use our platform.
     </p>
-    <ul>
-      <li>✅ Users must provide accurate and verifiable information during registration.</li>
-      <li>✅ Clients and Hunarbaaz are responsible for coordinating work agreements directly.</li>
-      <li>✅ Rozgaar Saathi acts only as a connecting platform and is not liable for disputes arising from job contracts.</li>
-      <li>✅ Any misuse, fraud, or inappropriate behavior will result in account suspension or termination.</li>
+
+    <ul class="list-group list-group-flush mb-3">
+      <li class="list-group-item">
+        <strong>1. Information Collection:</strong> We collect information such as your name, contact details, location, and work-related details during registration or usage.
+      </li>
+      <li class="list-group-item">
+        <strong>2. Use of Information:</strong> Your information is used to connect clients and Hunarbaaz, manage requests, and improve platform features.
+      </li>
+      <li class="list-group-item">
+        <strong>3. Data Sharing:</strong> We do not sell or rent user data. Limited profile information may be shown publicly (like skills and reviews).
+      </li>
+      <li class="list-group-item">
+        <strong>4. Cookies:</strong> Basic cookies may be used for session management and performance tracking.
+      </li>
+      <li class="list-group-item">
+        <strong>5. Security:</strong> We apply reasonable security practices to protect your information, but no system is 100% secure.
+      </li>
+      <li class="list-group-item">
+        <strong>6. User Rights:</strong> You may request to update or delete your profile or data by contacting us via the contact form.
+      </li>
     </ul>
+  </div>
+
+  <!-- Terms and Conditions -->
+  <div>
+    <h4 class="text-primary fw-semibold">Terms & Conditions</h4>
     <p>
-      By registering or using our services, you agree to abide by these terms. Rozgaar Saathi reserves the right to update policies without prior notice.
+      By using Rozgaar Saathi, you agree to the following terms and conditions:
     </p>
-  </section>
+
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <strong>1. Eligibility:</strong> You must be at least 18 years old or have parental consent to use this platform.
+      </li>
+      <li class="list-group-item">
+        <strong>2. Account Responsibility:</strong> Users are responsible for maintaining the confidentiality of their account credentials.
+      </li>
+      <li class="list-group-item">
+        <strong>3. Authentic Information:</strong> Users agree to provide accurate and true information while registering and posting.
+      </li>
+      <li class="list-group-item">
+        <strong>4. Service Conduct:</strong> Hunarbaaz and clients must maintain professionalism and respect during all interactions.
+      </li>
+      <li class="list-group-item">
+        <strong>5. Platform Use:</strong> You agree not to misuse the platform, spam users, or upload harmful content.
+      </li>
+      <li class="list-group-item">
+        <strong>6. Termination:</strong> We reserve the right to suspend or delete accounts violating these terms.
+      </li>
+      <li class="list-group-item">
+        <strong>7. Modification:</strong> These terms may be updated from time to time. Continued use means acceptance of the latest version.
+      </li>
+    </ul>
+  </div>
+
+  <!-- Contact -->
+  <div class="mt-5">
+    <p class="text-muted">
+      For any questions or concerns regarding this policy, please reach out through our <a href="{% url 'reviews:contact_review' %}">Contact Us</a> page.
+    </p>
+  </div>
 </div>
 {% endblock %}
