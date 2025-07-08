@@ -10,6 +10,7 @@
         <th>Job Description</th>
         <th>Date</th>
         <th>Status</th>
+        <th>Action</th>  <!-- New column -->
       </tr>
     </thead>
     <tbody>
@@ -28,10 +29,21 @@
               <span class="badge bg-warning text-dark">Pending</span>
             {% endif %}
           </td>
+          <td>
+            {% if request.is_completed and not request.rating %}
+              <a href="{% url 'client:mark_as_completed' request.id %}" class="btn btn-sm btn-outline-primary">
+                📝 Review
+              </a>
+            {% elif request.rating %}
+              <span class="text-success">Reviewed</span>
+            {% else %}
+              <span class="text-muted">-</span>
+            {% endif %}
+          </td>
         </tr>
       {% empty %}
         <tr>
-          <td colspan="5" class="text-center">No work requests yet.</td>
+          <td colspan="6" class="text-center">No work requests yet.</td>
         </tr>
       {% endfor %}
     </tbody>

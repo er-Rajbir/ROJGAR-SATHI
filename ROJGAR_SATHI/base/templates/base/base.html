@@ -19,7 +19,7 @@
 <!-- Navbar Starts -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
   <div class="container-fluid" id="navbar-cont">
-    <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">Rozgaar Saathi</a>
+    <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">Rojgar Sathi</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,7 +35,7 @@
           <a class="nav-link" href="{% url 'about' %}">About Us</a>
         </li>
         <li class="nav-item">
-<a href="{% url 'reviews:contact_review' %}" class="nav-link">Contact Us / Review</a>
+<a href="{% url 'reviews:contact_review' %}" class="nav-link">Contact Us</a>
 
 
         {% if user.is_authenticated %}

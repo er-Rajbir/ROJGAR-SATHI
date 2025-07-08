@@ -133,7 +133,8 @@ def mark_as_completed(request, request_id):
 @login_required
 def work_history(request):
     profile = get_object_or_404(Hunarbaaz, user=request.user)
-    completed_jobs = PostRequest.objects.filter(hunarbaaz=profile, is_completed=True)
+    completed_jobs = PostRequest.objects.filter(hunarbaaz=profile, is_completed=True).order_by('-scheduled_date', '-created_at')
+
 
     return render(request, 'hunarbaaz/work_history.html', {
         'completed_jobs': completed_jobs

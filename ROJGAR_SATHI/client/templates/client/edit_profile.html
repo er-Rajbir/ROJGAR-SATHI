@@ -3,85 +3,84 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<style>
-  body {
-    background-color: #f8f9fa;
-  }
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    
+    .edit-container {
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    }
+    
+    .form-label {
+      font-weight: 600;
+    }
+    
+    .btn-save {
+      background-color: #004aad;
+      border: none;
+      transition: 0.3s ease-in-out;
+    }
+    
+    .btn-save:hover {
+      background-color: #003080;
+    }
+    
+    .profile-pic-preview {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      margin-bottom: 1rem;
+    }
+  </style>
 
-  .edit-container {
-    background: #ffffff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-  }
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="edit-container">
+          <h3 class="text-center text-primary mb-4">Edit Client Profile</h3>
 
-  .form-label {
-    font-weight: 600;
-  }
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
 
-  .btn-save {
-    background-color: #004aad;
-    border: none;
-    transition: 0.3s ease-in-out;
-  }
+            <h5 class="mb-3">Account Details</h5>
+            {% for field in user_form %}
+              <div class="mb-3">
+                {{ field.label_tag }}
+                {{ field|add_class:'form-control' }}
+                {% if field.errors %}
+                  <div class="text-danger">{{ field.errors }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
 
-  .btn-save:hover {
-    background-color: #003080;
-  }
+            <h5 class="mt-4 mb-3">Profile Info</h5>
 
-  .profile-pic-preview {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    margin-bottom: 1rem;
-  }
-</style>
+            {% if profile_form.instance.profile_picture %}
+              <div class="text-center mb-3">
+                <img src="{{ profile_form.instance.profile_picture.url }}" alt="Profile Pic" class="profile-pic-preview" />
+              </div>
+            {% endif %}
 
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="edit-container">
-        <h3 class="text-center text-primary mb-4">Edit Client Profile</h3>
+            {% for field in profile_form %}
+              <div class="mb-3">
+                {{ field.label_tag }}
+                {{ field|add_class:'form-control' }}
+                {% if field.errors %}
+                  <div class="text-danger">{{ field.errors }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
 
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-
-          <h5 class="mb-3">Account Details</h5>
-          {% for field in user_form %}
-            <div class="mb-3">
-              {{ field.label_tag }}
-              {{ field|add_class:"form-control" }}
-              {% if field.errors %}
-                <div class="text-danger">{{ field.errors }}</div>
-              {% endif %}
-            </div>
-          {% endfor %}
-
-          <h5 class="mt-4 mb-3">Profile Info</h5>
-
-          {% if profile_form.instance.profile_picture %}
-            <div class="text-center mb-3">
-              <img src="{{ profile_form.instance.profile_picture.url }}" alt="Profile Pic" class="profile-pic-preview">
-            </div>
-          {% endif %}
-
-          {% for field in profile_form %}
-            <div class="mb-3">
-              {{ field.label_tag }}
-              {{ field|add_class:"form-control" }}
-              {% if field.errors %}
-                <div class="text-danger">{{ field.errors }}</div>
-              {% endif %}
-            </div>
-          {% endfor %}
-
-          <button type="submit" class="btn btn-save w-100 mt-3 text-white">Save Changes</button>
-        </form>
-
+            <button type="submit" class="btn btn-save w-100 mt-3 text-white">Save Changes</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}
