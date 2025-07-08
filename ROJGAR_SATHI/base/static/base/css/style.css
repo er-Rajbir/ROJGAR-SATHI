@@ -1,12 +1,35 @@
+body{
+    background-color: #FDFCDC;
+}
 .navbar{
     height: 13vh;
-    margin-bottom: 0.1vh;
+    margin-bottom: 0px;
+   background: linear-gradient(to top, #22333b, #335362);
+   
+  
+   backdrop-filter: blur(10px);
+   transition: background 0.3s ease-in-out;
+}
+.navbar-brand{
+    width:500px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    
 }
 
   .navbar-nav .nav-link {
     position: relative;
     transition: color 0.3s ease;
-    font-size: 19px;
+    font-size: 18px;
+     background:none;
+
+     
+    
+    }
+  #navbarNav{
+    background:none;
+    width:50px;
+
   }
 
   .navbar-nav .nav-link::after {
@@ -14,28 +37,32 @@
     position: absolute;
     width: 0%;
     height: 2px;
-    background: rgb(215, 196, 255);
+    background: rgb(76, 43, 147);
     left: 0;
     bottom: 0;
     transition: 0.4s ease;
   }
 
   .navbar-nav .nav-link:hover {
-    color: rgb(165, 164, 253) !important;
+    color: rgb(76, 43, 147) !important;
   }
 
   .navbar-nav .nav-link:hover::after {
     width: 100%;
   }
 #navbar-cont{
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 40;
+    padding-right: 40px;
 }
 @media (max-width: 768px) {
 #navbar-cont{
     padding-left: 0px;
     padding-right:0px;
-}}
+}
+#heroCarousel{
+  height:100vh;
+}
+}
 #heroCarousel{
   height:200vh;
 }

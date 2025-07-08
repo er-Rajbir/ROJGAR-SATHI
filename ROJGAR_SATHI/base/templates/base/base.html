@@ -18,9 +18,10 @@
 <body>
 
 <!-- Navbar Starts -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg">
+<nav class="navbar navbar-expand-lg navbar-dark
+  shadow-lg">
   <div class="container-fluid" id="navbar-cont">
-    <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">Rojgar Sathi</a>
+    <a class="navbar-brand fw-bold fs-4 "   href="{% url 'home' %}"><img src="{% static 'base/images/logo.png' %}" style="height: 70px; width: 80px;">Rozgaar Saathi</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -190,6 +191,15 @@
   </div>
 {% endif %}
 
-
+<script>
+  window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.custom-navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
 </body>
 </html>
