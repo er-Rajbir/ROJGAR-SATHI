@@ -1,29 +1,87 @@
 {% extends 'base/base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container mt-5">
-  <h2 class="text-center mb-4">About Rozgaar Saathi</h2>
-  <p class="lead text-justify">
-    Rozgaar Saathi is a community-driven platform created to connect skilled labourers, known as "Hunarbaaz", with clients seeking reliable, verified service providers in their local area.
-  </p>
+  <div class="container my-5">
+    <!-- About Section -->
+    <div class="mb-5">
+      <h2 class="text-success text-center fw-bold"><u>About Rozgaar Saathi</u></h2>
+      <h6 class="text-muted text-center mb-4">Bringing skills and services together.</h6>
 
-  <p>
-    Whether you're a carpenter, electrician, plumber, or construction worker, Rozgaar Saathi offers a way to build a digital presence, showcase your work, and receive job requests without needing advanced tech skills.
-  </p>
+      <p class="mt-3 fs-5 text-muted">
+        <strong>Rozgaar Saathi</strong> is a people-first, community-powered platform designed to bridge the gap between skilled labourers — known as <strong>"Hunarbaaz"</strong> — and clients in need of dependable, verified local services.
+      </p>
+      <p class="fs-5 text-muted">Whether you're an electrician, plumber, painter, carpenter, or daily-wage worker, Rozgaar Saathi provides you with a digital identity, a platform to showcase your work, and access to real job opportunities — all without needing complex tech knowledge.</p>
+      <p class="fs-5 text-muted">For clients, it’s a reliable space to search, compare, and directly connect with local service providers. With features like verified profiles, work samples, and community reviews, hiring becomes faster, safer, and more transparent.</p>
+    </div>
 
-  <p>
-    For clients, it's a reliable source to search, filter, and connect with verified professionals quickly and transparently, based on skills, location, and reviews.
-  </p>
+    <!-- Vision Section -->
+    <div class="bg-white p-4 rounded shadow-sm mb-5">
+      <h3 class="text-success fw-bold">Our Vision</h3>
+      <p class="fs-5 mt-2">
+        At Rozgaar Saathi, we envision an inclusive local economy where every skilled worker in <b>Amritsar</b> — whether from the bustling city centre or nearby mohallas and colonies — can gain equal access to job opportunities through the power of technology.
+      </p>
+      <p class="fs-5">
+        Our goal is to ensure that <b>no electrician, painter, plumber, or construction worker is left behind</b> simply because they don’t have a digital identity. We aim to uplift these individuals by offering them a platform that is made for them — in their language, at their pace, and with their realities in mind.
+      </p>
+      <p class="fs-5">
+        With Amritsar as our starting point, we are committed to building a <b>strong and trusted local network</b> that bridges the gap between verified Hunarbaaz and clients in need — one neighbourhood at a time.
+      </p>
+    </div>
 
-  <h5 class="mt-4">Our Vision</h5>
-  <p>
-    To bridge the digital divide and empower rural and semi-urban skilled workers by bringing their services online in a dignified, accessible, and trusted manner.
-  </p>
+    <!-- Mission Section -->
+    <div class="bg-white p-4 rounded shadow-sm mb-5">
+      <h3 class="text-success fw-bold">Our Mission</h3>
+      <p class="fs-5">
+        Rozgaar Saathi was born out of a simple but powerful mission — to <b>connect skilled workers in Amritsar with real, local work opportunities</b>, using simple and reliable technology.
+      </p>
+      <ul class="fs-5 mt-3">
+        <li>
+          <strong>Local Inclusion:</strong> We make it easy for Hunarbaaz across Amritsar to register, create digital profiles, and showcase their skills to potential clients — ensuring access to opportunities regardless of their background or location within the city.
+        </li>
+        <li>
+          <strong>Trust & Transparency:</strong> Every job request, rating, and review builds trust in the local community. Clients can see verified profiles, past work, and honest feedback before hiring — ensuring confidence in every booking.
+        </li>
+        <li>
+          <strong>Community Growth:</strong> We believe in growing together. By supporting the hardworking Hunarbaaz of Amritsar, we also uplift local families, create job security, and build long-lasting relationships within the city.
+        </li>
+      </ul>
+      <p class="fs-5 mt-3">Our mission is not just to provide work — but to give respect, dignity, and recognition to the backbone of Amritsar’s daily life: its skilled workforce.</p>
+    </div>
 
-  <h5 class="mt-4">Our Mission</h5>
-  <p>
-    We aim to provide simple tools to skilled workers and local clients, fostering trust, transparency, and growth through technology.
-  </p>
-</div>
+    <!-- Our Team Section -->
+    <div class="text-center mb-5">
+      <h3 class="text-success fw-bold">Meet Our Team</h3>
+      <p class="fs-5 text-muted">Rozgaar Saathi is built by a small, passionate team committed to creating real impact in Amritsar. Both team members have contributed equally across design, development, and community research.</p>
+      <div class="row justify-content-center mt-4">
+        <!-- Member 1 -->
+        <div class="col-md-5 mb-4">
+          <div class="card h-40 shadow-sm border-0">
+            <img src="#" class="card-img-top rounded-top" alt="Yuvraj Singh" />
+            <div class="card-body">
+              <h5 class="card-title">Yuvraj Singh</h5>
+              <p class="card-text text-muted">Co-Creator | Backend & Database</p>
+              <p class="card-text">A Computer Science enthusiast with a passion for clean architecture, robust logic, and user-focused systems. Yuvraj handles the core Django structure and database workflows of the platform.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Member 2 -->
+        <div class="col-md-5 mb-4">
+          <div class="card h-40 shadow-sm border-0">
+            <img src="#" class="card-img-top rounded-top" alt="Rajbir Singh" />
+            <div class="card-body">
+              <h5 class="card-title">Rajbir Singh</h5>
+              <p class="card-text text-muted">Co-Creator | Frontend & UX</p>
+              <p class="card-text">Equally invested in making Rozgaar Saathi user-friendly and accessible, they designed the responsive layouts, intuitive flows, and ensured a seamless client–Hunarbaaz experience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <p class="text-muted">
+        Want to collaborate or support our mission? <a href="{% url 'reviews:contact_review' %}" class="text-success fw-semibold">Contact us</a>
+      </p>
+    </div>
+  </div>
 {% endblock %}
