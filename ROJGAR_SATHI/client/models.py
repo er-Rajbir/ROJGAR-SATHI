@@ -40,19 +40,19 @@ class PostRequest(models.Model):
 
     is_accepted = models.BooleanField(null=True, blank=True)  # None = Pending, True = Accepted, False = Rejected
     is_completed = models.BooleanField(default=False)
+    is_cancelled = models.BooleanField(default=False, help_text="Whether the client has cancelled the request")
+
 
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     # ⭐ Rating and Review (1.0 to 5.0 with one decimal place)
-    rating = models.DecimalField(
-        max_digits=2,
-        decimal_places=1,
-        validators=[MinValueValidator(Decimal('1.0')), MaxValueValidator(Decimal('5.0'))],
-        null=True,
-        blank=True,
-        help_text="Client rating after completion (1.0 - 5.0)"
-    )
+    rating = models.IntegerField(
+    validators=[MinValueValidator(1), MaxValueValidator(5)],
+    null=True,
+    blank=True,
+    help_text="Client rating after completion (1 to 5)"
+)
     review = models.TextField(null=True, blank=True, help_text="Optional client feedback")
 
     def __str__(self):

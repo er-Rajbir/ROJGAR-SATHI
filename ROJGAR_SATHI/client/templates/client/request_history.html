@@ -1,16 +1,17 @@
 {% extends 'base/base.html' %}
 {% block content %}
 <div class="container mt-4">
-  <h3>Your Work Request History</h3>
-  <table class="table table-bordered mt-3">
-    <thead>
+  <h3 class="mb-4 text-primary">Your Work Request History</h3>
+  
+  <table class="table table-bordered table-hover align-middle">
+    <thead class="table-light">
       <tr>
         <th>#</th>
         <th>Hunarbaaz</th>
         <th>Job Description</th>
-        <th>Date</th>
+        <th>Start - End Date</th>
         <th>Status</th>
-        <th>Action</th>  <!-- New column -->
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -19,9 +20,13 @@
           <td>{{ forloop.counter }}</td>
           <td>{{ request.hunarbaaz.full_name }}</td>
           <td>{{ request.job_description|truncatewords:10 }}</td>
-          <td>{{ request.scheduled_date }}</td>
+          <td>{{ request.start_date }} - {{ request.end_date }}</td>
           <td>
-            {% if request.is_accepted == True %}
+            {% if request.is_cancelled %}
+              <span class="badge bg-secondary">Cancelled</span>
+            {% elif request.is_completed %}
+              <span class="badge bg-dark">Completed</span>
+            {% elif request.is_accepted == True %}
               <span class="badge bg-success">Accepted</span>
             {% elif request.is_accepted == False %}
               <span class="badge bg-danger">Rejected</span>
@@ -35,7 +40,7 @@
                 📝 Review
               </a>
             {% elif request.rating %}
-              <span class="text-success">Reviewed</span>
+              <span class="badge bg-success">Reviewed</span>
             {% else %}
               <span class="text-muted">-</span>
             {% endif %}
@@ -43,7 +48,7 @@
         </tr>
       {% empty %}
         <tr>
-          <td colspan="6" class="text-center">No work requests yet.</td>
+          <td colspan="6" class="text-center text-muted">No work requests yet.</td>
         </tr>
       {% endfor %}
     </tbody>

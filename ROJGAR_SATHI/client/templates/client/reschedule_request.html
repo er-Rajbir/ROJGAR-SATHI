@@ -1,12 +1,20 @@
-{% extends "base/base.html" %}
+{% extends 'base/base.html' %}
 {% block content %}
-<div class="container mt-5">
-  <h2>Reschedule Work Request</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="{% url 'client:request_status' %}" class="btn btn-secondary">Cancel</a>
-  </form>
-</div>
+  <div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow p-4" style="width: 100%; max-width: 500px;">
+      <h3 class="text-center text-primary mb-4">Reschedule Work Request</h3>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">{{ form.start_date.label_tag }}
+          {{ form.start_date }}</div>
+
+        <div class="mb-3">{{ form.end_date.label_tag }}
+          {{ form.end_date }}</div>
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+          <a href="{% url 'client:request_status' %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}

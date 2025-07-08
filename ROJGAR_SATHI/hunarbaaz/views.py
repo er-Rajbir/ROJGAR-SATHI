@@ -131,11 +131,40 @@ def mark_as_completed(request, request_id):
     return redirect('hunarbaaz:view_requests')  # or 'hunarbaaz:work_history' if you prefer
 
 @login_required
+@login_required
 def work_history(request):
     profile = get_object_or_404(Hunarbaaz, user=request.user)
-    completed_jobs = PostRequest.objects.filter(hunarbaaz=profile, is_completed=True).order_by('-scheduled_date', '-created_at')
+    
+    completed_jobs = PostRequest.objects.filter(
+        hunarbaaz=profile,
+        is_completed=True
+    ).order_by('-end_date', '-created_at')
 
+    cancelled_jobs = PostRequest.objects.filter(
+        hunarbaaz=profile,
+        is_cancelled=True
+    ).order_by('-end_date', '-created_at')
 
     return render(request, 'hunarbaaz/work_history.html', {
-        'completed_jobs': completed_jobs
+        'completed_jobs': completed_jobs,
+        'cancelled_jobs': cancelled_jobs
+    })
+
+def public_work_history(request, hunarbaaz_id):
+    profile = get_object_or_404(Hunarbaaz, id=hunarbaaz_id)
+
+    completed_jobs = PostRequest.objects.filter(
+        hunarbaaz=profile,
+        is_completed=True
+    ).order_by('-end_date', '-created_at')
+
+    cancelled_jobs = PostRequest.objects.filter(
+        hunarbaaz=profile,
+        is_cancelled=True
+    ).order_by('-end_date', '-created_at')
+
+    return render(request, 'hunarbaaz/public_work_history.html', {
+        'profile': profile,
+        'completed_jobs': completed_jobs,
+        'cancelled_jobs': cancelled_jobs
     })

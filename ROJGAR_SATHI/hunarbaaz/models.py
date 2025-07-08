@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
+from decimal import Decimal
 
 aadhaar_validator = RegexValidator(
     regex=r'^\d{12}$',
@@ -52,17 +54,39 @@ class Hunarbaaz(models.Model):
         return self.full_name
 
 class WorkRequest(models.Model):
-    client_name = models.CharField(max_length=100)
-    hunarbaaz = models.ForeignKey(Hunarbaaz, on_delete=models.CASCADE, related_name='work_requests')
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='work_requests',null=True, blank=True)
+    hunarbaaz = models.ForeignKey('hunarbaaz.Hunarbaaz', on_delete=models.CASCADE, related_name='work_requests')
+
     description = models.TextField()
-    status_choices = (
+    location = models.CharField(max_length=100)
+
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+
+    JOB_TYPE_CHOICES = [
+        ('residential', 'Residential'),
+        ('commercial', 'Commercial'),
+    ]
+    job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default='residential')
+
+    STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('accepted', 'Accepted'),
         ('rejected', 'Rejected'),
         ('completed', 'Completed'),
-    )
-    status = models.CharField(max_length=10, choices=status_choices, default='pending')
+        ('cancelled', 'Cancelled'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
+
+    rating = models.IntegerField(
+    validators=[MinValueValidator(1), MaxValueValidator(5)],
+    null=True,
+    blank=True,
+    help_text="Client rating after completion (1 to 5)"
+)
+    review = models.TextField(null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Request from {self.client_name} to {self.hunarbaaz.full_name}"
+        return f"Request from {self.client.username} to {self.hunarbaaz.full_name}"

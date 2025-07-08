@@ -127,7 +127,7 @@
         </div>
       {% endif %}
       <a href="{% url 'client:create_request' %}?hunarbaaz_id={{ profile.id }}" class="btn btn-success" style="margin-top: 15px;">📩 Hire Hunarbaaz</a>
-      {% comment %} <a href="{% url 'hunarbaaz:work_history' hunarbaaz.id %}" class="btn btn-outline-info btn-sm">View Work History</a> {% endcomment %}
+      <a href="{% url 'hunarbaaz:public_work_history' profile.id %}" class="btn btn-outline-info btn-sm">View Work History</a>
 
       <a href="{% url 'client:all_profiles' %}" class="back-btn">← Back to All Profiles</a>
     </div>

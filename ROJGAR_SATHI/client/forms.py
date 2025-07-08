@@ -73,7 +73,7 @@ class RescheduleRequestForm(forms.ModelForm):
             raise forms.ValidationError("End date cannot be earlier than start date.")
         return cleaned_data
     
-    
+
 from django import forms
 from .models import PostRequest
 
@@ -83,15 +83,13 @@ class ReviewForm(forms.ModelForm):
         fields = ['rating', 'review']
         widgets = {
             'rating': forms.NumberInput(attrs={
-                'step': '0.5',
-                'min': '1',
-                'max': '5',
-                'class': 'form-control',
-                'placeholder': 'Rate from 1 to 5'
+                'min': 1,
+                'max': 5,
+                'step': 1,  # ⬅ only integer step
+                'class': 'form-control'
             }),
             'review': forms.Textarea(attrs={
                 'rows': 3,
-                'class': 'form-control',
-                'placeholder': 'Write your feedback here...'
+                'class': 'form-control'
             }),
         }
