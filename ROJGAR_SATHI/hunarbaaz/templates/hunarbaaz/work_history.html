@@ -1,27 +1,62 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="container mt-4">
-  <h3 class="text-center text-success mb-4">Work History</h3>
+  <div class="container mt-4">
+    <h3>My Work History</h3>
+    {% comment %} <h3 class="text-center text-success mb-4">
+      {% if own_profile %}
+        My Work History
+      {% else %}
+        Work History of {{ profile.user.username }}
+      {% endif %}
+    </h3> {% endcomment %}
 
-  {% if completed_jobs %}
-    <div class="row">
-      {% for job in completed_jobs %}
-        <div class="col-md-6">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title">{{ job.client.username }}</h5>
-              <p><strong>Description:</strong> {{ job.job_description }}</p>
-              <p><strong>Location:</strong> {{ job.location }}</p>
-              <p><strong>Completed On:</strong> {{ job.scheduled_date }}</p>
+    {% if completed_jobs %}
+      <div class="row">
+        {% for job in completed_jobs %}
+          <div class="col-md-6">
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ job.client.username }}</h5>
+                <p>
+                  <strong>Description:</strong> {{ job.job_description }}
+                </p>
+                <p>
+                  <strong>Location:</strong> {{ job.location }}
+                </p>
+                <p>
+                  <strong>Completed On:</strong> {{ job.scheduled_date|date:'d M Y' }}
+                </p>
+              </div>
+              {% if job.rating %}
+                
+                  <p>
+                    <strong>Rating:</strong>
+                    {% for i in '12345'|make_list %}
+                      {% if forloop.counter <= job.rating %}
+                        <span style="color: gold;">&#9733;</span> {# filled star ★ #}
+                      {% else %}
+                        <span style="color: lightgray;">&#9733;</span> {# empty star #}
+                      {% endif %}
+                    {% endfor %}({{ job.rating }}/5)
+                  </p> 
+              {% endif %}
+              {% if job.review %}
+                <p>
+                  <strong>Review:</strong> {{ job.review }}
+                </p>
+              {% endif %}
             </div>
           </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="alert alert-info text-center">
-      No work completed yet.
-    </div>
-  {% endif %}
-</div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info text-center">
+        {% if own_profile %}
+          You have not completed any jobs yet.
+        {% else %}
+          No completed work found for {{ profile.user.username }}.
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

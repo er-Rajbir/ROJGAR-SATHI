@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'hunarbaaz',
     'client',
     'widget_tweaks',
-
+    'reviews',
 ]
 
 MIDDLEWARE = [

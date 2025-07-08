@@ -12,7 +12,7 @@ from .models import PostRequest
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
 
 
-from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm
+from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm, ReviewForm
 
 from django.contrib.auth import login
 from django.contrib import messages
@@ -192,10 +192,16 @@ def reschedule_request(request, pk):
 def mark_as_completed(request, request_id):
     post_request = get_object_or_404(PostRequest, id=request_id)
 
-    # Only the original client can mark the job as completed
     if post_request.client != request.user:
         return HttpResponseForbidden("You are not authorized to complete this request.")
 
-    post_request.is_completed = True
-    post_request.save()
-    return redirect('client:request_status')
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=post_request)
+        if form.is_valid():
+            post_request.is_completed = True
+            form.save()
+            return redirect('client:request_status')
+    else:
+        form = ReviewForm(instance=post_request)
+
+    return render(request, 'client/complete_review.html', {'form': form, 'post_request': post_request})

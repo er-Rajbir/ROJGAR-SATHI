@@ -44,3 +44,25 @@ class RescheduleRequestForm(forms.ModelForm):
         widgets = {
             'scheduled_date': forms.DateInput(attrs={'type': 'date'})
         }
+
+from django import forms
+from .models import PostRequest
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = PostRequest
+        fields = ['rating', 'review']
+        widgets = {
+            'rating': forms.NumberInput(attrs={
+                'step': '0.5',
+                'min': '1',
+                'max': '5',
+                'class': 'form-control',
+                'placeholder': 'Rate from 1 to 5'
+            }),
+            'review': forms.Textarea(attrs={
+                'rows': 3,
+                'class': 'form-control',
+                'placeholder': 'Write your feedback here...'
+            }),
+        }

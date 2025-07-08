@@ -8,9 +8,5 @@ from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     
-    path('', views.home, name='home'),
-    
-    
-    
-    
+    path('contact/', views.public_contact, name='contact_review'),
     ]

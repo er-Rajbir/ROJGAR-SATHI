@@ -23,6 +23,7 @@ path('requests/history/', views.request_history, name='request_history'),
     path('request/<int:pk>/cancel/', views.cancel_request, name='cancel_request'),
     path('request/<int:pk>/reschedule/', views.reschedule_request, name='reschedule_request'),
     path('mark-completed/<int:request_id>/', views.mark_as_completed, name='mark_completed'),
+    path('requests/<int:request_id>/complete/', views.mark_as_completed, name='mark_as_completed'),
 
 
 ]

@@ -2,7 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import User
-from hunarbaaz.models import Hunarbaaz  # assuming this exists
+from hunarbaaz.models import Hunarbaaz  
+from django.core.validators import MinValueValidator, MaxValueValidator
+from decimal import Decimal
+
 
 
 class ClientProfile(models.Model):
@@ -22,13 +25,24 @@ class ClientProfile(models.Model):
     
 class PostRequest(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_requests')
-    hunarbaaz = models.ForeignKey(Hunarbaaz, on_delete=models.CASCADE, related_name='received_requests')
+    hunarbaaz = models.ForeignKey('hunarbaaz.Hunarbaaz', on_delete=models.CASCADE, related_name='received_requests')
     job_description = models.TextField()
     location = models.CharField(max_length=100)
     scheduled_date = models.DateField()
-    is_accepted = models.BooleanField(null=True, blank=True)  # None = Pending, True = Accepted, False = Rejected
+    is_accepted = models.BooleanField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    # ⭐ New fields
+    rating = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], null=True, blank=True)
+    review = models.TextField(null=True, blank=True)
+
     def __str__(self):
         return f"Request from {self.client.username} to {self.hunarbaaz.full_name}"
+    rating = models.DecimalField(
+    max_digits=2,
+    decimal_places=1,
+    validators=[MinValueValidator(Decimal('1.0')), MaxValueValidator(Decimal('5.0'))],
+    null=True,
+    blank=True
+)

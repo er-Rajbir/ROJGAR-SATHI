@@ -2,109 +2,117 @@
 {% load static %}
 
 {% block content %}
-<style>
-  .dashboard-container {
-    background: linear-gradient(to right, #eef2f7, #ffffff);
-    padding: 2.5rem;
-    border-radius: 1.25rem;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .dashboard-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0d47a1;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #0d47a1;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-  }
-
-  .profile-section {
-    background: #ffffff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-  }
-
-  .profile-section:hover {
-    transform: translateY(-4px);
-  }
-
-  .edit-btn {
-    background-color: #0d47a1;
-    border: none;
-    color: #ffffff;
-    padding: 0.6rem 1.4rem;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: background-color 0.3s;
-  }
-
-  .edit-btn:hover {
-    background-color: #06306c;
-  }
-
-  .profile-pic {
-    max-width: 130px;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid #0d47a1;
-    margin-bottom: 1rem;
-  }
-
-  .profile-label {
-    font-weight: 600;
-    color: #333;
-  }
-
-  .profile-value {
-    color: #555;
-  }
-
-  @media (max-width: 768px) {
+  <style>
     .dashboard-container {
-      padding: 1.5rem;
+      background: linear-gradient(to right, #eef2f7, #ffffff);
+      padding: 2.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease-in-out;
     }
-
+    
     .dashboard-title {
-      font-size: 1.6rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #0d47a1;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #0d47a1;
+      display: inline-block;
+      padding-bottom: 0.5rem;
     }
-  }
-</style>
+    
+    .profile-section {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+    
+    .profile-section:hover {
+      transform: translateY(-4px);
+    }
+    
+    .edit-btn {
+      background-color: #0d47a1;
+      border: none;
+      color: #ffffff;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    .edit-btn:hover {
+      background-color: #06306c;
+    }
+    
+    .profile-pic {
+      max-width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #0d47a1;
+      margin-bottom: 1rem;
+    }
+    
+    .profile-label {
+      font-weight: 600;
+      color: #333;
+    }
+    
+    .profile-value {
+      color: #555;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 1.5rem;
+      }
+    
+      .dashboard-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
 
-<div class="container mt-5">
-  <div class="dashboard-container">
-    <h2 class="dashboard-title">Welcome, {{profile.full_name }}</h2>
+  <div class="container mt-5">
+    <div class="dashboard-container">
+      <h2 class="dashboard-title">Welcome, {{ profile.full_name }}</h2>
 
-    <div class="row align-items-center">
-      <div class="col-md-4 text-center mb-4 mb-md-0">
-        {% if profile.profile_picture %}
-          <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
-        {% else %}
-          <img src="{% static 'base/images/default-user.png' %}" alt="Default Picture" class="profile-pic">
-        {% endif %}
-      </div>
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+          {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic" />
+          {% else %}
+            <img src="{% static 'base/images/default-user.png' %}" alt="Default Picture" class="profile-pic" />
+          {% endif %}
+        </div>
 
-      <div class="col-md-8">
-        <div class="profile-section">
-          <p><span class="profile-label">Full Name:</span> <span class="profile-value">{{profile.full_name }}</span></p>
-          <p><span class="profile-label">Email:</span> <span class="profile-value">{{ request.user.email }}</span></p>
-          <p><span class="profile-label">Phone:</span> <span class="profile-value">{{ profile.phone }}</span></p>
-          <p><span class="profile-label">Company:</span> <span class="profile-value">{{ profile.company_name }}</span></p>
-          <p><span class="profile-label">Address:</span> <span class="profile-value">{{ profile.address }}</span></p>
-
-          <a href="{% url 'client:edit_profile' %}">
-            <button class="edit-btn mt-3">Edit Profile</button>
-            <a href="{% url 'client:request_status' %}" class="btn btn-outline-info mt-3">📋 View My Requests</a>
-
-          </a>
+        <div class="col-md-8">
+          <div class="profile-section">
+            <p>
+              <span class="profile-label">Full Name:</span> <span class="profile-value">{{ profile.full_name }}</span>
+            </p>
+            <p>
+              <span class="profile-label">Email:</span> <span class="profile-value">{{ request.user.email }}</span>
+            </p>
+            <p>
+              <span class="profile-label">Phone:</span> <span class="profile-value">{{ profile.phone }}</span>
+            </p>
+            <p>
+              <span class="profile-label">Company:</span> <span class="profile-value">{{ profile.company_name }}</span>
+            </p>
+            <p>
+              <span class="profile-label">Address:</span> <span class="profile-value">{{ profile.address }}</span>
+            </p>
+              <a href="{% url 'client:edit_profile' %}" class="btn btn-outline-info mt-3">Edit Profile</a>
+              <a href="{% url 'client:request_status' %}" class="btn btn-outline-info mt-3">📋 View My Requests Status</a>
+              <a href="{% url 'client:request_history' %}" class="btn btn-outline-info mt-3">📋 Request History</a>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}
