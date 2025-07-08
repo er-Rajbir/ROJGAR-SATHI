@@ -88,48 +88,8 @@ img{
   object-fit: contain;
   filter: brightness(60%);
 }
-#popular-text{
-    align-self: center;
-    justify-self: center;
-}
-.image-container h4{
-color: white;
-}
-.scroll-container {
-  display: flex;
-  gap: 5vw;             /* space between images */
-  padding: 5vw;
-  overflow-x: auto;      /* horizontal scrolling enabled */
-  scroll-behavior:smooth;
-  /* hide scrollbars optionally: */
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE and Edge */
-}
-.scroll-container::-webkit-scrollbar {
-  display: none;         /* Chrome/Safari hide scrollbar */
-}
 
-.scroll-container img {
-  width: 30vw;
-  height: 40vh;
-  border-radius: 4%;
-  flex-shrink: 0;        /* prevent shrinking */
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-.image-container h4{
-    color: black;
-    font-family:monospace;
-}
 
-.scroll-container img:hover{
-  transform: scale(1.09); /* zoom effect on hover */
-}
-.scroll-container p{
-    font-size: 100%;
-    font-family: 'Courier New', Courier, monospace;
-    height:20rem;
-}
 
 .carousel-caption {
   background-color: none !important;
@@ -166,7 +126,7 @@ color: white;
     float:right;
 }
 #id3-content{
-    background-color: rgb(175, 138, 255);
+    background-color: #335362;
     width: 40vw;
     height: 20vh;
     align-content: center;
@@ -178,11 +138,50 @@ color: white;
     padding-left: 40px;
     
 }
+#stats{
+    background-color: #333D29;
+}
 
 #experience-hunarbaaz{
     background-color: #A4AC86;
 }
 /*what people say end */
+
+
+
+/* popular category*/
+
+.category-card {
+  transition: transform 0.9s ease, box-shadow 0.9s ease;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.card-img-container {
+  overflow: hidden;
+  height: 250px;
+}
+
+.card-img-container img {
+  height: 150%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.category-card:hover .card-img-container img {
+  transform: scale(1.1);
+}
+
+
 
 
 

@@ -51,31 +51,101 @@
 
 
 
-<div class="container-fluid" id="popular-cont">
-    <div id="popular-text"><h2>Popular Categories<h2></div>
-  <div class="scroll-container">
-  <div class="image-container">
-  <img src="{% static 'hunarbaaz/images/electrician.png' %}" alt="Product 1">
-    <h4>electrician<h4>
-</div>
-  <div class="image-container">
-  <img src="{% static 'hunarbaaz/images/plumber.webp' %}" alt="Product 2">
-    <h4>plumber<h4>
-</div>
-  <div class="image-container">
-  <img src="{% static 'hunarbaaz/images/paint.webp' %}" alt="Product 3">
-    <h4>painter</h4>
-</div>
-  <div class="image-container">
-  <img src="{% static 'hunarbaaz/images/labour.webp' %}" alt="Product 4">
-    <h4>Labour</h4>
-</div>
-  <div class="image-container">
-  <img src="{% static 'hunarbaaz/images/mistry.jpg' %}" alt="Product 1">
-    <h4>mistry</h4>
-</div></div></div>
+<div class="container-fluid py-5 bg-light" id="popular-cont">
+  <div class="text-center mb-5" id="popular-text">
+    <h2><strong>Popular Categories</strong></h2>
+  </div>
+  <div class="container">
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="card category-card h-100 text-center">
+          <div class="card-img-container">
+            <img src="{% static 'hunarbaaz/images/electrician.png' %}" class="card-img-top" alt="Electrician">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Electrician</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="card category-card h-100 text-center">
+          <div class="card-img-container">
+            <img src="{% static 'hunarbaaz/images/plumber.webp' %}" class="card-img-top" alt="Plumber">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Plumber</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="card category-card h-100 text-center">
+          <div class="card-img-container">
+            <img src="{% static 'hunarbaaz/images/paint.webp' %}" class="card-img-top" alt="Painter">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Painter</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="card category-card h-100 text-center">
+          <div class="card-img-container">
+            <img src="{% static 'hunarbaaz/images/labour.webp' %}" class="card-img-top" alt="Labour">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Labour</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="col-md-4 col-sm-6">
+        <div class="card category-card h-150 text-center">
+          <div class="card-img-container">
+            <img src="{% static 'hunarbaaz/images/mistry.jpg' %}" class="card-img-top" alt="Mistry">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Mistry</h5>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 col-sm-6">
+        <div class="card category-card h-150 text-center">
+          <div class="card-img-container">
+             {% if user.is_authenticated %}
 
-<div class="container-fluid" style="background-color: #d0d7ff;">
+          {% if user.clientprofile %}
+            <a href="{% url 'client:all_profiles' %}"><img src="{% static 'base/images/more categorirs.png' %}" class="card-img-top" alt="Labour">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">More Categories--></h5></a>
+            {% else %}
+             <a href="{% url 'client:all_profiles' %}"><img src="{% static 'base/images/more categorirs.png' %}" class="card-img-top" alt="Labour">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">More Categories--></h5></a>
+          {% endif %}
+            {% else %}
+            <a href="{% url 'login' %}"><img src="{% static 'base/images/more categorirs.png' %}" class="card-img-top" alt="Labour">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">More Categories--></h5></a>
+            
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid" style="background-color: #B6AD90">
   <div class="container"id="id3">
   
   <div class="id3-left">
@@ -98,7 +168,7 @@ Quickly browse through categories, filter by ratings, location, and pricing, and
 
 <!-- ✅ Counters -->
 <!-- ✅ Counters -->
-<section class="stats py-5 bg-primary text-white text-center">
+<section class="stats py-5 text-white text-center" id="stats">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 mb-3">
