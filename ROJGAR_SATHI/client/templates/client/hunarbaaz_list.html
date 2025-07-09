@@ -110,7 +110,13 @@
 <!-- Cards -->
 <div class="card-grid">
   {% for profile in profiles %}
+  {% if user.clientprofile%}
     <a href="{% url 'client:hunarbaaz_details' profile.id %}" style="text-decoration: none;">
+      {% elif user.Hunarbaaz %}
+      <h1>Access denied</h1>
+      {%else%}
+          <a href="{% url 'base:login'  %}" style="text-decoration: none;">
+{% endif %}
       <div class="profile-card position-relative">
 
         {% if profile.is_verified %}

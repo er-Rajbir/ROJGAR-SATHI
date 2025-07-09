@@ -1,21 +1,20 @@
 /* ========== Base ========== */
 body {
   background-color: white;
-  overflow-x: hidden;
+  
+}
+ ul{ 
+   z-index: 9999;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
 
 /* ========== Navbar ========== */
 .navbar {
-  height: 13vh;
+  
   background: linear-gradient(to top, #22333b, #335362);
   backdrop-filter: blur(10px);
   transition: background 0.3s ease-in-out;
-  margin-bottom: 0;
+  
 }
 
 .navbar-brand {
@@ -26,10 +25,15 @@ img {
 #navbarNav {
   background: none;
   width: 45px;
+  background: none;
+  width: auto;  /* Fix width from 45px to auto so links show */
+  z-index: 9999;  /* Ensure it's on top */
+  position: relative;
 }
 
 #navbar-cont {
   padding: 0 20px 0 40px;
+  z-index:999 ;
 }
 
 @media (max-width: 768px) {
@@ -39,12 +43,15 @@ img {
 }
 
 .navbar-collapse {
-  z-index: 1050;
+  
+  
+ z-index: 9999;
   background-color: #212529;
+  
 }
 
 .navbar-nav .nav-link {
-  position: relative;
+ 
   font-size: 18px;
   background: none;
   transition: color 0.3s ease;
@@ -63,15 +70,17 @@ img {
 
 .navbar-nav .nav-link:hover {
   color: rgb(255, 246, 220) !important;
+  transform: scale(1.09);
+
 }
 
 .navbar-nav .nav-link:hover::after {
   width: 100%;
-}
+} */
 
 /* ========== Carousel ========== */
-.hero-img {
-  height: 100vh;
+ .hero-img {
+  height: fit-content;
 }
 
 .carousel-caption {
@@ -99,7 +108,7 @@ img {
   .carousel-inner,
   .carousel-item img {
     height: 50vh !important;
-    object-fit: cover;
+    
   }
 
   #carousel-caption-bg {
@@ -114,7 +123,7 @@ img {
   #carousel-caption-bg p {
     font-size: 1rem;
   }
-}
+} */
 
 /* ========== Category Cards ========== */
 .category-card {

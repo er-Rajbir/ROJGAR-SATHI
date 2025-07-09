@@ -21,46 +21,48 @@
 <body>
 
 <!-- Navbar Starts -->
-<nav class="navbar navbar-expand-lg navbar-dark
-  shadow-lg">
+<!-- Navbar Starts -->
+<nav class="navbar navbar-expand-lg navbar-dark shadow-lg">
   <div class="container-fluid" id="navbar-cont">
-    <a class="navbar-brand fw-bold fs-4 "   href="{% url 'home' %}"><img src="{% static 'base/images/logo.png' %}" style="height: 70px; width: 80px;">Rozgaar Saathi</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">
+      <img src="{% static 'base/images/logo.png' %}" style="height: 70px; width: 80px;">
+      Rozgaar Saathi
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
-
         <li class="nav-item">
           <a class="nav-link" href="{% url 'home' %}">Home</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="{% url 'about' %}">About Us</a>
         </li>
         <li class="nav-item">
-<a href="{% url 'reviews:contact_review' %}" class="nav-link">Contact Us</a>
-
+          <a class="nav-link" href="{% url 'reviews:contact_review' %}">Contact Us</a>
+        </li>
 
         {% if user.is_authenticated %}
-
           {% if user.clientprofile %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'client:client_dashboard' %}">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'client:all_profiles' %}">Browse Hunarbaaz</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'client:client_dashboard' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'client:all_profiles' %}">Browse Hunarbaaz</a>
+            </li>
           {% elif user.hunarbaaz %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'hunarbaaz:hunarbaaz_dashboard' %}">Dashboard</a>
-          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'hunarbaaz:hunarbaaz_dashboard' %}">Dashboard</a>
+            </li>
           {% endif %}
 
           <li class="nav-item">
             <span class="nav-link text-success fw-bold">
-              Welcome, 
+              Welcome,
               {% if user.clientprofile %}
                 {{ user.clientprofile.full_name }}
               {% elif user.hunarbaaz %}
@@ -74,20 +76,22 @@
           <li class="nav-item">
             <form method="post" action="{% url 'logout' %}" class="d-inline">
               {% csrf_token %}
-              <button type="submit" class="btn nav-link ms-2">Logout</button>
+              <button type="submit" class="btn nav-link ms-2"><i class="bi bi-box-arrow-in-right"></i> Logout</button>
             </form>
           </li>
-
         {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}"><img src="{% static 'base/images/man.png' %}" style="width: 25px; height: 25px;">     Login / Register</a>
+            <a class="nav-link" href="{% url 'login' %}">
+              <i class="bi bi-person"></i> Login / Register
+            </a>
           </li>
         {% endif %}
-
-        </ul>
+      </ul>
     </div>
   </div>
 </nav>
+
+
 <!-- Navbar Ends -->
 
 
