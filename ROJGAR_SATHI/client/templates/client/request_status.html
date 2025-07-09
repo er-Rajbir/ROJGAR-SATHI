@@ -1,78 +1,78 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="container mt-4">
-  <h2 class="text-primary mb-4">My Work Requests</h2>
+  <div class="container mt-4">
+    <h2 class="text-primary mb-4">My Work Requests</h2>
 
-  <!-- Filter Buttons -->
-  <div class="mb-4 text-center">
-    <a href="?status=all" class="btn btn-outline-primary {% if filter_by == 'all' %}active{% endif %}">All</a>
-    <a href="?status=pending" class="btn btn-outline-warning {% if filter_by == 'pending' %}active{% endif %}">Pending</a>
-    <a href="?status=accepted" class="btn btn-outline-success {% if filter_by == 'accepted' %}active{% endif %}">Accepted</a>
-    <a href="?status=rejected" class="btn btn-outline-danger {% if filter_by == 'rejected' %}active{% endif %}">Rejected</a>
-    <a href="?status=cancelled" class="btn btn-outline-secondary {% if filter_by == 'cancelled' %}active{% endif %}">Cancelled</a>
+    <!-- Filter Buttons -->
+    <div class="mb-4 text-center">
+      <a href="?status=all" class="btn btn-outline-primary {% if filter_by == 'all' %}active{% endif %}">All</a>
+      <a href="?status=pending" class="btn btn-outline-warning {% if filter_by == 'pending' %}active{% endif %}">Pending</a>
+      <a href="?status=accepted" class="btn btn-outline-success {% if filter_by == 'accepted' %}active{% endif %}">Accepted</a>
+      <a href="?status=rejected" class="btn btn-outline-danger {% if filter_by == 'rejected' %}active{% endif %}">Rejected</a>
+      <a href="?status=cancelled" class="btn btn-outline-secondary {% if filter_by == 'cancelled' %}active{% endif %}">Cancelled</a>
+    </div>
+
+    {% if requests %}
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Hunarbaaz</th>
+              <th>Description</th>
+              <th>Location</th>
+              <th>Start - End Date</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for request in requests %}
+              <tr>
+                <td>{{ request.hunarbaaz.full_name }}</td>
+                <td>{{ request.job_description|truncatewords:12 }}</td>
+                <td>{{ request.location }}</td>
+                <td>{{ request.start_date }} - {{ request.end_date }}</td>
+
+                <!-- Status -->
+                <td>
+                  {% if request.is_cancelled %}
+                    <span class="badge bg-secondary">Cancelled</span>
+                  {% elif request.is_completed %}
+                    <span class="badge bg-dark">Completed</span>
+                  {% elif request.is_accepted == True %}
+                    <span class="badge bg-success">Accepted</span>
+                  {% elif request.is_accepted == False %}
+                    <span class="badge bg-danger">Rejected</span>
+                  {% else %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                  {% endif %}
+                </td>
+
+                <!-- Actions -->
+                <td>
+                  {% if request.is_cancelled or request.is_completed %}
+                    <span class="text-muted">No actions</span>
+                  {% elif request.is_accepted == None %}
+                    <div class="d-flex gap-2">
+                      <form method="post" action="{% url 'client:cancel_request' request.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                      </form>
+                      <a href="{% url 'client:reschedule_request' request.id %}" class="btn btn-sm btn-outline-secondary">Reschedule</a>
+                    </div>
+                  {% elif request.is_accepted == True and not request.is_completed %}
+                    <a href="{% url 'client:mark_completed' request.id %}" class="btn btn-sm btn-outline-success">Mark as Completed</a>
+                  {% else %}
+                    <span class="text-muted">No actions</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="text-muted text-center">No {{ filter_by }} requests found.</p>
+    {% endif %}
   </div>
-
-  {% if requests %}
-  <div class="table-responsive">
-    <table class="table table-bordered table-hover align-middle">
-      <thead class="table-light">
-        <tr>
-          <th>Hunarbaaz</th>
-          <th>Description</th>
-          <th>Location</th>
-          <th>Start - End Date</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for request in requests %}
-        <tr>
-          <td>{{ request.hunarbaaz.full_name }}</td>
-          <td>{{ request.job_description|truncatewords:12 }}</td>
-          <td>{{ request.location }}</td>
-          <td>{{ request.start_date }} - {{ request.end_date }}</td>
-
-          <!-- Status -->
-          <td>
-            {% if request.is_cancelled %}
-              <span class="badge bg-secondary">Cancelled</span>
-            {% elif request.is_completed %}
-              <span class="badge bg-dark">Completed</span>
-            {% elif request.is_accepted == True %}
-              <span class="badge bg-success">Accepted</span>
-            {% elif request.is_accepted == False %}
-              <span class="badge bg-danger">Rejected</span>
-            {% else %}
-              <span class="badge bg-warning text-dark">Pending</span>
-            {% endif %}
-          </td>
-
-          <!-- Actions -->
-          <td>
-            {% if request.is_cancelled or request.is_completed %}
-              <span class="text-muted">No actions</span>
-            {% elif request.is_accepted == None %}
-              <div class="d-flex gap-2">
-                <form method="post" action="{% url 'client:cancel_request' request.id %}">
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
-                </form>
-                <a href="{% url 'client:reschedule_request' request.id %}" class="btn btn-sm btn-outline-secondary">Reschedule</a>
-              </div>
-            {% elif request.is_accepted == True and not request.is_completed %}
-              <a href="{% url 'client:mark_completed' request.id %}" class="btn btn-sm btn-outline-success">Mark as Completed</a>
-            {% else %}
-              <span class="text-muted">No actions</span>
-            {% endif %}
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% else %}
-    <p class="text-muted text-center">No {{ filter_by }} requests found.</p>
-  {% endif %}
-</div>
 {% endblock %}

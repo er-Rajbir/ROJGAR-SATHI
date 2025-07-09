@@ -1,53 +1,54 @@
 {% extends 'base/base.html' %}
 {% block content %}
+  <div class="container mt-4">
+    <h3 class="mb-4 text-center text-primary">Client Work Requests</h3>
 
-<div class="container mt-4">
-  <h3 class="mb-4 text-center text-primary">Client Work Requests</h3>
+    {% if client_requests %}
+      <div class="row">
+        {% for req in client_requests %}
+          <div class="col-md-6">
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title text-info">From: {{ req.client.username }}</h5>
+                <p>
+                  <strong>Description:</strong> {{ req.job_description }}
+                </p>
+                <p>
+                  <strong>Location:</strong> {{ req.location }}
+                </p>
+                <p>
+                  <strong>Scheduled:</strong> {{ req.scheduled_date }}
+                </p>
 
-  {% if client_requests %}
-    <div class="row">
-      {% for req in client_requests %}
-        <div class="col-md-6">
-          <div class="card mb-3 shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title text-info">From: {{ req.client.username }}</h5>
-              <p><strong>Description:</strong> {{ req.job_description }}</p>
-              <p><strong>Location:</strong> {{ req.location }}</p>
-              <p><strong>Scheduled:</strong> {{ req.scheduled_date }}</p>
+                <p>
+                  <strong>Status:</strong>
+                  {% if req.is_accepted == True %}
+                    <span class="badge bg-success">Accepted</span>
+                  {% elif req.is_accepted == False %}
+                    <span class="badge bg-danger">Rejected</span>
+                  {% else %}
+                    <span class="badge bg-warning text-dark">Pending</span>
+                  {% endif %}
+                </p>
 
-              <p><strong>Status:</strong>
-                {% if req.is_accepted == True %}
-                  <span class="badge bg-success">Accepted</span>
-                {% elif req.is_accepted == False %}
-                  <span class="badge bg-danger">Rejected</span>
-                {% else %}
-                  <span class="badge bg-warning text-dark">Pending</span>
+                {% if req.is_accepted is None %}
+                  <a href="{% url 'hunarbaaz:accept_request' req.id %}" class="btn btn-success btn-sm">Accept</a>
+                  <a href="{% url 'hunarbaaz:reject_request' req.id %}" class="btn btn-danger btn-sm">Reject</a>
                 {% endif %}
-              </p>
-
-              {% if req.is_accepted is None %}
-                <a href="{% url 'hunarbaaz:accept_request' req.id %}" class="btn btn-success btn-sm">Accept</a>
-                <a href="{% url 'hunarbaaz:reject_request' req.id %}" class="btn btn-danger btn-sm">Reject</a>
-              {% endif %}
-              {% if req.is_accepted %}
-  {% if not req.is_completed %}
-    <a href="{% url 'hunarbaaz:mark_completed' req.id %}" class="btn btn-sm btn-outline-success">Mark as Completed</a>
-  {% else %}
-    <span class="badge bg-secondary">Completed</span>
-  {% endif %}
-{% endif %}
+                {% if req.is_accepted %}
+                  {% if not req.is_completed %}
+                    <a href="{% url 'hunarbaaz:mark_completed' req.id %}" class="btn btn-sm btn-outline-success">Mark as Completed</a>
+                  {% else %}
+                    <span class="badge bg-secondary">Completed</span>
+                  {% endif %}
+                {% endif %}
+              </div>
             </div>
           </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <div class="alert alert-info text-center">
-      No work requests received yet.
-    </div>
-  {% endif %}
-  
-
-</div>
-
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info text-center">No work requests received yet.</div>
+    {% endif %}
+  </div>
 {% endblock %}

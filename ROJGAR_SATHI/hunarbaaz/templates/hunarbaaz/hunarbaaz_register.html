@@ -105,8 +105,10 @@
                   {% endif %}
                 </div>
               {% endfor %}
-
-              <button type="submit" class="btn btn-gradient w-100 mt-3 py-2">🚀 Register Now</button>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success mx-4">Register Now</button>
+                <button type="reset" class="btn btn-danger mx-4 px-4">Reset</button>
+              </div>
             </form>
           </div>
         </div>
@@ -114,38 +116,37 @@
     </div>
   </div>
   <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const skillSelect = document.getElementById("id_skill");
-  const locationSelect = document.getElementById("id_location");
-
-  const otherSkillField = document.getElementById("field-other_skill");
-  const otherLocationField = document.getElementById("field-other_location");
-
-  function toggleOtherSkill() {
-    if (skillSelect.value === "Others") {
-      otherSkillField.style.display = "block";
-    } else {
-      otherSkillField.style.display = "none";
-      document.getElementById("id_other_skill").value = "";
-    }
-  }
-
-  function toggleOtherLocation() {
-    if (locationSelect.value === "other") {
-      otherLocationField.style.display = "block";
-    } else {
-      otherLocationField.style.display = "none";
-      document.getElementById("id_other_location").value = "";
-    }
-  }
-
-  skillSelect.addEventListener("change", toggleOtherSkill);
-  locationSelect.addEventListener("change", toggleOtherLocation);
-
-  // Run once on load in case form is pre-filled
-  toggleOtherSkill();
-  toggleOtherLocation();
-});
-</script>
-
+    document.addEventListener('DOMContentLoaded', function () {
+      const skillSelect = document.getElementById('id_skill')
+      const locationSelect = document.getElementById('id_location')
+    
+      const otherSkillField = document.getElementById('field-other_skill')
+      const otherLocationField = document.getElementById('field-other_location')
+    
+      function toggleOtherSkill() {
+        if (skillSelect.value === 'Others') {
+          otherSkillField.style.display = 'block'
+        } else {
+          otherSkillField.style.display = 'none'
+          document.getElementById('id_other_skill').value = ''
+        }
+      }
+    
+      function toggleOtherLocation() {
+        if (locationSelect.value === 'other') {
+          otherLocationField.style.display = 'block'
+        } else {
+          otherLocationField.style.display = 'none'
+          document.getElementById('id_other_location').value = ''
+        }
+      }
+    
+      skillSelect.addEventListener('change', toggleOtherSkill)
+      locationSelect.addEventListener('change', toggleOtherLocation)
+    
+      // Run once on load in case form is pre-filled
+      toggleOtherSkill()
+      toggleOtherLocation()
+    })
+  </script>
 {% endblock %}

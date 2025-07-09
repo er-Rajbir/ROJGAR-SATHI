@@ -2,105 +2,103 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-4">
+  <div class="container mt-4">
+    <!-- Greeting Section -->
+    <div class="card bg-light mb-4">
+      <div class="card-body text-center">
+        {% if name %}
+          <h2>Welcome, {{ name }}</h2>
 
-  <!-- Greeting Section -->
-  <div class="card bg-light mb-4">
-    <div class="card-body text-center">
-      {% if name %}
-        <h2>Welcome, {{ name }}</h2>
-        
-        {% if profile_pic %}
-          <img src="{{ profile_pic }}" class="img-thumbnail mb-3" width="150" alt="Profile Picture">
-        {% endif %}
-
-        <p class="text-muted">{{ location }} | {{ skills|join:", " }}</p>
-        <p>
-          {% if aadhaar_verified %}
-            <span class="badge bg-success">✅ Verified</span>
-          {% else %}
-            <span class="badge bg-warning text-dark">⚠ Aadhaar Not Verified</span>
+          {% if profile_pic %}
+            <img src="{{ profile_pic }}" class="img-thumbnail mb-3" width="150" alt="Profile Picture" />
           {% endif %}
-        </p>
 
-        {% if skills.0 == "Not Set" %}
-          <div class="alert alert-warning mt-3" role="alert">
-            Please <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link">complete your profile</a> to get started.
+          <p class="text-muted">{{ location }} | {{ skills|join:', ' }}</p>
+          <p>
+            {% if aadhaar_verified %}
+              <span class="badge bg-success">✅ Verified</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">⚠ Aadhaar Not Verified</span>
+            {% endif %}
+          </p>
+
+          {% if skills.0 == 'Not Set' %}
+            <div class="alert alert-warning mt-3" role="alert">
+              Please <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link">complete your profile</a> to get started.
+            </div>
+          {% endif %}
+        {% else %}
+          <h2>Welcome to Your Dashboard!</h2>
+          <div class="alert alert-info mt-3" role="alert">
+            Looks like you haven't completed your profile yet. <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link">Click here to edit your profile</a>.
           </div>
         {% endif %}
-      {% else %}
-        <h2>Welcome to Your Dashboard!</h2>
-        <div class="alert alert-info mt-3" role="alert">
-          Looks like you haven't completed your profile yet. <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link">Click here to edit your profile</a>.
-        </div>
-      {% endif %}
+      </div>
     </div>
-  </div>
 
-  <!-- Quick Stats -->
-  <div class="row text-center mb-4">
-    <div class="col-md-3">
-      <div class="card bg-primary text-white">
-        <div class="card-body">
-          <h4>{{ ongoing_jobs }}</h4>
-          <p>Ongoing Jobs</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card bg-warning text-dark">
-        <div class="card-body">
-          <h4>{{ pending_requests }}</h4>
-          <p>Pending Requests</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card bg-success text-white">
-        <div class="card-body">
-          <h4>{{ completed_jobs }}</h4>
-          <p>Completed Jobs</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="card bg-info text-white">
-        <div class="card-body">
-          <h4>{{ rating }}/5 ⭐</h4>
-          <p>Average Rating</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Quick Links -->
-  <div class="row mb-4 text-center">
-    <div class="col">
-      <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-outline-primary m-2">✏ Edit Profile</a>
-      <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-outline-warning m-2">📥 View Requests</a>
-      <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-outline-success m-2">📜 Work History</a>
-    </div>
-  </div>
-
-  <!-- Recent Reviews -->
-  <h4 class="mb-3">Recent Reviews</h4>
-  <div class="row">
-    {% for review in recent_reviews %}
-      <div class="col-md-6">
-        <div class="card mb-3 shadow-sm">
+    <!-- Quick Stats -->
+    <div class="row text-center mb-4">
+      <div class="col-md-3">
+        <div class="card bg-primary text-white">
           <div class="card-body">
-            <p class="mb-1"><strong>{{ review.client }}</strong></p>
-            <p class="text-muted">"{{ review.text }}"</p>
+            <h4>{{ ongoing_jobs }}</h4>
+            <p>Ongoing Jobs</p>
           </div>
         </div>
       </div>
-    {% empty %}
-      <p class="text-muted">No reviews yet.</p>
-    {% endfor %}
+      <div class="col-md-3">
+        <div class="card bg-warning text-dark">
+          <div class="card-body">
+            <h4>{{ pending_requests }}</h4>
+            <p>Pending Requests</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <h4>{{ completed_jobs }}</h4>
+            <p>Completed Jobs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card bg-info text-white">
+          <div class="card-body">
+            <h4>{{ rating }}/5 ⭐</h4>
+            <p>Average Rating</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="row mb-4 text-center">
+      <div class="col">
+        <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-outline-primary m-2">✏ Edit Profile</a>
+        <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-outline-warning m-2">📥 View Requests</a>
+        <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-outline-success m-2">📜 Work History</a>
+      </div>
+    </div>
+
+    <!-- Recent Reviews -->
+    <h4 class="mb-3">Recent Reviews</h4>
+    <div class="row">
+      {% for review in recent_reviews %}
+        <div class="col-md-6">
+          <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+              <p class="mb-1">
+                <strong>{{ review.client }}</strong>
+              </p>
+              <p class="text-muted">"{{ review.text }}"</p>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-muted">No reviews yet.</p>
+      {% endfor %}
+    </div>
+    <!-- Client Requests Section -->
   </div>
-  <!-- Client Requests Section -->
-
-
-
-</div>
 {% endblock %}

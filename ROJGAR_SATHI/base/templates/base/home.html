@@ -30,28 +30,66 @@
   </div>
 </div></div>
 
-<!-- ✅ Looking for Experienced Hunarbaaz Section -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-<div class="container-fluid my-5 px-0 " style="background: linear-gradient(to right,rgb(141, 188, 149),rgb(90, 122, 102));">
-  
-    <div class="row align-items-center">
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row text-center align-items-center justify-content-between">
 
-      <!-- Left: Text + Button -->
-      <div class="col-md-6 px-5" data-aos="fade-right">
-        <h1 class="fw-bold mb-3 text-primary">Looking for Experienced Hunarbaaz?</h1>
-        <p class="lead mb-4">Connect with <strong>verified professionals</strong> across Punjab. Get your work done by skilled hands today!</p>
-        <a href="{% url 'client:all_profiles' %}" class="btn btn-outline-primary btn-lg px-4 py-2 rounded-pill shadow-sm">
-          <i class="fas fa-users me-2"></i>Browse Hunarbaaz
-        </a>
+      <!-- Mission -->
+      <div class="col-md-4 d-flex align-items-center mb-4 mb-md-0">
+        <div class="bg-danger bg-opacity-10 rounded-3 p-3 me-3">
+          <i class="bi bi-compass-fill fs-1 text-danger"></i>
+        </div>
+        <div class="text-start">
+          <h5 class="mb-1 fw-bold">Our Mission</h5>
+          <p class="mb-0 text-muted">Connecting People with Trusted Professionals</p>
+        </div>
       </div>
 
-      <!-- Right: Image -->
-      <div class="col-md-6 py-0 " data-aos="fade-left">
-        <img src="{% static 'base/images/collage workers.png' %}" alt="Hunarbaaz Professionals" class="img-fluid  shadow" style=" padding-right:0%; margin-right:0% !important ; height:500px; width:100%">
+      <!-- Commitment -->
+      <div class="col-md-4 d-flex align-items-center mb-4 mb-md-0">
+        <div class="bg-danger bg-opacity-10 rounded-3 p-3 me-3">
+          <i class="bi bi-bullseye fs-1 text-danger"></i>
+        </div>
+        <div class="text-start">
+          <h5 class="mb-1 fw-bold">Our Commitment</h5>
+          <p class="mb-0 text-muted">Quality, Affordability, and Trust</p>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="col-md-4 d-flex align-items-center">
+        <div class="bg-danger bg-opacity-10 rounded-3 p-3 me-3">
+          <i class="bi bi-briefcase fs-1 text-danger"></i>
+        </div>
+        <div class="text-start">
+          <h5 class="mb-1 fw-bold">Our Services</h5>
+          <p class="mb-0 text-muted">A Wide Range of Solutions at Your Fingertips</p>
+        </div>
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ✅ Looking for Experienced Hunarbaaz Section -->
+<div class="container-fluid my-0 px-0 gradient-section shadow-lg">
+  <div class="row align-items-center ">
+    
+    <!-- Left: Text + Button -->
+    <div class="col-md-6 px-5 py-3" data-aos="fade-right">
+      <h1 class="fw-bold mb-3 text-light">Looking for Experienced Hunarbaaz?</h1>
+      <p class="lead mb-4 text-white">Connect with <strong>verified professionals</strong> across Punjab. Get your work done by skilled hands today!</p>
+      <a href="{% url 'client:all_profiles' %}" class="btn btn-light btn-lg px-4 py-2 rounded-pill shadow">
+        <i class="fas fa-users me-2"></i> Browse Hunarbaaz
+      </a>
+    </div>
+
+    <!-- Right: Image with Fade -->
+    <div class="col-md-6" data-aos="fade-left">
+      <img src="{% static 'base/images/collage workers.png' %}" alt="Hunarbaaz Professionals" class="img-fluid fading-image">
+    </div>
+
   </div>
 </div>
 
@@ -155,26 +193,33 @@
 
 
 
-<div class="container-fluid" style="background-color: #B6AD90">
-  <div class="container"id="id3">
-  
-  <div class="id3-left">
-    <div id="id3-content"><h3><i class="fas fa-award me-2 text-light"></i>Wide Range of Services</h3>
-    <p style="padding-left: 20px;">All Your Work-Related Needs in One Place
-From household tasks to large projects, find skilled professionals for all your service needs in one platform.</p></div>
-    <div id="id3-content"><h3><i class="fas fa-award me-2 text-light"></i>Verified Professionals</h3>
-      <p style="padding-left: 20px;">Trustworthy and Skilled Experts
-Every vendor and laborer is thoroughly verified, ensuring that you get qualified, reliable professionals for the job.</p>
-    </div>
-    <div id="id3-content"><h3><i class="fas fa-award me-2 text-light"></i>Easy and efficent Search</h3>
-      <p style="padding-left: 20px;">Find the Right Help Quickly
-Quickly browse through categories, filter by ratings, location, and pricing, and connect with the right professional.</p>
-    </div>
-  </div>
-  <div class="id3-center"><img src="{% static 'base/images/rs_7.jpg' %}" style="border-radius:50px;width:100%;"></div>
-  </div>
+<div class="container-fluid py-5" style="background-color: #B6AD90;">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <!-- Left Column: Content -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="feature-box mb-4">
+          <h3><i class="fas fa-award me-2 text-light"></i> Wide Range of Services</h3>
+          <p>All Your Work-Related Needs in One Place. From household tasks to large projects, find skilled professionals for all your service needs on one platform.</p>
+        </div>
+        <div class="feature-box mb-4">
+          <h3><i class="fas fa-award me-2 text-light"></i> Verified Professionals</h3>
+          <p>Trustworthy and Skilled Experts. Every vendor and laborer is thoroughly verified, ensuring that you get qualified, reliable professionals for the job.</p>
+        </div>
+        <div class="feature-box">
+          <h3><i class="fas fa-award me-2 text-light"></i> Easy and Efficient Search</h3>
+          <p>Quickly browse through categories, filter by ratings, location, and pricing, and connect with the right professional.</p>
+        </div>
+      </div>
 
+      <!-- Right Column: Image -->
+      <div class="col-lg-6 text-center">
+        <img src="{% static 'base/images/rs_7.jpg' %}" class="img-fluid rounded-4" style="height:500px; width:600px;"alt="Rozgaar Services">
+      </div>
+    </div>
+  </div>
 </div>
+
 <!-- ✅ Counters -->
 <!-- ✅ Counters -->
 <section class="stats py-5 text-white text-center" id="stats">
@@ -200,8 +245,8 @@ Quickly browse through categories, filter by ratings, location, and pricing, and
 
 
 
-<section class="reviews py-5 bg-light">
-  <div class="container">
+<section class="reviews py-5  bg-light">
+  <div class="container mb-5">
     <h2 class="text-center mb-4">What People Say</h2>
     <div class="row g-4">
       {% for r in reviews %}
