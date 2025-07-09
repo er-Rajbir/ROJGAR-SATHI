@@ -11,7 +11,7 @@ body {
 /* ========== Navbar ========== */
 .navbar {
   
-  background: linear-gradient(to top, #22333b, #335362);
+  background: linear-gradient(to top, #355c6d, #135d7f);
   backdrop-filter: blur(10px);
   transition: background 0.3s ease-in-out;
   

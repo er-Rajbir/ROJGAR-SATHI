@@ -4,37 +4,62 @@
 {% block content %}
   <div class="container mt-4">
     <!-- Greeting Section -->
-    <div class="card bg-light mb-4">
-      <div class="card-body text-center">
+<div class="card mb-4 shadow-sm border-0" style="background: linear-gradient(to right, #f3f4f6, #ffffff); border-radius: 20px;">
+  <div class="card-body p-4">
+    <div class="row align-items-center">
+      
+      <!-- Profile Picture Left -->
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        {% if profile_pic %}
+          <img src="{{ profile_pic }}" class="rounded-circle shadow" 
+               style="height: 150px; width: 150px; object-fit: cover; border: 4px solid #6c757d;">
+        {% else %}
+          <div class="bg-secondary rounded-circle d-inline-block" 
+               style="height: 150px; width: 150px;"></div>
+        {% endif %}
+      </div>
+
+      <!-- Details Right -->
+      <div class="col-md-8">
         {% if name %}
-          <h2>Welcome, {{ name }}</h2>
+          <h2 class="fw-bold text-dark mb-2">Welcome, {{ name }}</h2>
 
-          {% if profile_pic %}
-            <img src="{{ profile_pic }}" class="img-thumbnail mb-3" width="150" alt="Profile Picture" />
-          {% endif %}
+          <div class="mb-2">
+            <span class="badge bg-dark me-2"><i class="bi bi-geo-alt"></i> {{ location }}</span>
+            {% for skill in skills %}
+              {% if skill != 'Not Set' %}
+                <span class="badge bg-secondary me-1">{{ skill }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
 
-          <p class="text-muted">{{ location }} | {{ skills|join:', ' }}</p>
-          <p>
+          <p class="mt-2">
             {% if aadhaar_verified %}
-              <span class="badge bg-success">✅ Verified</span>
+              <span class="badge bg-success px-3 py-2">✅ Aadhaar Verified</span>
             {% else %}
-              <span class="badge bg-warning text-dark">⚠ Aadhaar Not Verified</span>
+              <span class="badge bg-warning text-dark px-3 py-2">⚠ Aadhaar Not Verified</span>
             {% endif %}
           </p>
 
           {% if skills.0 == 'Not Set' %}
             <div class="alert alert-warning mt-3" role="alert">
-              Please <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link">complete your profile</a> to get started.
+              Please <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link fw-bold">complete your profile</a> to get started.
             </div>
           {% endif %}
+        
         {% else %}
-          <h2>Welcome to Your Dashboard!</h2>
+          <h2 class="text-dark">Welcome to Your Dashboard!</h2>
           <div class="alert alert-info mt-3" role="alert">
-            Looks like you haven't completed your profile yet. <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link">Click here to edit your profile</a>.
+            Looks like you haven't completed your profile yet.
+            <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link fw-bold">Click here to edit your profile</a>.
           </div>
         {% endif %}
       </div>
     </div>
+  </div>
+</div>
+
+
 
     <!-- Quick Stats -->
     <div class="row text-center mb-4">
