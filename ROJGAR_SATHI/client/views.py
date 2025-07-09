@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404,HttpResponse
 from django.utils import timezone
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404
 from datetime import timedelta
 from .models import ClientProfile,Hunarbaaz, PostRequest
 from django.contrib.auth.decorators import login_required
@@ -135,6 +135,9 @@ def hunarbaaz_list(request):
 @login_required
 def hunarbaaz_detail_view(request, id):
     profile = get_object_or_404(Hunarbaaz, id=id)
+    if hasattr(request.user, 'hunarbaaz'):
+        raise Http404("Page not found")  # ❌ Don't allow Hunarbaaz to access
+    
     return render(request, 'client/hunarbaaz_details.html', {'profile': profile})
 
 

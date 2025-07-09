@@ -6,29 +6,34 @@
 
 <!-- ✅ Hero Carousel -->
  
-<div id="heroCarousel" class="carousel slide "style="height:89vh;" data-bs-pause="false" data-bs-ride="carousel">
-  <div class="carousel-inner "style="height:89vh;" >
-    <div class="carousel-item active"style="height:89vh;">
-      <img src="{% static 'hunarbaaz/images/main1.jpg' %}" class="d-block w-100"style="height:89vh;" alt="...">
+<!-- Hero Carousel -->
+<div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-pause="false">
+  <div class="carousel-inner" style="height: 89vh;">
+    <div class="carousel-item active">
+      <img src="{% static 'hunarbaaz/images/main1.jpg' %}" class="d-block w-100" style="height: 89vh; object-fit: cover;" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'hunarbaaz/images/main2.jpg' %}" class="d-block w-100"style="height:89vh;" alt="...">
+      <img src="{% static 'hunarbaaz/images/main2.jpg' %}" class="d-block w-100" style="height: 89vh; object-fit: cover;" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'base/images/WhatsApp Image 2025-07-08 at 19.09.50_9331c5d9.jpg' %}" class="d-block w-100" style="height:89vh;"alt="...">
+      <img src="{% static 'base/images/WhatsApp Image 2025-07-08 at 19.09.50_9331c5d9.jpg' %}" class="d-block w-100" style="height: 89vh; object-fit: cover;" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'hunarbaaz/images/electrician.png' %}" class="d-block w-100"style="height:89vh;" alt="...">
+      <img src="{% static 'hunarbaaz/images/electrician.png' %}" class="d-block w-100" style="height: 89vh; object-fit: cover;" alt="...">
     </div>
     <div class="carousel-item">
-      <img src="{% static 'hunarbaaz/images/pop.jpg' %}" class="d-block w-100" style="height:89vh;"alt="...">
+      <img src="{% static 'hunarbaaz/images/pop.jpg' %}" class="d-block w-100" style="height: 89vh; object-fit: cover;" alt="...">
     </div>
-  
-  <div id="carousel-caption-bg">
-    <h1 class=""><b>Welcome to Rozgaar Saathi</b></h1>
-    <p class=""><b>Connecting Clients with Skilled Hunarbaaz Across Punjab</b></p>
   </div>
-</div></div>
+
+  <!-- Caption Over Carousel -->
+  <div id="carousel-caption-bg"
+       style="position: absolute; top: 0; left: 0; width: 100%; ; background-color: rgba(0, 0, 0, 0.5); z-index: 2; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;">
+    <h1><b>Welcome to Rozgaar Saathi</b></h1>
+    <p><b>Connecting Clients with Skilled Hunarbaaz Across Punjab</b></p>
+  </div>
+</div>
+
 
 
 <section class="py-5 bg-light">
