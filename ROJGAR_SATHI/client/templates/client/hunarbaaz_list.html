@@ -112,8 +112,8 @@
   {% for profile in profiles %}
   {% if user.clientprofile%}
     <a href="{% url 'client:hunarbaaz_details' profile.id %}" style="text-decoration: none;">
-      {% elif user.Hunarbaaz %}
-      <h1>Access denied</h1>
+      {% elif user.hunarbaaz %}
+      <a href="{% url 'base:access_denied' %}" style="text-decoration: none;">
       {%else%}
           <a href="{% url 'base:login'  %}" style="text-decoration: none;">
 {% endif %}
