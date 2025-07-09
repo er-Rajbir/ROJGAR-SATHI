@@ -43,6 +43,7 @@ class Hunarbaaz(models.Model):
     location = models.CharField(max_length=100, choices=locations)
     experience = models.PositiveIntegerField(help_text="Years of experience")
     aadhaar_number = models.CharField(max_length=12,unique=True,validators=[aadhaar_validator])
+    wages = models.PositiveIntegerField(help_text="required pay for 8 hours" ,blank=False,null=False, default=False)
     profile_pic = models.ImageField(upload_to='hunarbaaz/profile_pics/', null=True, blank=True)
     work_sample = models.ImageField(upload_to='hunarbaaz/work_samples/', null=True, blank=True)
     is_verified = models.BooleanField(default=False)

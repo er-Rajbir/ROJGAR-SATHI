@@ -14,7 +14,7 @@ class HunarbaazProfileForm(forms.ModelForm):
     other_location = forms.CharField(required=False, label='Other Location')
     class Meta:
         model = Hunarbaaz
-        fields = ['full_name', 'mobile', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample']
+        fields = ['full_name', 'mobile', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample','wages']
         def clean_skill(self):
             skill = self.cleaned_data.get('skill')
             if not skill:
@@ -25,3 +25,4 @@ class HunarbaazProfileForm(forms.ModelForm):
             if not aadhaar.isdigit() or len(aadhaar) != 12:
                 raise forms.ValidationError("Aadhaar must be exactly 12 numeric digits.")
             return aadhaar
+        

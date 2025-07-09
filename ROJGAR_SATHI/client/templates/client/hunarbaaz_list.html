@@ -75,6 +75,28 @@
     color: #444;
     font-size: 1rem;
   }
+ 
+    .profile-card {
+  position: relative; /* ✅ required for absolute badge */
+}
+
+.verified-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #4caf50;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.verified-badge.unverified {
+  background: #f44336;
+}
+
 
   @media (max-width: 768px) {
     .profile-card {
@@ -112,6 +134,12 @@
           <p><strong>Skill:</strong> {{ profile.skill }}</p>
           <p><strong>Location:</strong> {{ profile.location }}</p>
           <p><strong>Experience:</strong> {{ profile.experience }} Years</p>
+          {% if profile.is_verified %}
+  <div class="verified-badge">Verified</div>
+{% else %}
+  <div class="verified-badge unverified">Not Verified</div>
+{% endif %}
+
         </div>
       </div>
     </a>

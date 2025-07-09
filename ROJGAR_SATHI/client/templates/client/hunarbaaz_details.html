@@ -116,9 +116,14 @@
       <p>
         <strong>Experience:</strong> {{ profile.experience }} years
       </p>
+      
       <p>
         <strong>Aadhaar No:</strong> {{ profile.aadhaar_number }}
       </p>
+      <p>
+        <strong>Want</strong> {{ profile.wages }} for 8hours
+      </p>
+
 
       {% if profile.work_sample %}
         <div class="work-sample">
@@ -128,6 +133,7 @@
       {% endif %}
       <a href="{% url 'client:create_request' %}?hunarbaaz_id={{ profile.id }}" class="btn btn-success" style="margin-top: 15px;">📩 Hire Hunarbaaz</a>
       {% comment %} <a href="{% url 'hunarbaaz:work_history' hunarbaaz.id %}" class="btn btn-outline-info btn-sm">View Work History</a> {% endcomment %}
+      <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-success" style="margin-top: 15px;">Work history </a>
 
       <a href="{% url 'client:all_profiles' %}" class="back-btn">← Back to All Profiles</a>
     </div>
