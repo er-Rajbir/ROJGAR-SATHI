@@ -1,10 +1,8 @@
-from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
-from django.shortcuts import render
-from .models import Hunarbaaz
 from django.http import HttpResponseForbidden
 
 
@@ -73,7 +71,7 @@ def edit_profile(request):
     user = request.user
 
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=user)
+        user_form = HunarbaazUserForm(request.POST, instance=user)
         profile_form = HunarbaazProfileForm(request.POST, request.FILES, instance=hunarbaaz)
 
         if user_form.is_valid() and profile_form.is_valid():
