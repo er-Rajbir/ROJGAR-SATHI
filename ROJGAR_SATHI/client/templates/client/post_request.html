@@ -1,11 +1,46 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="container mt-4">
-    <h3>Post Work Request</h3>
+<div class="container mt-5 mb-5 p-4 bg-light rounded shadow-sm" style="max-width: 700px;">
+    <h3 class="text-center mb-4 text-primary">Post Work Request</h3>
+    
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Send Request</button>
+        
+        <div class="mb-3">
+            {{ form.hunarbaaz.label_tag }}  
+            {{ form.hunarbaaz }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.location.label_tag }}
+            {{ form.location }}
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {{ form.start_date.label_tag }}
+                {{ form.start_date }}
+            </div>
+            <div class="col-md-6 mb-3">
+                {{ form.end_date.label_tag }}
+                {{ form.end_date }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form.job_type.label_tag }}
+            {{ form.job_type }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.job_description.label_tag }}  
+            {{ form.job_description }}
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success px-4">Send Request</button>
+            <button type="reset" class="btn btn-secondary px-4">Reset</button>
+        </div>
     </form>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import ClientProfile, PostRequest
+from .models import ClientProfile, PostRequest, Hunarbaaz
 
 class ClientRegisterForm(forms.ModelForm):
     username = forms.CharField()
@@ -26,24 +26,53 @@ class UserUpdateForm(forms.ModelForm):
 class PostRequestForm(forms.ModelForm):
     class Meta:
         model = PostRequest
-        fields = ['hunarbaaz', 'job_description', 'location', 'scheduled_date']
+        fields = [
+            'hunarbaaz',
+            'location',
+            'start_date',
+            'end_date',
+            'job_type',
+            'job_description',
+        ]
         widgets = {
-            'scheduled_date': forms.DateInput(attrs={'type': 'date'}),
-            'job_description': forms.Textarea(attrs={'rows': 4}),
+            'hunarbaaz': forms.Select(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'job_type': forms.Select(attrs={'class': 'form-control'}),
+            'job_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
         }
 
     def __init__(self, *args, **kwargs):
         super(PostRequestForm, self).__init__(*args, **kwargs)
-        if self.initial.get('hunarbaaz'):
-            self.fields['hunarbaaz'].widget = forms.HiddenInput()
+        self.fields['hunarbaaz'].queryset = Hunarbaaz.objects.all()
+        self.fields['hunarbaaz'].label_from_instance = lambda obj: obj.full_name
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        start = cleaned_data.get("start_date")
+        end = cleaned_data.get("end_date")
+        if start and end and start > end:
+            raise forms.ValidationError("End date cannot be earlier than start date.")
+        return cleaned_data
 
 class RescheduleRequestForm(forms.ModelForm):
     class Meta:
         model = PostRequest
-        fields = ['scheduled_date']
+        fields = ['start_date', 'end_date']
         widgets = {
-            'scheduled_date': forms.DateInput(attrs={'type': 'date'})
+            'start_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start = cleaned_data.get("start_date")
+        end = cleaned_data.get("end_date")
+        if start and end and start > end:
+            raise forms.ValidationError("End date cannot be earlier than start date.")
+        return cleaned_data
+    
 
 from django import forms
 from .models import PostRequest
@@ -54,15 +83,13 @@ class ReviewForm(forms.ModelForm):
         fields = ['rating', 'review']
         widgets = {
             'rating': forms.NumberInput(attrs={
-                'step': '0.5',
-                'min': '1',
-                'max': '5',
-                'class': 'form-control',
-                'placeholder': 'Rate from 1 to 5'
+                'min': 1,
+                'max': 5,
+                'step': 1,  # ⬅ only integer step
+                'class': 'form-control'
             }),
             'review': forms.Textarea(attrs={
                 'rows': 3,
-                'class': 'form-control',
-                'placeholder': 'Write your feedback here...'
+                'class': 'form-control'
             }),
         }

@@ -147,31 +147,35 @@ def request_history(request):
 
 @login_required
 def request_status(request):
-    filter_by = request.GET.get("status", "all")
-    base_qs = PostRequest.objects.filter(client=request.user).order_by("-created_at")
-    if filter_by == "pending":
-        requests = base_qs.filter(is_accepted__isnull=True)
-    elif filter_by == "accepted":
-        requests = base_qs.filter(is_accepted=True)
-    elif filter_by == "rejected":
-        requests = base_qs.filter(is_accepted=False)
-    else:
-        requests = base_qs
+    status = request.GET.get('status', 'all')
+    filter_by = status
 
-    context = {
-        "requests": requests,
-        "filter_by": filter_by,
-    }
-    return render(request, "client/request_status.html", context)
+    queryset = PostRequest.objects.filter(client=request.user)
+
+    if status == 'pending':
+        queryset = queryset.filter(is_accepted=None, is_cancelled=False)
+    elif status == 'accepted':
+        queryset = queryset.filter(is_accepted=True, is_cancelled=False)
+    elif status == 'rejected':
+        queryset = queryset.filter(is_accepted=False, is_cancelled=False)
+    elif status == 'cancelled':
+        queryset = queryset.filter(is_cancelled=True)
+
+    return render(request, 'client/request_status.html', {
+        'requests': queryset.order_by('-created_at'),
+        'filter_by': filter_by
+    })
 
 @login_required
-def cancel_request(request, pk):
-    req = get_object_or_404(PostRequest, id=pk, client=request.user, is_accepted__isnull=True)
-    if request.method == "POST":
-        req.delete()
-        messages.success(request, "Work request has been cancelled.")
-        return redirect("client:request_status")
-    return HttpResponseForbidden("You are not allowed to cancel this request.")
+@login_required
+def cancel_request(request, request_id):
+    post_request = get_object_or_404(PostRequest, id=request_id, client=request.user)
+
+    if post_request.is_accepted is None:  # Only pending requests can be cancelled
+        post_request.is_cancelled = True
+        post_request.save()
+    
+    return redirect('client:request_status')
 
 
 @login_required
