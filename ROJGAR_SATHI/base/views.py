@@ -60,7 +60,9 @@ def login_view(request):
     else:
         return render(request, 'base/login.html')
     
-    
+def access_denied(request):
+    return render(request, 'base/access_denied.html')
+  
 
 
 

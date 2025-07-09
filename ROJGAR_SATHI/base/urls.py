@@ -17,6 +17,7 @@ urlpatterns = [
    # path('login/', auth_views.LoginView.as_view(template_name='base/login.html'), name='login'),
     path('logout/',LogoutView.as_view(next_page='home'), name='logout'),
      path('login/', views.login_view, name='login'),
+     path('access_denied/', views.access_denied, name='access_denied'),
 
 
 
