@@ -10,7 +10,7 @@ body {
 
 /* ========== Navbar ========== */
 .navbar {
-  background: linear-gradient(to top, #355c6d, #135d7f);
+  background: linear-gradient(to top, #183947, #207298);
   backdrop-filter: blur(10px);
   transition: background 0.3s ease-in-out;
 }
@@ -58,7 +58,7 @@ body {
 
 /* Hover: only uplift, no glow */
 .navbar-nav .nav-link:hover {
-  color: #fffae3 !important;
+  color: #f9cd49 !important;
   transform: translateY(-4px);  /* Just lift up */
   background: rgba(255, 255, 255, 0.05);  /* Optional light background */
 }
@@ -76,7 +76,7 @@ body {
   border: none !important;
   background: none !important;
   font-weight: bold;
-  color: #d4edda !important;
+  color: #f9cd49 !important;
   transform: none !important;
 }
 
