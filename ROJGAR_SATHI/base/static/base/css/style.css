@@ -130,7 +130,48 @@ body {
   #carousel-caption-bg p {
     font-size: 1rem;
   }
-} */
+} 
+
+/* Common animation */
+@keyframes fadeSlidedown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-0);
+  }
+}
+
+/* Base for all lines */
+.caption-line {
+  opacity: 0;
+  animation: fadeSlidedown 1s ease forwards;
+}
+
+/* Delay for each line */
+.welcome-line {
+  animation-delay: 0.3s;
+  font-family: 'Chiller', cursive;
+  font-size: 2rem;
+}
+
+.brand-line {
+  animation-delay: 1s;
+  font-family: 'Chiller', cursive;
+}
+
+.tagline-line {
+  animation-delay: 1.8s;
+  font-family: 'Chiller', cursive;
+}
+
+
+
+
+
+
 
 /* ========== Category Cards ========== */
 .category-card {
