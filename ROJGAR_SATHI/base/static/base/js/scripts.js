@@ -138,3 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
       navbar.classList.remove('scrolled');
     }
   });
+
+  /*review animation*/
+
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+

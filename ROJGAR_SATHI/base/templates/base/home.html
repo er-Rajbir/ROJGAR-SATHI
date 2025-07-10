@@ -242,32 +242,34 @@
 
 
 <!-- ✅ Reviews -->
-{% comment %} leave for now plaese {% endcomment %}
-
-
-
-<section class="reviews py-5  bg-light">
+<section class="reviews-section py-5 bg-light">
   <div class="container mb-5">
-    <h2 class="text-center mb-4">What People Say</h2>
+    <h2 class="text-center mb-4 fw-bold text-primary">What People Say</h2>
+
     <div class="row g-4">
       {% for r in reviews %}
-        <div class="col-md-6" data-aos="{% cycle 'fade-right' 'fade-left' %}">
-          <div class="p-4 shadow rounded bg-white">
-            <p>"{{ r.text }}"</p>
-            <strong>– {{ r.name }}</strong>
-            <div class="text-warning mt-2">
-              {% for i in "12345" %}
-                {% if forloop.counter <= r.stars %}★{% else %}☆{% endif %}
-              {% endfor %}
+        <div class="col-md-6 col-lg-4" data-aos="{% cycle 'fade-right' 'fade-left' 'fade-up' %}">
+          <div class="card shadow-sm h-100 border-0">
+            <div class="card-body d-flex flex-column justify-content-between">
+              <p class="mb-3 fs-6 text-dark">“{{ r.review|truncatechars:150 }}”</p>
+              <div>
+                <strong class="text-dark">– {{ r.client.get_full_name|default:r.client.username }}</strong>
+                <div class="text-warning mt-2">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= r.rating %}★{% else %}☆{% endif %}
+                  {% endfor %}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       {% empty %}
-        <p class="text-center">No reviews yet.</p>
+        <p class="text-center text-muted">No reviews yet.</p>
       {% endfor %}
     </div>
   </div>
 </section>
+
 <script>
   window.addEventListener('scroll', function () {
     const navbar = document.querySelector('.custom-navbar');
