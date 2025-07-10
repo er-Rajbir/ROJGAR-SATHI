@@ -16,6 +16,9 @@ from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRe
 
 from django.contrib.auth import login
 from django.contrib import messages
+# for email
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -48,7 +51,15 @@ def register_view(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-
+              # ✅ Send Email
+            
+            send_mail(
+                'Welcome to Rozgaar Saathi!',
+                f'Dear {profile.full_name},\n\nThank you for registering as a Client on Rozgaar Saathi!\n \n your Username:{user.username}',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+                fail_silently=False,
+            )
             
             return redirect('base:login')
 

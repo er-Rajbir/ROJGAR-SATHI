@@ -5,6 +5,9 @@ from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
 from django.http import HttpResponseForbidden
 from django.db.models import Avg
+#for mail
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -19,6 +22,13 @@ def register_hunarbaaz(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
+            send_mail(
+    'Welcome to Rozgaar Saathi!',
+    f'Dear {profile.full_name},\n\nThank you for registering as a Hunarbaaz on Rozgaar Saathi!\n\nYour journey to new job opportunities starts now. \n Your Username is :{user.username}',
+    settings.DEFAULT_FROM_EMAIL,
+    [user.email],
+    fail_silently=False,
+)
             return redirect('login')
     else:
         user_form = HunarbaazUserForm()
@@ -132,6 +142,20 @@ def accept_request(request, request_id):
     req = get_object_or_404(PostRequest, id=request_id, hunarbaaz__user=request.user)
     req.is_accepted = True
     req.save()
+      # Send email to the client
+    client = req.client
+    client_name = client.get_full_name() or client.username
+    client_email = client.email
+
+    hunarbaaz_name = req.hunarbaaz.full_name
+
+    send_mail(
+        subject='Your Job Request was Accepted ✅',
+        message=f'Dear {client_name},\n\nGood news! Your job request has been accepted by {hunarbaaz_name}.\n\nThey will reach out to you shortly.\n\nRegards,\nRozgaar Saathi Team',
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[client_email],
+        fail_silently=False,
+    )
     return redirect('hunarbaaz:view_requests')
 
 @login_required
@@ -139,6 +163,19 @@ def reject_request(request, request_id):
     req = get_object_or_404(PostRequest, id=request_id, hunarbaaz__user=request.user)
     req.is_accepted = False
     req.save()
+     # Send email to the client
+    client = req.client
+    client_name = client.get_full_name() or client.username
+    client_email = client.email
+
+    hunarbaaz_name = req.hunarbaaz.full_name
+
+    send_mail(
+        subject='Your Job Request was Rejected ❌',
+        message=f'Dear {client_name},\n\nWe’re sorry! {hunarbaaz_name} has rejected your job request.\n\nYou can browse and connect with other Hunarbaaz on Rozgaar Saathi.\n\nRegards,\nRozgaar Saathi Team',
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[client_email],
+        fail_silently=False,)
     return redirect('hunarbaaz:view_requests')
 
 @login_required
@@ -191,3 +228,6 @@ def public_work_history(request, hunarbaaz_id):
         'completed_jobs': completed_jobs,
         'cancelled_jobs': cancelled_jobs
     })
+@property
+def full_name(self):
+    return f"{self.user.first_name} {self.user.last_name}".strip()
