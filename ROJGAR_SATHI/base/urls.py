@@ -21,4 +21,7 @@ urlpatterns = [
 
 
 
+
+    path('mail/',views.send_mail_page,name='mail')
+    
 ]

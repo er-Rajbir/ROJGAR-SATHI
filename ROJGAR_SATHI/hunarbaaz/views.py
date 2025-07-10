@@ -88,6 +88,8 @@ def edit_profile(request):
 
 
 #dashboard requests
+from client.models import PostRequest
+
 @login_required
 def view_requests(request):
     try:
@@ -95,12 +97,17 @@ def view_requests(request):
     except Hunarbaaz.DoesNotExist:
         return redirect('hunarbaaz:edit_profile')
 
-    requests = PostRequest.objects.filter(hunarbaaz=profile).order_by('-created_at')
+    # ❌ Exclude cancelled requests
+    requests = PostRequest.objects.filter(
+        hunarbaaz=profile,
+        is_cancelled=False  # This line excludes cancelled ones
+    ).order_by('-created_at')
 
     return render(request, 'hunarbaaz/view_requests.html', {
         'client_requests': requests
     })
-from client.models import PostRequest  # Import the model
+
+
 
 
 
