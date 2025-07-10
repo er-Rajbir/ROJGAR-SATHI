@@ -1,18 +1,43 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% block content %}
-  <div class="container my-5">
+  
     <!-- About Section -->
-    <div class="mb-5">
-      <h2 class="text-success text-center fw-bold"><u>About Rozgaar Saathi</u></h2>
-      <h6 class="text-muted text-center mb-4">Bringing skills and services together.</h6>
+    <div class="container-fluid position-relative px-0 mx-0" style="height:650px; overflow: hidden;">
+  <!-- Background Image -->
+  <img src="{% static 'base/images/about.jpg' %}" class="d-block w-100 mx-0 px-0" style="height: 100%;" alt="...">
 
-      <p class="mt-3 fs-5 text-muted">
-        <strong>Rozgaar Saathi</strong> is a people-first, community-powered platform designed to bridge the gap between skilled labourers — known as <strong>"Hunarbaaz"</strong> — and clients in need of dependable, verified local services.
-      </p>
-      <p class="fs-5 text-muted">Whether you're an electrician, plumber, painter, carpenter, or daily-wage worker, Rozgaar Saathi provides you with a digital identity, a platform to showcase your work, and access to real job opportunities — all without needing complex tech knowledge.</p>
-      <p class="fs-5 text-muted">For clients, it’s a reliable space to search, compare, and directly connect with local service providers. With features like verified profiles, work samples, and community reviews, hiring becomes faster, safer, and more transparent.</p>
-    </div>
+  <!-- Text Overlay with transparent black background -->
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 8%;
+    text-align: center;
+  ">
+    <h2 class="fw-bold mb-3" style="color: #00e676;"><u>About Rozgaar Saathi</u></h2>
+    <h6 class="mb-4 text-light">Bringing skills and services together.</h6>
 
+    <p class="fs-5 text-light mb-3">
+      <strong>Rozgaar Saathi</strong> is a people-first, community-powered platform designed to bridge the gap between skilled labourers — known as <strong>"Hunarbaaz"</strong> — and clients in need of dependable, verified local services.
+    </p>
+    <p class="fs-5 text-light mb-3">
+      Whether you're an electrician, plumber, painter, carpenter, or daily-wage worker, Rozgaar Saathi provides you with a digital identity, a platform to showcase your work, and access to real job opportunities — all without needing complex tech knowledge.
+    </p>
+    <p class="fs-5 text-light mb-3">
+      For clients, it’s a reliable space to search, compare, and directly connect with local service providers. With features like verified profiles, work samples, and community reviews, hiring becomes faster, safer, and more transparent.
+    </p>
+  </div>
+</div>
+
+  <div class=" container my-5" >
     <!-- Vision Section -->
     <div class="bg-white p-4 rounded shadow-sm mb-5">
       <h3 class="text-success fw-bold">Our Vision</h3>

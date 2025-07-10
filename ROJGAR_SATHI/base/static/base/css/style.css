@@ -10,30 +10,28 @@ body {
 
 /* ========== Navbar ========== */
 .navbar {
-  
-  background: linear-gradient(to top, #355c6d, #135d7f);
+  background: linear-gradient(to top, #183947, #207298);
   backdrop-filter: blur(10px);
   transition: background 0.3s ease-in-out;
-  
+  font-family: chiller;
 }
 
 .navbar-brand {
   width: 410px;
   padding: 0 0 10px 10px;
+  
 }
 
 #navbarNav {
   background: none;
-  width: 45px;
-  background: none;
-  width: auto;  /* Fix width from 45px to auto so links show */
-  z-index: 9999;  /* Ensure it's on top */
+  width: auto;
+  z-index: 9999;
   position: relative;
 }
 
 #navbar-cont {
   padding: 0 20px 0 40px;
-  z-index:999 ;
+  z-index: 999;
 }
 
 @media (max-width: 768px) {
@@ -43,40 +41,48 @@ body {
 }
 
 .navbar-collapse {
-  
-  
- z-index: 9999;
+  z-index: 9999;
   background-color: #212529;
-  
 }
 
+/* Navbar Links */
 .navbar-nav .nav-link {
- 
   font-size: 18px;
+  font-weight: bold;
   background: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: inline-block;
 }
 
-.navbar-nav .nav-link::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background: rgb(255, 246, 220);
-  left: 0;
-  bottom: 0;
-  transition: 0.4s ease;
-}
-
+/* Hover: only uplift, no glow */
 .navbar-nav .nav-link:hover {
-  color: rgb(255, 246, 220) !important;
-  transform: scale(1.09);
-
+  color: #f9cd49 !important;
+  transform: translateY(-4px);  /* Just lift up */
+  background: rgba(255, 255, 255, 0.05);  /* Optional light background */
 }
 
-.navbar-nav .nav-link:hover::after {
-  width: 100%;
-} */
+/* Remove underline effect */
+.navbar-nav .nav-link::after,
+.nav-link::after {
+  display: none !important;
+}
+
+/* Disable interaction and effects for welcome text */
+.navbar .nav-link.text-success {
+  pointer-events: none;
+  text-decoration: none !important;
+  border: none !important;
+  background: none !important;
+  font-weight: bold;
+  color: #f9cd49 !important;
+  transform: none !important;
+}
+
+
 
 /* ========== Carousel ========== */
  .hero-img {
@@ -103,6 +109,7 @@ body {
   padding: 0;
   margin-left: 0;
 }
+
 
 @media (max-width: 768px) {
   .carousel-inner,

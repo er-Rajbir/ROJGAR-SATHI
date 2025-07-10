@@ -1,10 +1,8 @@
-from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
-from django.shortcuts import render
-from .models import Hunarbaaz
 from django.http import HttpResponseForbidden
 
 
@@ -70,15 +68,25 @@ def edit_profile(request):
     except Hunarbaaz.DoesNotExist:
         return redirect('hunarbaaz:register_hunarbaaz')
 
-    if request.method == 'POST':
-        form = HunarbaazProfileForm(request.POST, request.FILES, instance=hunarbaaz)
-        if form.is_valid():
-            form.save()
-            return redirect('hunarbaaz:hunarbaaz_dashboard')
-    else:
-        form = HunarbaazProfileForm(instance=hunarbaaz)
+    user = request.user
 
-    return render (request,'hunarbaaz/edit_profile.html',{'form': form})
+    if request.method == 'POST':
+        user_form = HunarbaazUserForm(request.POST, instance=user)
+        profile_form = HunarbaazProfileForm(request.POST, request.FILES, instance=hunarbaaz)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('hunarbaaz:hunarbaaz_dashboard')
+
+    else:
+        user_form = HunarbaazUserForm(instance=user)
+        profile_form = HunarbaazProfileForm(instance=hunarbaaz)
+
+    return render(request, 'hunarbaaz/edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
 
 
 

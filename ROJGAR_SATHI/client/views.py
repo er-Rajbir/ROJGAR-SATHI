@@ -170,7 +170,6 @@ def request_status(request):
     })
 
 @login_required
-@login_required
 def cancel_request(request, request_id):
     post_request = get_object_or_404(PostRequest, id=request_id, client=request.user)
 

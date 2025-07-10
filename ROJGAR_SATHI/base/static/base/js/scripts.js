@@ -95,3 +95,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
  
  
+
+  const counters = document.querySelectorAll('.counter');
+
+  const animateCount = (counter) => {
+    const target = +counter.getAttribute('data-target');
+    const speed = 100;
+
+    const update = () => {
+      const count = +counter.innerText;
+      const increment = Math.ceil(target / speed);
+
+      if (count < target) {
+        counter.innerText = count + increment;
+        setTimeout(update, 10);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    update();
+  };
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCount(entry.target);
+        observer.unobserve(entry.target); // Trigger only once
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => observer.observe(counter));
+
+
+
+
+  window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.custom-navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });

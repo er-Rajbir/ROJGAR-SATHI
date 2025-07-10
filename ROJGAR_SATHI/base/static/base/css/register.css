@@ -1,0 +1,70 @@
+
+    body {
+      background-color: rgb(250, 255, 223);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .registration-card {
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .registration-card:hover {
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      background: linear-gradient(90deg, #656D4A, #414833);
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      box-shadow: none;
+      border: 1px solid #ced4da;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #4e54c8;
+      box-shadow: 0 0 0 0.2rem rgba(78, 84, 200, 0.25);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      color: #4e54c8;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 4px;
+    }
+
+    .btn-gradient {
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      border: none;
+      color: white;
+      font-weight: bold;
+      transition: 0.3s ease;
+      border-radius: 30px;
+    }
+
+    .btn-gradient:hover {
+      background: linear-gradient(90deg, #3a3fc8, #6f74fb);
+    }
+
+    .text-danger {
+      font-size: 0.85rem;
+    }
+  
