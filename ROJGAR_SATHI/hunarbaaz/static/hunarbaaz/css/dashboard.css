@@ -1,0 +1,30 @@
+.profile-pic {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #6c757d;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.welcome-card {
+  border-radius: 20px;
+  background: linear-gradient(to right, #f3f4f6, #ffffff);
+}
+
+.stat-card {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  transition: transform 0.2s ease-in-out;
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+

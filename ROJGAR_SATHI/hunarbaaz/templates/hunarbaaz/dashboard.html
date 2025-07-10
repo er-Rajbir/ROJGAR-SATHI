@@ -1,129 +1,137 @@
 {% extends 'base/base.html' %}
 {% load static %}
-
 {% block content %}
-  <div class="container mt-4">
-    <!-- Greeting Section -->
-<div class="card mb-4 shadow-sm border-0" style="background: linear-gradient(to right, #f3f4f6, #ffffff); border-radius: 20px;">
-  <div class="card-body p-4">
-    <div class="row align-items-center">
-      
-      <!-- Profile Picture Left -->
-      <div class="col-md-4 text-center mb-3 mb-md-0">
-        {% if profile_pic %}
-          <img src="{{ profile_pic }}" class="rounded-circle shadow" 
-               style="height: 150px; width: 150px; object-fit: cover; border: 4px solid #6c757d;">
-        {% else %}
-          <div class="bg-secondary rounded-circle d-inline-block" 
-               style="height: 150px; width: 150px;"></div>
-        {% endif %}
-      </div>
+<link rel="stylesheet" href="{% static 'hunarbaaz/css/dashboard.css' %}">
 
-      <!-- Details Right -->
-      <div class="col-md-8">
-        {% if name %}
-          <h2 class="fw-bold text-dark mb-2">Welcome, {{ name }}</h2>
+<!-- 🟦 Welcome Message -->
+<div class="mb-4 text-center">
+  <h2 class="fw-bold text-primary">Welcome, {{ user.hunarbaaz.full_name }}! 👋</h2>
+  <p class="text-muted fs-5">Here’s a quick snapshot of your activity and updates.</p>
+</div>
 
-          <div class="mb-2">
-            <span class="badge bg-dark me-2"><i class="bi bi-geo-alt"></i> {{ location }}</span>
+
+<div class="container mt-4">
+
+  <!-- 🔷 Top Split: Profile + Stats -->
+  <div class="row mb-4">
+    <!-- Left: Profile Info -->
+    <div class="col-md-4">
+      <div class="card profile-card shadow-sm">
+        <div class="card-body text-center">
+          {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" class="profile-pic mb-3">
+          {% else %}
+            <img src="{% static 'base/images/default-user.png' %}" class="profile-pic mb-3">
+          {% endif %}
+          <h4 class="fw-bold">{{ profile.full_name }}</h4>
+          <p class="text-muted mb-1"><i class="bi bi-envelope"></i> {{ request.user.email }}</p>
+          <p class="text-muted mb-1"><i class="bi bi-telephone"></i> {{ profile.phone }}</p>
+          <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ profile.address }}</p>
+
+          {% if aadhaar_verified %}
+            <span class="badge bg-success">✅ Aadhaar Verified</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">⚠ Aadhaar Not Verified</span>
+          {% endif %}
+
+          <div class="mt-2">
             {% for skill in skills %}
               {% if skill != 'Not Set' %}
                 <span class="badge bg-secondary me-1">{{ skill }}</span>
               {% endif %}
             {% endfor %}
           </div>
-
-          <p class="mt-2">
-            {% if aadhaar_verified %}
-              <span class="badge bg-success px-3 py-2">✅ Aadhaar Verified</span>
-            {% else %}
-              <span class="badge bg-warning text-dark px-3 py-2">⚠ Aadhaar Not Verified</span>
-            {% endif %}
-          </p>
-
-          {% if skills.0 == 'Not Set' %}
-            <div class="alert alert-warning mt-3" role="alert">
-              Please <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link fw-bold">complete your profile</a> to get started.
-            </div>
-          {% endif %}
-        
-        {% else %}
-          <h2 class="text-dark">Welcome to Your Dashboard!</h2>
-          <div class="alert alert-info mt-3" role="alert">
-            Looks like you haven't completed your profile yet.
-            <a href="{% url 'hunarbaaz:edit_profile' %}" class="alert-link fw-bold">Click here to edit your profile</a>.
-          </div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-    <!-- Quick Stats -->
-    <div class="row text-center mb-4">
-      <div class="col-md-3">
-        <div class="card bg-primary text-white">
-          <div class="card-body">
-            <h4>{{ ongoing_jobs }}</h4>
-            <p>Ongoing Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card bg-warning text-dark">
-          <div class="card-body">
-            <h4>{{ pending_requests }}</h4>
-            <p>Pending Requests</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card bg-success text-white">
-          <div class="card-body">
-            <h4>{{ completed_jobs }}</h4>
-            <p>Completed Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card bg-info text-white">
-          <div class="card-body">
-            <h4>{{ rating }}/5 ⭐</h4>
-            <p>Average Rating</p>
-          </div>
         </div>
       </div>
     </div>
 
-    <!-- Quick Links -->
-    <div class="row mb-4 text-center">
-      <div class="col">
-        <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-outline-primary m-2">✏ Edit Profile</a>
-        <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-outline-warning m-2">📥 View Requests</a>
-        <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-outline-success m-2">📜 Work History</a>
-      </div>
-    </div>
-
-    <!-- Recent Reviews -->
-    <h4 class="mb-3">Recent Reviews</h4>
-    <div class="row">
-      {% for review in recent_reviews %}
-        <div class="col-md-6">
-          <div class="card mb-3 shadow-sm">
+    <!-- Right: Stats -->
+    <div class="col-md-8">
+      <div class="row text-center">
+        <div class="col-md-6 mb-3">
+          <div class="card stat-card bg-primary text-white">
             <div class="card-body">
-              <p class="mb-1">
-                <strong>{{ review.client }}</strong>
-              </p>
-              <p class="text-muted">"{{ review.text }}"</p>
+              <h4>{{ ongoing_jobs }}</h4>
+              <p>Ongoing Jobs</p>
             </div>
           </div>
         </div>
-      {% empty %}
-        <p class="text-muted">No reviews yet.</p>
-      {% endfor %}
+        <div class="col-md-6 mb-3">
+          <div class="card stat-card bg-warning text-dark">
+            <div class="card-body">
+              <h4>{{ pending_requests }}</h4>
+              <p>Pending Requests</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card stat-card bg-success text-white">
+            <div class="card-body">
+              <h4>{{ completed_jobs }}</h4>
+              <p>Completed Jobs</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card stat-card bg-info text-white">
+            <div class="card-body">
+              <h4>{{ rating }}/5 ⭐</h4>
+              <p>Average Rating</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- Client Requests Section -->
   </div>
+
+  <!-- 🔗 Quick Links -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body text-center">
+      <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-outline-primary m-2">✏ Edit Profile</a>
+      <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-outline-warning m-2">📥 View Requests</a>
+      <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-outline-success m-2">📜 Work History</a>
+      {% comment %} <a href="{% url 'hunarbaaz:reviews' %}" class="btn btn-outline-info m-2">💬 Reviews</a> {% endcomment %}
+    </div>
+  </div>
+
+  <!-- 💬 Recent Reviews -->
+  <h4 class="mb-3">Recent Reviews</h4>
+  <div class="row">
+    {% for review in recent_reviews %}
+      <div class="col-md-6">
+        <div class="card mb-3 shadow-sm">
+          <div class="card-body">
+            <p class="mb-1"><strong>{{ review.client }}</strong></p>
+            <p class="text-muted">"{{ review.text|truncatechars:100 }}"</p>
+            <p class="text-warning mb-0">
+              {% for i in '12345'|make_list %}
+                {% if forloop.counter <= review.rating %}
+                  &#9733;
+                {% else %}
+                  <span style="color: lightgray;">&#9733;</span>
+                {% endif %}
+              {% endfor %} ({{ review.rating }}/5)
+            </p>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted">No reviews yet.</p>
+    {% endfor %}
+  </div>
+
+  <!-- 💡 Tips Section -->
+  <div class="card mt-4 shadow-sm">
+    <div class="card-body bg-light">
+      <h5 class="text-info">Tips to Get More Jobs</h5>
+      <ul class="mb-0">
+        <li>Keep your profile updated with correct info and skills.</li>
+        <li>Respond quickly to job requests.</li>
+        <li>Get good reviews by being punctual and professional.</li>
+        <li>Verify your Aadhaar for higher credibility.</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
 {% endblock %}

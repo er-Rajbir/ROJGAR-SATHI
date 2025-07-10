@@ -24,9 +24,9 @@
 <!-- Navbar Starts -->
 <nav class="navbar navbar-expand-lg navbar-dark shadow-lg">
   <div class="container-fluid" id="navbar-cont">
-    <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">
-      <img src="{% static 'base/images/logo.png' %}" style="height: 70px; width: 80px;">
-      Rozgaar Saathi
+    <a class="navbar-brand fw-bold fs-4 d-flex align-items-center" href="{% url 'home' %}">
+      <img src="{% static 'base/images/logo.png' %}" style="height: 55px; width: 65px;" class="me-2">
+      <span class="text-white">Rozgaar Saathi</span>
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -36,33 +36,48 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Home</a>
+          <a class="nav-link nav-anim" href="{% url 'home' %}">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'about' %}">About Us</a>
+          <a class="nav-link nav-anim" href="{% url 'about' %}">
+            <i class="bi bi-info-circle me-1"></i> About Us
+          </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'reviews:contact_review' %}">Contact Us</a>
+          <a class="nav-link nav-anim" href="{% url 'reviews:contact_review' %}">
+            <i class="bi bi-envelope me-1"></i> Contact Us
+          </a>
         </li>
 
         {% if user.is_authenticated %}
           {% if user.clientprofile %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'client:client_dashboard' %}">Dashboard</a>
+              <a class="nav-link nav-anim" href="{% url 'client:client_dashboard' %}">
+                <i class="bi bi-grid me-1"></i> Dashboard
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'client:all_profiles' %}">Browse Hunarbaaz</a>
+              <a class="nav-link nav-anim" href="{% url 'client:all_profiles' %}">
+                <i class="bi bi-people me-1"></i> Browse Hunarbaaz
+              </a>
             </li>
           {% elif user.hunarbaaz %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'hunarbaaz:hunarbaaz_dashboard' %}">Dashboard</a>
+              <a class="nav-link nav-anim" href="{% url 'hunarbaaz:hunarbaaz_dashboard' %}">
+                <i class="bi bi-person-workspace me-1"></i> Dashboard
+              </a>
             </li>
           {% endif %}
 
           <li class="nav-item">
-            <span class="nav-link text-success fw-bold">
-              Welcome,
+            <span class="nav-link fw-bold">
+              <i class="bi bi-person-circle me-1"></i>
               {% if user.clientprofile %}
                 {{ user.clientprofile.full_name }}
               {% elif user.hunarbaaz %}
@@ -76,13 +91,15 @@
           <li class="nav-item">
             <form method="post" action="{% url 'logout' %}" class="d-inline">
               {% csrf_token %}
-              <button type="submit" class="btn nav-link ms-2"><i class="bi bi-box-arrow-in-right"></i> Logout</button>
+              <button type="submit" class="btn nav-link nav-anim ms-2">
+                <i class="bi bi-box-arrow-right me-1"></i> Logout
+              </button>
             </form>
           </li>
         {% else %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">
-              <i class="bi bi-person"></i> Login / Register
+            <a class="nav-link nav-anim" href="{% url 'login' %}">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Login / Register
             </a>
           </li>
         {% endif %}
@@ -90,7 +107,6 @@
     </div>
   </div>
 </nav>
-
 
 <!-- Navbar Ends -->
 
@@ -106,9 +122,9 @@
     <div class="row">
       <!-- About -->
       <div class="col-md-3">
-        <h5>About Rojgar Sathi</h5>
+        <h5>About Rozgaar Saathi</h5>
         <p>
-          Apna Rozgar is a platform connecting employers with skilled workers like karigars, labourers, and technicians, ensuring jobs reach the right hands.
+          <b>Rozgaar Saathi</b> is a platform connecting employers with skilled workers like karigars, labourers, and technicians, ensuring jobs reach the right hands.
         </p>
       </div>
 
@@ -125,11 +141,11 @@
 
       <!-- Contact Info -->
       <div class="col-md-3">
-        <h5>Contact Us</h5>
-        <p class="text-muted">
+        <h5 class="px-2">Contact Us</h5>
+        <p>
           📍 Punjab, India <br>
-          📧 support@apnarozgar.com <br>
-          📞 +91-98765-43210
+          📧 support@rozgaarsaathi.com <br>
+          📞 +91-98765-4XXXX
         </p>
       </div>
     
