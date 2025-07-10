@@ -101,8 +101,8 @@
       <div class="col-md-6">
         <div class="card mb-3 shadow-sm">
           <div class="card-body">
-            <p class="mb-1"><strong>{{ review.client }}</strong></p>
-            <p class="text-muted">"{{ review.text|truncatechars:100 }}"</p>
+            <p class="mb-1"><strong>{{ review.client.username }}</strong></p>
+            <p class="text-muted">"{{ review.review|truncatechars:100 }}"</p>
             <p class="text-warning mb-0">
               {% for i in '12345'|make_list %}
                 {% if forloop.counter <= review.rating %}
