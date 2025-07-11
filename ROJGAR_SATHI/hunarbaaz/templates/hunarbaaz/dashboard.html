@@ -17,11 +17,18 @@
       </div>
 
       <div class="col-md-8">
-        <h2 class="fw-bold text-primary mb-3">Welcome, {{ profile.full_name }} 👋</h2>
-        <p><span class="info-label">Email:</span> <span class="info-value">{{ request.user.email }}</span></p>
-        <p><span class="info-label">Phone:</span> <span class="info-value">{{ profile.phone }}</span></p>
-        <p><span class="info-label">Address:</span> <span class="info-value">{{ profile.address }}</span></p>
-        <p>
+        <h2 class="fw-bold text-primary mb-3">Welcome, {{ user.hunarbaaz.full_name }} 👋</h2>
+        
+        <p><span class="info-label">Phone No. :</span> <span class="info-value">{{ user.hunarbaaz.mobile }}</span></p>
+        <p><span class="info-label">Address:</span> <span class="info-value">{{ user.hunarbaaz.location }}</span></p>
+        
+        <div class="mt-2">
+          {% for skill in skills %}
+            {% if skill != 'Not Set' %}
+              <p><span class="info-label">Skill: </span><span class ="info-value"> {{ skill }}</span>
+            {% endif %}
+          {% endfor %}
+          <p>
           <span class="info-label">Aadhaar Status:</span>
           {% if aadhaar_verified %}
             <span class="badge bg-success ms-2">✅ Verified</span>
@@ -29,12 +36,6 @@
             <span class="badge bg-warning text-dark ms-2">⚠ Not Verified</span>
           {% endif %}
         </p>
-        <div class="mt-2">
-          {% for skill in skills %}
-            {% if skill != 'Not Set' %}
-              <span class="badge bg-secondary me-1">{{ skill }}</span>
-            {% endif %}
-          {% endfor %}
         </div>
       </div>
     </div>
