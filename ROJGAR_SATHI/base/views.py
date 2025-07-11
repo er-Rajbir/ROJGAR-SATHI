@@ -6,16 +6,20 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 # Home page view
+from client.models import PostRequest  # Make sure this import is at the top
+
 def home(request):
     categories = ['Electrician', 'Plumber', 'Technician', 'Construction', 'Painter', 'Welder']
-    reviews = [
-    {"text": "Amazing service! Got a skilled plumber within minutes.", "name": "Client A", "stars": 4},
-    {"text": "Quick and reliable electrician. Fully satisfied!", "name": "Client B", "stars": 5},
-    {"text": "Professional and polite workers!", "name": "Client C", "stars": 4},
-    {"text": "Very helpful during emergency work.", "name": "Client D", "stars": 5},
-]
 
-    return render(request, 'base/home.html', {'categories': categories, 'reviews':reviews})
+    # ⭐ Get recent completed reviews with rating
+    reviews = PostRequest.objects.filter(is_completed=True, review__isnull=False, rating__gte=4  # ✅ Only reviews with rating 4 or 5
+   ).select_related('client').order_by('-created_at')[:6]  # Change limit as needed
+
+    return render(request, 'base/home.html', {
+        'categories': categories,
+        'reviews': reviews
+    })
+
 
 
 

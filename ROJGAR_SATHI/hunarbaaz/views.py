@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
 from django.http import HttpResponseForbidden
+from django.db.models import Avg
 #for mail
 from django.core.mail import send_mail
 from django.conf import settings
@@ -47,14 +48,19 @@ def hunarbaaz_dashboard(request):
     except Hunarbaaz.DoesNotExist:
         return redirect('hunarbaaz:edit_profile')
 
-    # Fetch requests related to this hunarbaaz
     requests = PostRequest.objects.filter(hunarbaaz=profile)
 
-    # Calculate status counts
-    ongoing_jobs = requests.filter(is_completed=False).count()
-    completed_jobs = requests.filter(is_completed=True).count()
-    pending_requests = PostRequest.objects.filter(hunarbaaz=profile, is_accepted__isnull=True).count() # If you add a completion field, update this
-    rating = 4.7  # Placeholder, if you implement rating system
+    # Fetch recent reviews (only completed with non-null review and rating)
+    recent_reviews = PostRequest.objects.filter(
+        hunarbaaz=profile,
+        is_completed=True,
+        rating__isnull=False,
+        review__isnull=False
+    ).order_by('-created_at')[:4]
+
+    # Calculate average rating
+    average_rating = recent_reviews.aggregate(Avg('rating'))['rating__avg']
+    average_rating = round(average_rating, 1) if average_rating else 0
 
     context = {
         'name': profile.full_name,
@@ -62,14 +68,15 @@ def hunarbaaz_dashboard(request):
         'location': profile.location,
         'skills': [profile.skill] if profile.skill else ['Not Set'],
         'aadhaar_verified': profile.is_verified,
-        'pending_requests': pending_requests,
-        'ongoing_jobs': ongoing_jobs,
-        'completed_jobs': completed_jobs,
-        'rating': rating,
-        'recent_reviews': []  # Later you can link reviews here
+        'pending_requests': requests.filter(is_accepted__isnull=True).count(),
+        'ongoing_jobs': requests.filter(is_completed=False).count(),
+        'completed_jobs': requests.filter(is_completed=True).count(),
+        'rating': average_rating,
+        'recent_reviews': recent_reviews
     }
 
     return render(request, 'hunarbaaz/dashboard.html', context)
+
 
 
 @login_required

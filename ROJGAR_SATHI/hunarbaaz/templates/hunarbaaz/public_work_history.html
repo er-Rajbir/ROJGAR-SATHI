@@ -1,81 +1,76 @@
 {% extends 'base/base.html' %}
 {% block content %}
-  <div class="container mt-4">
-    <h3 class="text-center text-primary mb-4">Work History of {{ profile.full_name }}</h3>
+<div class="container mt-5 mb-5">
 
-    {% if completed_jobs %}
-      <h4 class="text-success mb-3">Completed Jobs</h4>
-      <div class="row">
-        {% for job in completed_jobs %}
-          <div class="col-md-6">
-            <div class="card mb-3 shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title">Client: {{ job.client.username }}</h5>
-                <p>
-                  <strong>Description:</strong> {{ job.job_description }}
-                </p>
-                <p>
-                  <strong>Location:</strong> {{ job.location }}
-                </p>
-                <p>
-                  <strong>Start Date:</strong> {{ job.start_date|date:'d M Y' }}
-                </p>
-                <p>
-                  <strong>End Date:</strong> {{ job.end_date|date:'d M Y' }}
-                </p>
-
-                {% if job.rating %}
-                  <p>
-                    <strong>Rating:</strong>
-                    {% for i in '12345'|make_list %}
-                      {% if forloop.counter <= job.rating %}
-                        <span style="color: gold;">&#9733;</span>
-                      {% else %}
-                        <span style="color: lightgray;">&#9733;</span>
-                      {% endif %}
-                    {% endfor %}({{ job.rating }}/5)
-                  </p>
-                {% endif %}
-
-                {% if job.review %}
-                  <p>
-                    <strong>Review:</strong> {{ job.review }}
-                  </p>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+  <h3 class="text-center text-success mb-4">
+    {% if user.clientprofile %}
+      <b>Work History of {{ profile.full_name }}</b>
+    {% elif user.hunarbaaz %}
+      <b>My Work History</b>
     {% else %}
-      <div class="alert alert-info text-center">No completed jobs yet.</div>
+      {{ user.username }}
     {% endif %}
+  </h3>
 
-    {% if cancelled_jobs %}
-      <h4 class="text-danger mt-5 mb-3">Cancelled Requests</h4>
-      <div class="row">
-        {% for job in cancelled_jobs %}
-          <div class="col-md-6">
-            <div class="card border-danger mb-3 shadow-sm">
-              <div class="card-body">
-                <h5 class="card-title text-danger">Client: {{ job.client.username }}</h5>
-                <p>
-                  <strong>Description:</strong> {{ job.job_description }}
-                </p>
-                <p>
-                  <strong>Location:</strong> {{ job.location }}
-                </p>
-                <p>
-                  <strong>Start:</strong> {{ job.start_date|date:'d M Y' }} | <strong>End:</strong> {{ job.end_date|date:'d M Y' }}
-                </p>
-                <p class="text-danger">
-                  <strong>Status:</strong> Cancelled
-                </p>
-              </div>
+  <!-- ✅ Completed Jobs -->
+  {% if completed_jobs %}
+    <div class="row g-4">
+  {% for job in completed_jobs %}
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        
+        <!-- 👤 Client Name + HR -->
+        <div class="card-header bg-white border-bottom-0">
+          <h5 class="text-info text-center mb-1">👤 {{ job.client.username }}</h5>
+          <hr class="mb-0" />
+        </div>
+
+        <div class="row g-0 align-items-stretch">
+          <!-- 🔷 Left Side: Job Info -->
+          <div class="col-7 border-end">
+            <div class="card-body">
+              <p><strong>📋 Description:</strong> {{ job.job_description }}</p>
+              <p><strong>📍 Location:</strong> {{ job.location }}</p>
+              <p><strong>📆 Start:</strong> {{ job.start_date|date:"d M Y" }}</p>
+              <p><strong>📅 End:</strong> {{ job.end_date|date:"d M Y" }}</p>
             </div>
           </div>
-        {% endfor %}
+
+          <!-- 💬 Right Side: Rating & Review -->
+          <div class="col-5 d-flex align-items-center">
+            <div class="card-body">
+              {% if job.rating %}
+                <p class="mb-1">
+                  <strong >⭐ Rating:</strong>
+                  {% for i in '12345'|make_list %}
+                    {% if forloop.counter <= job.rating %}
+                      <span style="color: gold;">&#9733;</span>
+                    {% else %}
+                      <span style="color: lightgray;">&#9733;</span>
+                    {% endif %}
+                  {% endfor %}
+                  <small>({{ job.rating }}/5)</small>
+                </p>
+              {% endif %}
+              {% if job.review %}
+                <p class="mt-2"><strong>💬 Review:</strong> <em>"{{ job.review }}"</em></p>
+              {% else %}
+                <p class="text-muted mt-2">No review given.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
       </div>
-    {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+  {% else %}
+    <div class="alert alert-info text-center mt-4">No completed jobs yet.</div>
+  {% endif %}
   </div>
+  
+
+</div>
 {% endblock %}

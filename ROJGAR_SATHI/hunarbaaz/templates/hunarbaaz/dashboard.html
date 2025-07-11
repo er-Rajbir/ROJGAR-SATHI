@@ -3,135 +3,165 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'hunarbaaz/css/dashboard.css' %}">
 
-<!-- 🟦 Welcome Message -->
-<div class="mb-4 text-center">
-  <h2 class="fw-bold text-primary">Welcome, {{ user.hunarbaaz.full_name }}! 👋</h2>
-  <p class="text-muted fs-5">Here’s a quick snapshot of your activity and updates.</p>
-</div>
+<style>
+  .profile-pic {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #0d47a1;
+  }
 
+  .dashboard-box {
+    background: linear-gradient(to right, #f5f7fa, #ffffff);
+    padding: 2.5rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
 
-<div class="container mt-4">
+  .info-label {
+    font-weight: 600;
+    color: #333;
+  }
 
-  <!-- 🔷 Top Split: Profile + Stats -->
-  <div class="row mb-4">
-    <!-- Left: Profile Info -->
-    <div class="col-md-4">
-      <div class="card profile-card shadow-sm">
-        <div class="card-body text-center">
-          {% if profile.profile_picture %}
-            <img src="{{ profile.profile_picture.url }}" class="profile-pic mb-3">
-          {% else %}
-            <img src="{% static 'base/images/default-user.png' %}" class="profile-pic mb-3">
-          {% endif %}
-          <h4 class="fw-bold">{{ profile.full_name }}</h4>
-          <p class="text-muted mb-1"><i class="bi bi-envelope"></i> {{ request.user.email }}</p>
-          <p class="text-muted mb-1"><i class="bi bi-telephone"></i> {{ profile.phone }}</p>
-          <p class="text-muted mb-1"><i class="bi bi-geo-alt-fill"></i> {{ profile.address }}</p>
+  .info-value {
+    color: #555;
+  }
 
+  .stat-card {
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .quick-links a {
+    text-decoration: none !important;
+  }
+</style>
+
+<div class="container mt-5">
+  <div class="dashboard-box">
+
+    <!-- 🧑‍💼 User Info Block (like Client) -->
+    <div class="row align-items-center mb-4">
+      <div class="col-md-4 text-center">
+        {% if profile.profile_picture %}
+          <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic mb-3">
+        {% else %}
+          <img src="{% static 'base/images/default-user.png' %}" alt="Default" class="profile-pic mb-3">
+        {% endif %}
+      </div>
+
+      <div class="col-md-8">
+        <h2 class="fw-bold text-primary mb-3">Welcome, {{ profile.full_name }} 👋</h2>
+        <p><span class="info-label">Email:</span> <span class="info-value">{{ request.user.email }}</span></p>
+        <p><span class="info-label">Phone:</span> <span class="info-value">{{ profile.phone }}</span></p>
+        <p><span class="info-label">Address:</span> <span class="info-value">{{ profile.address }}</span></p>
+        <p>
+          <span class="info-label">Aadhaar Status:</span>
           {% if aadhaar_verified %}
-            <span class="badge bg-success">✅ Aadhaar Verified</span>
+            <span class="badge bg-success ms-2">✅ Verified</span>
           {% else %}
-            <span class="badge bg-warning text-dark">⚠ Aadhaar Not Verified</span>
+            <span class="badge bg-warning text-dark ms-2">⚠ Not Verified</span>
           {% endif %}
+        </p>
+        <div class="mt-2">
+          {% for skill in skills %}
+            {% if skill != 'Not Set' %}
+              <span class="badge bg-secondary me-1">{{ skill }}</span>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
 
-          <div class="mt-2">
-            {% for skill in skills %}
-              {% if skill != 'Not Set' %}
-                <span class="badge bg-secondary me-1">{{ skill }}</span>
-              {% endif %}
-            {% endfor %}
+    <!-- 🔢 Stats Cards -->
+    <div class="row text-center mb-4">
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card stat-card bg-primary text-white">
+          <div class="card-body">
+            <h4>{{ ongoing_jobs }}</h4>
+            <p class="mb-0">Ongoing Jobs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card stat-card bg-warning text-dark">
+          <div class="card-body">
+            <h4>{{ pending_requests }}</h4>
+            <p class="mb-0">Pending Requests</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card stat-card bg-success text-white">
+          <div class="card-body">
+            <h4>{{ completed_jobs }}</h4>
+            <p class="mb-0">Completed Jobs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card stat-card bg-info text-white">
+          <div class="card-body">
+            <h4>{{ rating }}/5 ⭐</h4>
+            <p class="mb-0">Average Rating</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Right: Stats -->
-    <div class="col-md-8">
-      <div class="row text-center">
-        <div class="col-md-6 mb-3">
-          <div class="card stat-card bg-primary text-white">
-            <div class="card-body">
-              <h4>{{ ongoing_jobs }}</h4>
-              <p>Ongoing Jobs</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <div class="card stat-card bg-warning text-dark">
-            <div class="card-body">
-              <h4>{{ pending_requests }}</h4>
-              <p>Pending Requests</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <div class="card stat-card bg-success text-white">
-            <div class="card-body">
-              <h4>{{ completed_jobs }}</h4>
-              <p>Completed Jobs</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <div class="card stat-card bg-info text-white">
-            <div class="card-body">
-              <h4>{{ rating }}/5 ⭐</h4>
-              <p>Average Rating</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🔗 Quick Links -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-body text-center">
+    <!-- 🔗 Action Buttons / Quick Links -->
+    <div class="text-center quick-links mb-4">
       <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-outline-primary m-2">✏ Edit Profile</a>
       <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-outline-warning m-2">📥 View Requests</a>
       <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-outline-success m-2">📜 Work History</a>
-      {% comment %} <a href="{% url 'hunarbaaz:reviews' %}" class="btn btn-outline-info m-2">💬 Reviews</a> {% endcomment %}
     </div>
-  </div>
 
-  <!-- 💬 Recent Reviews -->
-  <h4 class="mb-3">Recent Reviews</h4>
-  <div class="row">
-    {% for review in recent_reviews %}
-      <div class="col-md-6">
-        <div class="card mb-3 shadow-sm">
-          <div class="card-body">
-            <p class="mb-1"><strong>{{ review.client }}</strong></p>
-            <p class="text-muted">"{{ review.text|truncatechars:100 }}"</p>
-            <p class="text-warning mb-0">
-              {% for i in '12345'|make_list %}
-                {% if forloop.counter <= review.rating %}
-                  &#9733;
-                {% else %}
-                  <span style="color: lightgray;">&#9733;</span>
-                {% endif %}
-              {% endfor %} ({{ review.rating }}/5)
-            </p>
+    <!-- 💬 Recent Reviews -->
+    <div class="mt-4">
+      <h5 class="fw-bold text-success mb-3">Recent Reviews</h5>
+      <div class="row">
+        {% for review in recent_reviews %}
+          <div class="col-md-6">
+            <div class="card mb-3 shadow-sm">
+              <div class="card-body">
+                <p class="mb-1"><strong>{{ review.client.username }}</strong></p>
+                <p class="text-muted">"{{ review.review|truncatechars:100 }}"</p>
+                <p class="text-warning mb-0">
+                  {% for i in '12345'|make_list %}
+                    {% if forloop.counter <= review.rating %}
+                      ★
+                    {% else %}
+                      <span style="color: lightgray;">★</span>
+                    {% endif %}
+                  {% endfor %} ({{ review.rating }}/5)
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        {% empty %}
+          <p class="text-muted">No reviews yet.</p>
+        {% endfor %}
       </div>
-    {% empty %}
-      <p class="text-muted">No reviews yet.</p>
-    {% endfor %}
-  </div>
-
-  <!-- 💡 Tips Section -->
-  <div class="card mt-4 shadow-sm">
-    <div class="card-body bg-light">
-      <h5 class="text-info">Tips to Get More Jobs</h5>
-      <ul class="mb-0">
-        <li>Keep your profile updated with correct info and skills.</li>
-        <li>Respond quickly to job requests.</li>
-        <li>Get good reviews by being punctual and professional.</li>
-        <li>Verify your Aadhaar for higher credibility.</li>
-      </ul>
     </div>
-  </div>
 
+    <!-- 💡 Tips -->
+    <div class="card mt-4 shadow-sm">
+      <div class="card-body bg-light">
+        <h5 class="text-info">Tips to Get More Jobs</h5>
+        <ul class="mb-0">
+          <li>Keep your profile updated with correct info and skills.</li>
+          <li>Respond quickly to job requests.</li>
+          <li>Get good reviews by being punctual and professional.</li>
+          <li>Verify your Aadhaar for higher credibility.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
 </div>
 {% endblock %}

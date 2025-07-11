@@ -3,84 +3,92 @@
 
 {% block content %}
   <style>
-    .dashboard-container {
-      background: linear-gradient(to right, #eef2f7, #ffffff);
+    .dashboard-wrapper {
+      background: linear-gradient(to left, #e0f7fa, #ffffff);
       padding: 2.5rem;
-      border-radius: 1.25rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-radius: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 3rem;
+    }
+    
+    .dashboard-header h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #00796b;
+      border-bottom: 2px solid #004d40;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .profile-card {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
       transition: all 0.3s ease-in-out;
     }
     
-    .dashboard-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #0d47a1;
-      margin-bottom: 2rem;
-      border-bottom: 2px solid #0d47a1;
-      display: inline-block;
-      padding-bottom: 0.5rem;
-    }
     
-    .profile-section {
-      background: #ffffff;
-      border-radius: 1rem;
-      padding: 2rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-      transition: transform 0.2s;
-    }
-    
-    .profile-section:hover {
-      transform: translateY(-4px);
-    }
-    
-    .edit-btn {
-      background-color: #0d47a1;
-      border: none;
-      color: #ffffff;
-      padding: 0.6rem 1.4rem;
-      border-radius: 8px;
-      font-weight: 500;
-      transition: background-color 0.3s;
-    }
-    
-    .edit-btn:hover {
-      background-color: #06306c;
-    }
     
     .profile-pic {
-      max-width: 130px;
-      height: 130px;
+      width: 140px;
+      height: 140px;
       object-fit: cover;
       border-radius: 50%;
-      border: 4px solid #0d47a1;
+      border: 5px solid #00796b;
       margin-bottom: 1rem;
+    }
+    
+    .profile-details p {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
     }
     
     .profile-label {
       font-weight: 600;
-      color: #333;
+      color: #444;
     }
     
     .profile-value {
       color: #555;
     }
     
+    .dashboard-btn {
+      margin-top: 1rem;
+      margin-right: 0.5rem;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+    
+    .dashboard-btn:hover {
+      background-color: #004d40;
+    }
+    
     @media (max-width: 768px) {
-      .dashboard-container {
-        padding: 1.5rem;
+      .dashboard-header h2 {
+        font-size: 1.6rem;
       }
     
-      .dashboard-title {
-        font-size: 1.6rem;
+      .dashboard-wrapper {
+        padding: 1.5rem;
       }
     }
   </style>
 
   <div class="container mt-5">
-    <div class="dashboard-container">
-      <h2 class="dashboard-title">Welcome, {{ profile.full_name }}</h2>
+    <div class="dashboard-wrapper">
+      <div class="dashboard-header">
+        <h2>Welcome, {{ profile.full_name }}</h2>
+      </div>
 
       <div class="row align-items-center">
+        <!-- Profile Picture -->
         <div class="col-md-4 text-center mb-4 mb-md-0">
           {% if profile.profile_picture %}
             <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic" />
@@ -89,26 +97,41 @@
           {% endif %}
         </div>
 
+        <!-- Profile Info -->
         <div class="col-md-8">
-          <div class="profile-section">
-            <p>
-              <span class="profile-label">Full Name:</span> <span class="profile-value">{{ profile.full_name }}</span>
-            </p>
-            <p>
-              <span class="profile-label">Email:</span> <span class="profile-value">{{ request.user.email }}</span>
-            </p>
-            <p>
-              <span class="profile-label">Phone:</span> <span class="profile-value">{{ profile.phone }}</span>
-            </p>
-            <p>
-              <span class="profile-label">Company:</span> <span class="profile-value">{{ profile.company_name }}</span>
-            </p>
-            <p>
-              <span class="profile-label">Address:</span> <span class="profile-value">{{ profile.address }}</span>
-            </p>
-            <a href="{% url 'client:edit_profile' %}" class="btn btn-outline-info mt-3">Edit Profile</a>
-            <a href="{% url 'client:request_status' %}" class="btn btn-outline-info mt-3">📋 View My Requests Status</a>
-            <a href="{% url 'client:request_history' %}" class="btn btn-outline-info mt-3">📋 Request History</a>
+          <div class="profile-card">
+            <div class="profile-details">
+              <p>
+                <span class="profile-label">Full Name:</span>
+                <span class="profile-value">{{ profile.full_name }}</span>
+              </p>
+              <p>
+                <span class="profile-label">Email:</span>
+                <span class="profile-value">{{ request.user.email }}</span>
+              </p>
+              <p>
+                <span class="profile-label">Phone:</span>
+                <span class="profile-value">{{ profile.phone|default:'N/A' }}</span>
+              </p>
+              <p>
+                <span class="profile-label">Address:</span>
+                <span class="profile-value">{{ profile.address|default:'N/A' }}</span>
+              </p>
+              <p>
+                <span class="profile-label">Work Type:</span>
+                <span class="profile-value">{{ profile.work_type|default:'N/A' }}</span>
+              </p>
+              <p>
+                <span class="profile-label">Joined On:</span>
+                <span class="profile-value">{{ profile.created_at|date:'d M Y' }}</span>
+              </p>
+            </div>
+
+            <div class="d-flex flex-wrap mt-3">
+              <a href="{% url 'client:edit_profile' %}" class="dashboard-btn">✏ Edit Profile</a>
+              <a href="{% url 'client:request_status' %}" class="dashboard-btn">📋 Request Status</a>
+              <a href="{% url 'client:request_history' %}" class="dashboard-btn">📜 Work History</a>
+            </div>
           </div>
         </div>
       </div>
