@@ -14,7 +14,7 @@ class HunarbaazProfileForm(forms.ModelForm):
     other_location = forms.CharField(required=False, label='Other Location')
     class Meta:
         model = Hunarbaaz
-        fields = ['full_name', 'mobile', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample','wages']
+        fields = ['full_name', 'mobile', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample_1','work_sample_2','work_sample_3','wages']
         def clean_skill(self):
             skill = self.cleaned_data.get('skill')
             if not skill:

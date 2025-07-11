@@ -3,7 +3,8 @@
 {% load widget_tweaks %}
 {% block content %}
   <script src="{% static '/hunarbaaz/js/register.js' %}"></script>
-   <link rel="stylesheet" href="{% static 'base/css/register.css' %}"> 
+  <link rel="stylesheet" href="{% static 'base/css/register.css' %}"> 
+
   <div class="container my-5">
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-8">
@@ -27,15 +28,41 @@
 
               <!-- Profile Section -->
               <h5 class="section-title mt-4">📝 Profile Details</h5>
+              
+              {# Render non-sample fields first #}
               {% for field in profile_form %}
-                <div class="mb-4" id="field-{{ field.name }}">
-                  <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                  <div>{{ field|add_class:'form-control' }}</div>
-                  {% if field.errors %}
-                    <div class="text-danger">{{ field.errors }}</div>
-                  {% endif %}
-                </div>
+                {% if field.name not in 'work_sample_1,work_sample_2,work_sample_3' %}
+                  <div class="mb-4" id="field-{{ field.name }}">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field|add_class:'form-control' }}
+                    {% if field.errors %}
+                      <div class="text-danger">{{ field.errors }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
               {% endfor %}
+
+              <!-- Work Samples -->
+              <div class="mb-4" id="field-work_sample_1">
+                <label for="{{ profile_form.work_sample_1.id_for_label }}" class="form-label">Work Sample 1</label>
+                {{ profile_form.work_sample_1|add_class:'form-control' }}
+              </div>
+
+              <div class="mb-4 d-none" id="field-work_sample_2">
+                <label for="{{ profile_form.work_sample_2.id_for_label }}" class="form-label">Work Sample 2</label>
+                {{ profile_form.work_sample_2|add_class:'form-control' }}
+              </div>
+
+              <div class="mb-4 d-none" id="field-work_sample_3">
+                <label for="{{ profile_form.work_sample_3.id_for_label }}" class="form-label">Work Sample 3</label>
+                {{ profile_form.work_sample_3|add_class:'form-control' }}
+              </div>
+
+              <!-- Add Button -->
+              <div class="mb-4">
+                <button type="button" id="addWorkSampleBtn" class="btn btn-outline-primary btn-sm">+ Add Work Sample</button>
+              </div>
+
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-success mx-4">Register Now</button>
                 <button type="reset" class="btn btn-danger mx-4 px-4">Reset</button>
@@ -46,5 +73,22 @@
       </div>
     </div>
   </div>
-  
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      let currentSample = 1;
+      const addBtn = document.getElementById('addWorkSampleBtn');
+
+      addBtn.addEventListener('click', () => {
+        currentSample++;
+        const nextField = document.getElementById(`field-work_sample_${currentSample}`);
+        if (nextField) {
+          nextField.classList.remove('d-none');
+          if (currentSample === 3) {
+            addBtn.style.display = 'none';
+          }
+        }
+      });
+    });
+  </script>
 {% endblock %}

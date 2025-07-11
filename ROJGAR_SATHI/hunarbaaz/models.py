@@ -47,7 +47,9 @@ class Hunarbaaz(models.Model):
     aadhaar_number = models.CharField(max_length=12,unique=True,validators=[aadhaar_validator])
     wages = models.PositiveIntegerField(help_text="required pay for 8 hours" ,blank=False,null=False, default=False)
     profile_pic = models.ImageField(upload_to='hunarbaaz/profile_pics/', null=True, blank=True)
-    work_sample = models.ImageField(upload_to='hunarbaaz/work_samples/', null=True, blank=True)
+    work_sample_1=models.ImageField(upload_to='hunarbaaz/work_samples/', null=True, blank=True)
+    work_sample_2=models.ImageField(upload_to='hunarbaaz/work_samples/', null=True, blank=True)
+    work_sample_3=models.ImageField(upload_to='hunarbaaz/work_samples/', null=True, blank=True)
     is_verified = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
