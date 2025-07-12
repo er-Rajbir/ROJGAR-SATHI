@@ -11,18 +11,9 @@ urlpatterns = [
     path('request/create/', views.create_work_request, name='create_request'),
     path('all/', views.hunarbaaz_list, name='all_profiles'),
     path('hunarbaaz/<int:id>/', views.hunarbaaz_detail_view, name='hunarbaaz_details'),
-
-    # client/urls.py
-#path('hunarbaaz/<int:pk>/', views.hunarbaaz_details, name='hunarbaaz_details'),
-path('requests/history/', views.request_history, name='request_history'),
-
-
-
-
+    path('requests/history/', views.request_history, name='request_history'),
     path('requests/', views.request_status, name='request_status'),
-    # client/urls.py
-path('request/<int:request_id>/cancel/', views.cancel_request, name='cancel_request'),
-
+    path('request/<int:request_id>/cancel/', views.cancel_request, name='cancel_request'),
     path('request/<int:pk>/reschedule/', views.reschedule_request, name='reschedule_request'),
     path('mark-completed/<int:request_id>/', views.mark_as_completed, name='mark_completed'),
     path('requests/<int:request_id>/complete/', views.mark_as_completed, name='mark_as_completed'),

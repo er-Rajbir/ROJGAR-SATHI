@@ -9,8 +9,8 @@
     <!-- 🧑‍💼 User Info Block (like Client) -->
     <div class="row align-items-center mb-4">
       <div class="col-md-4 text-center">
-        {% if profile.profile_picture %}
-          <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic mb-3">
+        {% if user.hunarbaaz.profile_pic %}
+          <img src="{{ user.hunarbaaz.profile_pic.url }}" alt="Profile Picture" class="profile-pic mb-3">
         {% else %}
           <img src="{% static 'base/images/default-user.png' %}" alt="Default" class="profile-pic mb-3">
         {% endif %}

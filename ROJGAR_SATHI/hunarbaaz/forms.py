@@ -25,4 +25,9 @@ class HunarbaazProfileForm(forms.ModelForm):
             if not aadhaar.isdigit() or len(aadhaar) != 12:
                 raise forms.ValidationError("Aadhaar must be exactly 12 numeric digits.")
             return aadhaar
+        def clean_mobile(self):
+                mobilee = self.cleaned_data['mobile']
+                if not mobilee.isdigit() or len(mobilee) != 10:
+                    raise forms.ValidationError("mobile must be exactly 10 numeric digits.")
+                return mobilee
         

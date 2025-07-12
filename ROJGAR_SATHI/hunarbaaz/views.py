@@ -69,7 +69,7 @@ def hunarbaaz_dashboard(request):
         'skills': [profile.skill] if profile.skill else ['Not Set'],
         'aadhaar_verified': profile.is_verified,
         'pending_requests': requests.filter(is_accepted__isnull=True).count(),
-        'ongoing_jobs': requests.filter(is_completed=False).count(),
+        'ongoing_jobs': requests.filter(is_completed=False,is_accepted=True).count(),
         'completed_jobs': requests.filter(is_completed=True).count(),
         'rating': average_rating,
         'recent_reviews': recent_reviews
@@ -94,8 +94,13 @@ def edit_profile(request):
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
-            return redirect('hunarbaaz:hunarbaaz_dashboard')
+            # Handle password securely
+        password = user_form.cleaned_data.get('password')
+        if password:  # only if password was changed
+            user.set_password(password)
+            user.save()
+        profile_form.save()
+        return redirect('login')
 
     else:
         user_form = HunarbaazUserForm(instance=user)
@@ -190,7 +195,7 @@ def mark_as_completed(request, request_id):
     post_request.save()
     return redirect('hunarbaaz:view_requests')  # or 'hunarbaaz:work_history' if you prefer
 
-@login_required
+
 @login_required
 def work_history(request):
     profile = get_object_or_404(Hunarbaaz, user=request.user)

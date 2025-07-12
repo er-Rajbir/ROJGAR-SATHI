@@ -8,6 +8,10 @@ aadhaar_validator = RegexValidator(
     regex=r'^\d{12}$',
     message="Aadhaar number must be exactly 12 digits"
 )
+mobile_validator = RegexValidator(
+    regex=r'^\d{10}$',
+    message="mobile number must be exactly 10 digits"
+)
 
 class Hunarbaaz(models.Model):
     SKILL_CHOICES = [
@@ -38,9 +42,9 @@ class Hunarbaaz(models.Model):
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    password_plain = models.CharField(max_length=128, blank=True, null=True)
+    
     full_name = models.CharField(max_length=100)
-    mobile = models.CharField(max_length=15)
+    mobile = models.CharField(max_length=12,unique=True,validators=[mobile_validator])
     skill = models.CharField(max_length=50, choices=SKILL_CHOICES)
     location = models.CharField(max_length=100, choices=locations)
     experience = models.PositiveIntegerField(help_text="Years of experience")
