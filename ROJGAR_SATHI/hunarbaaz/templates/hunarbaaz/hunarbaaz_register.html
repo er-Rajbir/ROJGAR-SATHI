@@ -41,9 +41,11 @@
                   </div>
                 {% endif %}
               {% endfor %}
+              <small class="form-text text-danger">*Disclaimer: The wages are determined by the platform and are not manually editable.</small>
+              <br>
 
               <!-- Work Samples -->
-              <div class="mb-4" id="field-work_sample_1">
+              <div class="mb-4 mt-4" id="field-work_sample_1">
                 <label for="{{ profile_form.work_sample_1.id_for_label }}" class="form-label">Work Sample 1</label>
                 {{ profile_form.work_sample_1|add_class:'form-control' }}
               </div>
@@ -89,6 +91,35 @@
           }
         }
       })
+    })
+  </script>
+  <script>
+    // map skill → suggested wages (₹ per 8 hrs)
+    const wageMap = {
+      Construction: 1600,
+      Electrician: 1500,
+      Painter: 1300,
+      'Domestic Worker': 900,
+      Plumber: 1400,
+      Carpenter: 1350,
+      'Electronics Repair': 1500,
+      Mechanic: 1400,
+      Others: 1200
+    }
+    
+    const skillSelect = document.getElementById('id_skill')
+    const wageInput = document.getElementById('id_wages')
+    
+    // when page loads, set wage if a skill is already selected
+    if (skillSelect.value && wageMap[skillSelect.value]) wageInput.value = wageMap[skillSelect.value]
+    
+    skillSelect.addEventListener('change', function () {
+      const selected = this.value
+      if (wageMap[selected]) {
+        wageInput.value = wageMap[selected]
+      } else {
+        wageInput.value = '' // clear if placeholder
+      }
     })
   </script>
 {% endblock %}

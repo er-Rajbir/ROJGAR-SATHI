@@ -12,9 +12,21 @@ class HunarbaazUserForm(forms.ModelForm):
 class HunarbaazProfileForm(forms.ModelForm):
     other_skill = forms.CharField(required=False, label='Other Skill')
     other_location = forms.CharField(required=False, label='Other Location')
+    skill = forms.ChoiceField(
+        choices=Hunarbaaz.SKILL_CHOICES,
+        widget=forms.Select(attrs={'id': 'id_skill'})   # ← add id here
+    )
+    wages = forms.IntegerField(label="Wages (₹ / 8 hrs) *",
+        help_text="These wages are determined by the platform and are not manually editable.",
+        widget=forms.NumberInput(attrs={'id': 'id_wages',  "readonly": "readonly", 'min': 0})
+    )
+    gender = forms.ChoiceField(
+        choices=Hunarbaaz.GENDER_CHOICES,   # or forms.Select for a drop‑down
+        label="Gender"
+    )
     class Meta:
         model = Hunarbaaz
-        fields = ['full_name', 'mobile', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample_1','work_sample_2','work_sample_3','wages']
+        fields = ['full_name', 'mobile', 'gender', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample_1','work_sample_2','work_sample_3','wages']
         def clean_skill(self):
             skill = self.cleaned_data.get('skill')
             if not skill:

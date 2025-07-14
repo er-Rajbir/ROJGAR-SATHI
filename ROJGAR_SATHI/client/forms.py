@@ -14,9 +14,13 @@ class ClientRegisterForm(forms.ModelForm):
 
 class ClientProfileForm(forms.ModelForm):
     full_name = forms.CharField(max_length=20, required=True)
+    gender = forms.ChoiceField(
+        choices=ClientProfile.GENDER_CHOICES,   # or forms.Select for a drop‑down
+        label="Gender"
+    )
     class Meta:
         model = ClientProfile
-        fields = ['full_name','phone', 'address', 'profile_picture']
+        fields = ['full_name','phone','gender', 'address', 'profile_picture']
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:

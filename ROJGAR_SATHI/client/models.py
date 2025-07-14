@@ -9,10 +9,21 @@ from django.utils import timezone
 
 
 class ClientProfile(models.Model):
+    
+    GENDER_CHOICES = [("","-------"),
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+    ]
     work=[('','<<<--Select-->>>'),('Residential','Residential'),('Commercial','Commercial')]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name=models.CharField( max_length=20,default='client fullname', blank=False)
-
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER_CHOICES,
+        default="M",
+        verbose_name="Gender",
+    )
     phone = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='client/profile_pics/', null=True, blank=True)

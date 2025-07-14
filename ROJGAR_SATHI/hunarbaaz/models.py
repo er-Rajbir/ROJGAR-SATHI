@@ -28,7 +28,7 @@ class Hunarbaaz(models.Model):
         ('Others', 'Others'),
     ]
     locations=[
-        ('','select you location'),
+        ('','Select you location'),
         ('Vallah/Verka','Vallah/Verka'),
         ('Hall Bazaar','Hall Bazaar'),
         ('Ranjit-Avenue','Ranjit-Avenue'),
@@ -41,13 +41,23 @@ class Hunarbaaz(models.Model):
         ('Ram Bagh','Ram Bagh'),
         ('other','other')
     ]
-    
+    GENDER_CHOICES = [("","-------"),
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+    ]
 
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     full_name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=12,unique=True,validators=[mobile_validator])
+    gender = models.CharField(
+        max_length=1,
+        choices=GENDER_CHOICES,
+        default="M",
+        verbose_name="Gender",
+    )
     skill = models.CharField(max_length=50, choices=SKILL_CHOICES)
     location = models.CharField(max_length=100, choices=locations)
     experience = models.PositiveIntegerField(help_text="Years of experience")
