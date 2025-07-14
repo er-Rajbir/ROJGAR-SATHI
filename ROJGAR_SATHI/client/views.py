@@ -96,7 +96,7 @@ def edit_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('client:client_dashboard')  # Change as per your dashboard path name
+            return redirect('client:client_dashboard')  
     else:
         user_form = UserUpdateForm(instance=user)
         profile_form = ClientProfileForm(instance=profile)
@@ -106,24 +106,7 @@ def edit_profile(request):
         'profile_form': profile_form
     })
 
-@login_required
-def create_work_request(request):
-    hunarbaaz_id = request.GET.get('hunarbaaz_id')
 
-    if request.method == 'POST':
-        form = PostRequestForm(request.POST)
-        if form.is_valid():
-            work_request = form.save(commit=False)
-            work_request.client = request.user
-            work_request.save()
-            return redirect('client:client_dashboard')  # Update as needed
-    else:
-        if hunarbaaz_id:
-            form = PostRequestForm(initial={'hunarbaaz': hunarbaaz_id})
-        else:
-            form = PostRequestForm()
-
-    return render(request, 'client/post_request.html', {'form': form})
 
 def hunarbaaz_list(request):
     skill_query = request.GET.get('skill', '')
@@ -137,8 +120,6 @@ def hunarbaaz_list(request):
     if location_query:
         profiles = profiles.filter(location=location_query)
 
-    # Get unique locations for dropdown
-    # ⬇️  get choices straight from the model tuples
     skill_choices    = [c for c in Hunarbaaz.SKILL_CHOICES if c[0]]   # skip the empty placeholder
     location_choices = [c for c in Hunarbaaz.locations     if c[0]]
 
@@ -155,6 +136,25 @@ def hunarbaaz_detail_view(request, id):
     if hasattr(request.user, 'hunarbaaz'):
         raise Http404("Page not found") 
     return render(request, 'client/hunarbaaz_details.html', {'profile': profile})
+
+@login_required
+def create_work_request(request):
+    hunarbaaz_id = request.GET.get('hunarbaaz_id')
+
+    if request.method == 'POST':
+        form = PostRequestForm(request.POST)
+        if form.is_valid():
+            work_request = form.save(commit=False)
+            work_request.client = request.user
+            work_request.save()
+            return redirect('client:client_dashboard')  
+    else:
+        if hunarbaaz_id:
+            form = PostRequestForm(initial={'hunarbaaz': hunarbaaz_id})
+        else:
+            form = PostRequestForm()
+
+    return render(request, 'client/post_request.html', {'form': form})
 
 @login_required
 def request_history(request):
@@ -218,7 +218,7 @@ def mark_as_completed(request, request_id):
         if form.is_valid():
             post_request.is_completed = True
             form.save()
-            return redirect('client:request_status')
+            return redirect('client:request_history')
     else:
         form = ReviewForm(instance=post_request)
 
