@@ -44,7 +44,7 @@
         <img src="{% if profile.profile_pic %}{{ profile.profile_pic.url }}{% else %}{% static 'base/images/default.jpg' %}{% endif %}" class="profile-image" alt="Profile Picture">
         
         <div class="profile-details">
-          <h5>{{ profile.user.username }}</h5>
+          <h5>{{ profile.full_name }}</h5>
           <p><strong>Skill:</strong> {{ profile.skill }}</p>
           <p><strong>Location:</strong> {{ profile.location }}</p>
           <p><strong>Experience:</strong> {{ profile.experience }} Years</p>

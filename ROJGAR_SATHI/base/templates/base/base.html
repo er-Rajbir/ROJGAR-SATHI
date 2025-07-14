@@ -68,14 +68,14 @@
             </li>
             <li class="nav-item">
               <a class="nav-link nav-anim" href="{% url 'client:client_dashboard' %}">
-               <i class="bi bi-person-circle me-1"></i> {{ user.clientprofile.full_name }}
+               <i class="bi bi-person-circle me-1"></i> {{ user.username }}
               </a>
             </li>
             
           {% elif user.hunarbaaz %}
             <li class="nav-item">
               <a class="nav-link nav-anim" href="{% url 'hunarbaaz:hunarbaaz_dashboard' %}">
-                <i class="bi bi-person-circle me-1"></i>{{ user.hunarbaaz.full_name }}
+                <i class="bi bi-person-circle me-1"></i>{{ user.username }}
               </a>
             </li>
           {% endif %}
@@ -166,16 +166,5 @@
 <!--  Footer Ends -->
 
 
-<!-- Bootstrap JS -->
 
-{% comment %} {% comment %} {% if messages %}
-  <div class="container mt-2">
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div> 
-{% endif %} {% endcomment %}
-</body>
 </html>
