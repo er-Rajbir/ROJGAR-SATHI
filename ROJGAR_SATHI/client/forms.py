@@ -16,7 +16,7 @@ class ClientProfileForm(forms.ModelForm):
     full_name = forms.CharField(max_length=20, required=True)
     class Meta:
         model = ClientProfile
-        fields = ['full_name','phone', 'address', 'work_type', 'profile_picture']
+        fields = ['full_name','phone', 'address', 'profile_picture']
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -33,6 +33,7 @@ class PostRequestForm(forms.ModelForm):
             'end_date',
             'job_type',
             'job_description',
+            'working_hours',
         ]
         widgets = {
             'hunarbaaz': forms.Select(attrs={'class': 'form-control'}),
@@ -41,6 +42,7 @@ class PostRequestForm(forms.ModelForm):
             'end_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'job_type': forms.Select(attrs={'class': 'form-control'}),
             'job_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'working_hours': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):

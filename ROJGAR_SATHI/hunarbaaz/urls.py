@@ -15,5 +15,5 @@ urlpatterns = [
     path('request/<int:request_id>/reject/', views.reject_request, name='reject_request'),
     path('mark-completed/<int:request_id>/', views.mark_as_completed, name='mark_completed'),
     path('work-history/', views.work_history, name='work_history'),  
-     path('work-history/<int:hunarbaaz_id>/', views.public_work_history, name='public_work_history'),
+    path('work-history/<int:hunarbaaz_id>/', views.public_work_history, name='public_work_history'),
 ]

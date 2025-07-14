@@ -12,8 +12,8 @@ def home(request):
     categories = ['Electrician', 'Plumber', 'Technician', 'Construction', 'Painter', 'Welder']
 
     # ⭐ Get recent completed reviews with rating
-    reviews = PostRequest.objects.filter(is_completed=True, review__isnull=False, rating__gte=4  # ✅ Only reviews with rating 4 or 5
-   ).select_related('client').order_by('-created_at')[:6]  # Change limit as needed
+    reviews = PostRequest.objects.filter(is_completed=True, review__isnull=False # ✅ Only reviews with rating 4 or 5
+   ).select_related('client').order_by('-created_at')[:9]  # Change limit as needed
 
     return render(request, 'base/home.html', {
         'categories': categories,

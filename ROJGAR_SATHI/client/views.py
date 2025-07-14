@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect,get_object_or_404,HttpResponse
+from django.shortcuts import render, redirect,get_object_or_404
 from django.utils import timezone
 from django.http import HttpResponseForbidden, Http404
 from datetime import timedelta
@@ -7,20 +7,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-
-from .models import PostRequest
-from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm
-
-
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm, ReviewForm
-
 from django.contrib.auth import login
 from django.contrib import messages
-# for email
+#for email
 from django.core.mail import send_mail
 from django.conf import settings
-
-
 
 
 
@@ -32,11 +24,6 @@ def client_dashboard(request):
 @login_required
 def edit_profile(request):
     return render(request, 'client/edit_profile.html')
-
-
-
-
-
 
 def register_view(request):
     if request.method == 'POST':
@@ -54,12 +41,35 @@ def register_view(request):
               # ✅ Send Email
             
             send_mail(
-                'Welcome to Rozgaar Saathi!',
-                f'Dear {profile.full_name},\n\nThank you for registering as a Client on Rozgaar Saathi!\n \n your Username:{user.username}',
-                settings.DEFAULT_FROM_EMAIL,
-                [user.email],
-                fail_silently=False,
-            )
+    subject="🎉 Welcome to Rozgaar Saathi!",
+    message=f"""
+Hi {profile.full_name},
+
+Thank you for signing up as a Client on Rozgaar Saathi!
+
+Your account details
+────────────────────
+• Username : {user.username}
+• Email    : {user.email}
+
+What you can do next
+────────────────────
+1. Post a work request and connect with verified Hunarbaaz in your area.
+2. Track job status and communicate directly from your dashboard.
+3. Rate and review workers after the job is complete to help the community grow.
+
+Need help?
+──────────
+If you have any questions, simply reply to this e‑mail or call us at +91‑98765‑4XXXX.
+Our support team is available Monday–Saturday, 9 am – 6 pm IST.
+
+Welcome aboard!
+The Rozgaar Saathi Team
+""",
+    from_email=settings.DEFAULT_FROM_EMAIL,
+    recipient_list=[user.email],
+    fail_silently=False,
+)
             
             return redirect('base:login')
 
@@ -71,10 +81,6 @@ def register_view(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
-
-
-
-
 
 @login_required
 def edit_profile(request):
@@ -119,9 +125,6 @@ def create_work_request(request):
 
     return render(request, 'client/post_request.html', {'form': form})
 
-
-
-
 def hunarbaaz_list(request):
     skill_query = request.GET.get('skill', '')
     location_query = request.GET.get('location', '')
@@ -135,24 +138,23 @@ def hunarbaaz_list(request):
         profiles = profiles.filter(location=location_query)
 
     # Get unique locations for dropdown
-    unique_locations = Hunarbaaz.objects.values_list('location', flat=True).distinct()
+    # ⬇️  get choices straight from the model tuples
+    skill_choices    = [c for c in Hunarbaaz.SKILL_CHOICES if c[0]]   # skip the empty placeholder
+    location_choices = [c for c in Hunarbaaz.locations     if c[0]]
 
-    return render(request, 'client/hunarbaaz_list.html', {
-        'profiles': profiles,
-        'unique_locations': unique_locations,
-    })
-
+    context = {
+        "profiles": profiles,               
+        "skill_choices": skill_choices,     
+        "location_choices": location_choices,
+    }
+    return render(request, "client/hunarbaaz_list.html", context)
 
 @login_required
 def hunarbaaz_detail_view(request, id):
     profile = get_object_or_404(Hunarbaaz, id=id)
     if hasattr(request.user, 'hunarbaaz'):
-        raise Http404("Page not found")  # ❌ Don't allow Hunarbaaz to access
-    
+        raise Http404("Page not found") 
     return render(request, 'client/hunarbaaz_details.html', {'profile': profile})
-
-
-
 
 @login_required
 def request_history(request):
@@ -189,7 +191,6 @@ def cancel_request(request, request_id):
         post_request.save()
     
     return redirect('client:request_status')
-
 
 @login_required
 def reschedule_request(request, pk):

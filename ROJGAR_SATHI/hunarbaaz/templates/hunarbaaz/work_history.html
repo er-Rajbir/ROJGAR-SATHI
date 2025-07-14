@@ -1,97 +1,110 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="container mt-5 mb-5">
+  <div class="container mt-5 mb-5">
+    <h3 class="text-center text-success mb-4">
+      {% if user.clientprofile %}
+        <b>Work History of {{ user.hunarbaaz.full_name }}</b>
+      {% elif user.hunarbaaz %}
+        <b>My Work History</b>
+      {% else %}
+        {{ user.username }}
+      {% endif %}
+    </h3>
 
-  <h3 class="text-center text-success mb-4">
-    {% if user.clientprofile %}
-      <b>Work History of {{ user.hunarbaaz.full_name }}</b>
-    {% elif user.hunarbaaz %}
-      <b>My Work History</b>
-    {% else %}
-      {{ user.username }}
-    {% endif %}
-  </h3>
+    <!-- ✅ Completed Jobs -->
+    {% if completed_jobs %}
+      <h4 class="text-primary mb-3">✅ Completed Work</h4>
+      <div class="row g-4">
+        {% for job in completed_jobs %}
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+              <!-- 👤 Client Name + HR -->
+              <div class="card-header bg-white border-bottom-0">
+                <h5 class="text-info text-center mb-1">👤 {{ job.client.username }}</h5>
+                <hr class="mb-0" />
+              </div>
 
-  <!-- ✅ Completed Jobs -->
-  {% if completed_jobs %}
-    <h4 class="text-primary mb-3">✅ Completed Work</h4>
-    <div class="row g-4">
-  {% for job in completed_jobs %}
-    <div class="col-md-6">
-      <div class="card shadow-sm border-0">
-        
-        <!-- 👤 Client Name + HR -->
-        <div class="card-header bg-white border-bottom-0">
-          <h5 class="text-info text-center mb-1">👤 {{ job.client.username }}</h5>
-          <hr class="mb-0" />
-        </div>
+              <div class="row g-0 align-items-stretch">
+                <!-- 🔷 Left Side: Job Info -->
+                <div class="col-7 border-end">
+                  <div class="card-body">
+                    <p>
+                      <strong>📋 Description:</strong> {{ job.job_description }}
+                    </p>
+                    <p>
+                      <strong>📍 Location:</strong> {{ job.location }}
+                    </p>
+                    <p>
+                      <strong>📆 Start:</strong> {{ job.start_date|date:'d M Y' }}
+                    </p>
+                    <p>
+                      <strong>📅 End:</strong> {{ job.end_date|date:'d M Y' }}
+                    </p>
+                  </div>
+                </div>
 
-        <div class="row g-0 align-items-stretch">
-          <!-- 🔷 Left Side: Job Info -->
-          <div class="col-7 border-end">
-            <div class="card-body">
-              <p><strong>📋 Description:</strong> {{ job.job_description }}</p>
-              <p><strong>📍 Location:</strong> {{ job.location }}</p>
-              <p><strong>📆 Start:</strong> {{ job.start_date|date:"d M Y" }}</p>
-              <p><strong>📅 End:</strong> {{ job.end_date|date:"d M Y" }}</p>
-            </div>
-          </div>
-
-          <!-- 💬 Right Side: Rating & Review -->
-          <div class="col-5 d-flex align-items-center">
-            <div class="card-body">
-              {% if job.rating %}
-                <p class="mb-1">
-                  <strong>⭐ Rating:</strong>
-                  {% for i in '12345'|make_list %}
-                    {% if forloop.counter <= job.rating %}
-                      <span style="color: gold;">&#9733;</span>
-                    {% else %}
-                      <span style="color: lightgray;">&#9733;</span>
+                <!-- 💬 Right Side: Rating & Review -->
+                <div class="col-5 d-flex align-items-center">
+                  <div class="card-body">
+                    {% if job.rating %}
+                      <p class="mb-1">
+                        <strong>⭐ Rating:</strong>
+                        {% for i in '12345'|make_list %}
+                          {% if forloop.counter <= job.rating %}
+                            <span style="color: gold;">&#9733;</span>
+                          {% else %}
+                            <span style="color: lightgray;">&#9733;</span>
+                          {% endif %}
+                        {% endfor %}
+                        <small>({{ job.rating }}/5)</small>
+                      </p>
                     {% endif %}
-                  {% endfor %}
-                  <small>({{ job.rating }}/5)</small>
-                </p>
-              {% endif %}
-              {% if job.review %}
-                <p class="mt-2"><strong>💬 Review:</strong> <em>"{{ job.review }}"</em></p>
-              {% else %}
-                <p class="text-muted mt-2">No review given.</p>
-              {% endif %}
+                    {% if job.review %}
+                      <p class="mt-2">
+                        <strong>💬 Review:</strong> <em>"{{ job.review }}"</em>
+                      </p>
+                    {% else %}
+                      <p class="text-muted mt-2">No review given.</p>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
+        {% endfor %}
       </div>
-    </div>
-  {% endfor %}
-</div>
+    {% else %}
+      <div class="alert alert-info text-center mt-4">No completed jobs yet.</div>
+    {% endif %}
 
-  {% else %}
-    <div class="alert alert-info text-center mt-4">No completed jobs yet.</div>
-  {% endif %}
-
-  <!-- ❌ Cancelled Jobs -->
-  {% if cancelled_jobs %}
-    <hr class="my-5" />
-    <h4 class="text-danger mb-3">❌ Cancelled Requests</h4>
-    <div class="row g-4">
-      {% for job in cancelled_jobs %}
-        <div class="col-md-6">
-          <div class="card border-danger shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title text-danger">👤 Client: {{ job.client.username }}</h5>
-              <p><strong>📋 Description:</strong> {{ job.job_description }}</p>
-              <p><strong>📍 Location:</strong> {{ job.location }}</p>
-              <p><strong>📆 Start:</strong> {{ job.start_date|date:'d M Y' }}</p>
-              <p><strong>📅 End:</strong> {{ job.end_date|date:'d M Y' }}</p>
-              <p class="text-danger fw-bold">❗ Status: Cancelled</p>
+    <!-- ❌ Cancelled Jobs -->
+    {% if cancelled_jobs %}
+      <hr class="my-5" />
+      <h4 class="text-danger mb-3">❌ Cancelled Requests</h4>
+      <div class="row g-4">
+        {% for job in cancelled_jobs %}
+          <div class="col-md-6">
+            <div class="card border-danger shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title text-danger">👤 Client: {{ job.client.username }}</h5>
+                <p>
+                  <strong>📋 Description:</strong> {{ job.job_description }}
+                </p>
+                <p>
+                  <strong>📍 Location:</strong> {{ job.location }}
+                </p>
+                <p>
+                  <strong>📆 Start:</strong> {{ job.start_date|date:'d M Y' }}
+                </p>
+                <p>
+                  <strong>📅 End:</strong> {{ job.end_date|date:'d M Y' }}
+                </p>
+                <p class="text-danger fw-bold">❗ Status: Cancelled</p>
+              </div>
             </div>
           </div>
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-
-</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

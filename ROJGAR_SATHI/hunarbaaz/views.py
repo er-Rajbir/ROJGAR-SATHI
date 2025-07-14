@@ -5,6 +5,8 @@ from .models import Hunarbaaz, WorkRequest
 from .forms import HunarbaazProfileForm, HunarbaazUserForm
 from django.http import HttpResponseForbidden
 from django.db.models import Avg
+from client.models import PostRequest
+
 #for mail
 from django.core.mail import send_mail
 from django.conf import settings
@@ -39,7 +41,6 @@ def register_hunarbaaz(request):
         'profile_form': profile_form
 })
 
-from client.models import PostRequest
 
 @login_required
 def hunarbaaz_dashboard(request):
@@ -112,15 +113,6 @@ def edit_profile(request):
     })
 
 
-
-
-# list of hunrabaaaz
-
-
-
-#dashboard requests
-from client.models import PostRequest
-
 @login_required
 def view_requests(request):
     try:
@@ -137,10 +129,6 @@ def view_requests(request):
     return render(request, 'hunarbaaz/view_requests.html', {
         'client_requests': requests
     })
-
-
-
-
 
 @login_required
 def accept_request(request, request_id):
@@ -233,6 +221,7 @@ def public_work_history(request, hunarbaaz_id):
         'completed_jobs': completed_jobs,
         'cancelled_jobs': cancelled_jobs
     })
+
 @property
 def full_name(self):
     return f"{self.user.first_name} {self.user.last_name}".strip()

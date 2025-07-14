@@ -31,4 +31,19 @@
       toggleOtherSkill()
       toggleOtherLocation()
     })
-  
+
+/* auto update wage after skill selection */
+// document.addEventListener("DOMContentLoaded", () => {
+//   const skillSelect  = document.querySelector("#id_skill");
+//   const wageInput    = document.querySelector("#id_wages");
+
+//   const defaultWages = {{ DEFAULT_WAGES_PER_HOUR|json_script:"wageMap" }};  // Django 3.1+
+
+//   skillSelect.addEventListener("change", () => {
+//     const skill = skillSelect.value;
+//     if (defaultWages[skill]) {
+//       wageInput.value = defaultWages[skill];
+//     }
+//   });
+// });
+

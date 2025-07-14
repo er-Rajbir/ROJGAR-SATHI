@@ -15,7 +15,6 @@ class ClientProfile(models.Model):
 
     phone = models.CharField(max_length=15, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
-    work_type = models.CharField(max_length=20, default='N/A' ,choices=work )
     profile_picture = models.ImageField(upload_to='client/profile_pics/', null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -37,7 +36,11 @@ class PostRequest(models.Model):
     ]
 
     job_type = models.CharField(max_length=20,choices=JOB_TYPE_CHOICES,default='residential',help_text="Type of job location")
-
+    working_hours = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Estimated total working hours for this job"
+    )
     is_accepted = models.BooleanField(null=True, blank=True)  # None = Pending, True = Accepted, False = Rejected
     is_completed = models.BooleanField(default=False)
     is_cancelled = models.BooleanField(default=False, help_text="Whether the client has cancelled the request")

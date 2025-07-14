@@ -9,15 +9,18 @@
           <div class="col-md-4">
             <div class="card shadow-lg border-0 h-100">
               <div class="card-body">
-                <h5 class="card-title text-info fw-semibold">
-                  👤 From: <span class="text-dark">{{ req.client.username }}</span>
-                </h5>
-                <hr class="mb-2">
+                <h5 class="card-title text-info fw-semibold">👤 From: <span class="text-dark">{{ req.client.username }}</span></h5>
+                <hr class="mb-2" />
 
-                <p><strong>📝 Description:</strong> {{ req.job_description }}</p>
-                <p><strong>📍 Location:</strong> {{ req.location }}</p>
+                <p>
+                  <strong>📝 Description:</strong> {{ req.job_description }}
+                </p>
+                <p>
+                  <strong>📍 Location:</strong> {{ req.location }}
+                </p>
 
-                <p><strong>🏗️ Job Type:</strong>
+                <p>
+                  <strong>🏗️ Job Type:</strong>
                   {% if req.job_type == 'residential' %}
                     🏠 Residential
                   {% elif req.job_type == 'commercial' %}
@@ -27,16 +30,21 @@
                   {% endif %}
                 </p>
 
-                <p><strong>📅 Start:</strong> {{ req.start_date|date:"d M Y" }}</p>
-                <p><strong>📅 End:</strong> {{ req.end_date|date:"d M Y" }}</p>
+                <p>
+                  <strong>📅 Start:</strong> {{ req.start_date|date:'d M Y' }}
+                </p>
+                <p>
+                  <strong>📅 End:</strong> {{ req.end_date|date:'d M Y' }}
+                </p>
 
-                <p><strong>📌 Status:</strong>
+                <p>
+                  <strong>📌 Status:</strong>
                   {% if req.is_cancelled %}
-                    <span class="badge bg-danger"> Cancelled</span>
+                    <span class="badge bg-danger">Cancelled</span>
                   {% elif req.is_completed %}
                     <span class="badge bg-secondary">Completed</span>
                   {% elif req.is_accepted == True %}
-                    <span class="badge bg-success"> Accepted</span>
+                    <span class="badge bg-success">Accepted</span>
                   {% elif req.is_accepted == False %}
                     <span class="badge bg-danger">Rejected</span>
                   {% else %}
@@ -46,18 +54,12 @@
 
                 <div class="mt-3">
                   {% if req.is_accepted is None and not req.is_cancelled %}
-                    <a href="{% url 'hunarbaaz:accept_request' req.id %}" class="btn btn-success btn-sm me-2">
-                      Accept
-                    </a>
-                    <a href="{% url 'hunarbaaz:reject_request' req.id %}" class="btn btn-outline-danger btn-sm">
-                     Reject
-                    </a>
+                    <a href="{% url 'hunarbaaz:accept_request' req.id %}" class="btn btn-success btn-sm me-2">Accept</a>
+                    <a href="{% url 'hunarbaaz:reject_request' req.id %}" class="btn btn-outline-danger btn-sm">Reject</a>
                   {% endif %}
 
                   {% if req.is_accepted and not req.is_completed and not req.is_cancelled %}
-                    <a href="{% url 'hunarbaaz:mark_completed' req.id %}" class="btn btn-success btn-sm mt-2">
-                      Mark as Completed
-                    </a>
+                    <a href="{% url 'hunarbaaz:mark_completed' req.id %}" class="btn btn-success btn-sm mt-2">Mark as Completed</a>
                   {% elif req.is_completed %}
                     <span class="btn btn-success fw-bold btn-sm mt-2" disabled>Marked Completed</span>
                   {% endif %}
@@ -68,9 +70,7 @@
         {% endfor %}
       </div>
     {% else %}
-      <div class="alert alert-info text-center mt-4">
-        No work requests received yet.
-      </div>
+      <div class="alert alert-info text-center mt-4">No work requests received yet.</div>
     {% endif %}
   </div>
 {% endblock %}

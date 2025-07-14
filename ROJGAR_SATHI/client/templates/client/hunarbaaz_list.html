@@ -3,19 +3,24 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'client/css/hunarbaaz.css' %}">
 
-
-<h2 style="text-align:center; color:#004aad;">Available Hunarbaaz</h2>
-
-<!-- Search Form -->
-<form method="get" class="search-bar">
-  <input type="text" name="skill" placeholder="Search by skill..." value="{{ request.GET.skill }}">
-  <select name="location">
-    <option value="">All Locations</option>
-    {% for loc in unique_locations %}
-      <option value="{{ loc }}" {% if request.GET.location == loc %}selected{% endif %}>{{ loc }}</option>
+<form method="get" class="search-bar d-flex flex-wrap gap-2 mb-4">
+  <!-- Skill Dropdown -->
+  <select name="skill" class="form-select">
+    <option value="">Search by Skill</option>
+    {% for code, label in skill_choices %}
+      <option value="{{ code }}" {% if request.GET.skill == code %}selected{% endif %}>{{ label }}</option>
     {% endfor %}
   </select>
-  <button type="submit">Search</button>
+
+  <!-- Location Dropdown -->
+  <select name="location" class="form-select">
+    <option value="">Search by Location</option>
+    {% for code, label in location_choices %}
+      <option value="{{ code }}" {% if request.GET.location == code %}selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+
+  <button type="submit" class="btn btn-success">Search</button>
 </form>
 
 <!-- Cards -->

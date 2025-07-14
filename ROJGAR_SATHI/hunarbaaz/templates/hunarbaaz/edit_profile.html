@@ -3,51 +3,51 @@
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card shadow border-0">
-        <div class="card-header bg-primary text-white text-center">
-          <h3 class="mb-0">📝 Edit Your Profile</h3>
-        </div>
-        <div class="card-body p-4 bg-light">
-          <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-                        <h5 class="mb-3">Account Details</h5>
-            {% for field in user_form %}
-              <div class="mb-3">
-                {{ field.label_tag }}
-                {{ field|add_class:'form-control' }}
-                {% if field.errors %}
-                  <div class="text-danger">{{ field.errors }}</div>
-                {% endif %}
-              </div>
-            {% endfor %}
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow border-0">
+          <div class="card-header bg-primary text-white text-center">
+            <h3 class="mb-0">📝 Edit Your Profile</h3>
+          </div>
+          <div class="card-body p-4 bg-light">
+            <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <h5 class="mb-3">Account Details</h5>
+              {% for field in user_form %}
+                <div class="mb-3">
+                  {{ field.label_tag }}
+                  {{ field|add_class:'form-control' }}
+                  {% if field.errors %}
+                    <div class="text-danger">{{ field.errors }}</div>
+                  {% endif %}
+                </div>
+              {% endfor %}
 
-            <h5 class="mt-4 mb-3">Profile Info</h5>
+              <h5 class="mt-4 mb-3">Profile Info</h5>
 
-            {% if profile_form.instance.profile_picture %}
-              <div class="text-center mb-3">
-                <img src="{{ profile_form.instance.profile_picture.url }}" alt="Profile Pic" class="profile-pic-preview" />
-              </div>
-            {% endif %}
+              {% if profile_form.instance.profile_picture %}
+                <div class="text-center mb-3">
+                  <img src="{{ profile_form.instance.profile_picture.url }}" alt="Profile Pic" class="profile-pic-preview" />
+                </div>
+              {% endif %}
 
-            {% for field in profile_form %}
-              <div class="mb-3">
-                {{ field.label_tag }}
-                {{ field|add_class:'form-control' }}
-                {% if field.errors %}
-                  <div class="text-danger">{{ field.errors }}</div>
-                {% endif %}
+              {% for field in profile_form %}
+                <div class="mb-3">
+                  {{ field.label_tag }}
+                  {{ field|add_class:'form-control' }}
+                  {% if field.errors %}
+                    <div class="text-danger">{{ field.errors }}</div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-4">Save Changes</button>
               </div>
-            {% endfor %}
-            <div class="text-center mt-4">
-              <button type="submit" class="btn btn-success px-4">Save Changes</button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 {% endblock %}

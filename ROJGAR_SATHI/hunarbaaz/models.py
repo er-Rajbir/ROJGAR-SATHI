@@ -13,6 +13,7 @@ mobile_validator = RegexValidator(
     message="mobile number must be exactly 10 digits"
 )
 
+
 class Hunarbaaz(models.Model):
     SKILL_CHOICES = [
         ('', 'Tell us your skill'),  # placeholder
@@ -40,6 +41,8 @@ class Hunarbaaz(models.Model):
         ('Ram Bagh','Ram Bagh'),
         ('other','other')
     ]
+    
+
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     

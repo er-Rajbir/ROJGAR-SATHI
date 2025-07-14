@@ -3,7 +3,7 @@
 {% load widget_tweaks %}
 {% block content %}
   <script src="{% static '/hunarbaaz/js/register.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'base/css/register.css' %}"> 
+  <link rel="stylesheet" href="{% static 'base/css/register.css' %}" />
 
   <div class="container my-5">
     <div class="row justify-content-center">
@@ -28,7 +28,7 @@
 
               <!-- Profile Section -->
               <h5 class="section-title mt-4">📝 Profile Details</h5>
-              
+
               {# Render non-sample fields first #}
               {% for field in profile_form %}
                 {% if field.name not in 'work_sample_1,work_sample_2,work_sample_3' %}
@@ -76,19 +76,19 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      let currentSample = 1;
-      const addBtn = document.getElementById('addWorkSampleBtn');
-
+      let currentSample = 1
+      const addBtn = document.getElementById('addWorkSampleBtn')
+    
       addBtn.addEventListener('click', () => {
-        currentSample++;
-        const nextField = document.getElementById(`field-work_sample_${currentSample}`);
+        currentSample++
+        const nextField = document.getElementById(`field-work_sample_${currentSample}`)
         if (nextField) {
-          nextField.classList.remove('d-none');
+          nextField.classList.remove('d-none')
           if (currentSample === 3) {
-            addBtn.style.display = 'none';
+            addBtn.style.display = 'none'
           }
         }
-      });
-    });
+      })
+    })
   </script>
 {% endblock %}
