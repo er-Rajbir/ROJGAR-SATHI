@@ -12,6 +12,7 @@ class ClientRegisterForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password',]
 
+
 class ClientProfileForm(forms.ModelForm):
     full_name = forms.CharField(max_length=20, required=True)
     gender = forms.ChoiceField(
@@ -22,10 +23,12 @@ class ClientProfileForm(forms.ModelForm):
         model = ClientProfile
         fields = ['full_name','phone','gender', 'address', 'profile_picture']
 
+
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+        
 
 class PostRequestForm(forms.ModelForm):
     class Meta:
@@ -79,9 +82,6 @@ class RescheduleRequestForm(forms.ModelForm):
             raise forms.ValidationError("End date cannot be earlier than start date.")
         return cleaned_data
     
-
-from django import forms
-from .models import PostRequest
 
 class ReviewForm(forms.ModelForm):
     class Meta:
