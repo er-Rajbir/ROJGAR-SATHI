@@ -11,5 +11,4 @@ class PublicContactForm(forms.ModelForm):
             'user_type': forms.Select(attrs={'class': 'form-select'}),
             'query_type': forms.Select(attrs={'class': 'form-select'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': 'Write your message here'}),
-            'rating': forms.NumberInput(attrs={'type': 'range', 'min': 1, 'max': 5, 'step': 1, 'class': 'form-range'}),
-        }
+            }

@@ -51,7 +51,7 @@ class Hunarbaaz(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
     full_name = models.CharField(max_length=100)
-    mobile = models.CharField(max_length=12,unique=True,validators=[mobile_validator])
+    mobile = models.CharField(max_length=10,unique=True,validators=[mobile_validator])
     gender = models.CharField(
         max_length=1,
         choices=GENDER_CHOICES,

@@ -15,8 +15,9 @@
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <h5 class="mb-3">Account Details</h5>
+            <h5 class="mb-3 text-center">Account Info</h5>
             {% for field in user_form %}
+            {% if field.name != 'password' %}
               <div class="mb-3">
                 {{ field.label_tag }}
                 {{ field|add_class:'form-control' }}
@@ -24,9 +25,10 @@
                   <div class="text-danger">{{ field.errors }}</div>
                 {% endif %}
               </div>
+              {% endif %}
             {% endfor %}
 
-            <h5 class="mt-4 mb-3">Profile Info</h5>
+            <h5 class="mt-4 mb-3 text-center">Profile Info</h5>
 
             {% if profile_form.instance.profile_picture %}
               <div class="text-center mb-3">

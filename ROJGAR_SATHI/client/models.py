@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db import models
-from django.contrib.auth.models import User
 from hunarbaaz.models import Hunarbaaz  
 from django.core.validators import MinValueValidator, MaxValueValidator
-from decimal import Decimal
-from django.utils import timezone
+from django.core.validators import RegexValidator
 
-
+mobile_validator = RegexValidator(
+    regex=r'^\d{10}$',
+    message="mobile number must be exactly 10 digits"
+)
 class ClientProfile(models.Model):
     
     GENDER_CHOICES = [("","-------"),
@@ -24,7 +24,7 @@ class ClientProfile(models.Model):
         default="M",
         verbose_name="Gender",
     )
-    phone = models.CharField(max_length=15, null=True, blank=True)
+    phone = models.CharField(max_length=10,unique=True,validators=[mobile_validator])
     address = models.TextField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='client/profile_pics/', null=True, blank=True)
 

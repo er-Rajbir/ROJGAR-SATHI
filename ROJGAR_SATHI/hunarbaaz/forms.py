@@ -8,6 +8,7 @@ class HunarbaazUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+        
 
 class HunarbaazProfileForm(forms.ModelForm):
     other_skill = forms.CharField(required=False, label='Other Skill')
@@ -24,6 +25,7 @@ class HunarbaazProfileForm(forms.ModelForm):
         choices=Hunarbaaz.GENDER_CHOICES,   # or forms.Select for a drop‑down
         label="Gender"
     )
+    
     class Meta:
         model = Hunarbaaz
         fields = ['full_name', 'mobile', 'gender', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample_1','work_sample_2','work_sample_3','wages']
