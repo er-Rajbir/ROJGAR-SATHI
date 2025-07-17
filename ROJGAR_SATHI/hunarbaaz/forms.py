@@ -8,11 +8,15 @@ class HunarbaazUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+<<<<<<< HEAD
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("Email already exists.")
         return email
+=======
+        
+>>>>>>> f8b63a83031a76aec2cec454f5439095b660b64f
 
 class HunarbaazProfileForm(forms.ModelForm):
     other_skill = forms.CharField(required=False, label='Other Skill')
@@ -29,6 +33,7 @@ class HunarbaazProfileForm(forms.ModelForm):
         choices=Hunarbaaz.GENDER_CHOICES,   # or forms.Select for a drop‑down
         label="Gender"
     )
+    
     class Meta:
         model = Hunarbaaz
         fields = ['full_name', 'mobile', 'gender', 'skill', 'location', 'experience', 'aadhaar_number', 'profile_pic','work_sample_1','work_sample_2','work_sample_3','wages']

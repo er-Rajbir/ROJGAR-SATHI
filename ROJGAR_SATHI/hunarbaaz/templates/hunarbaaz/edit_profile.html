@@ -13,24 +13,20 @@
           <div class="card-body p-4 bg-light">
             <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <h5 class="mb-3">Account Details</h5>
+              <h5 class="mb-3 text-center">Account Info</h5>
               {% for field in user_form %}
-                <div class="mb-3">
-                  {{ field.label_tag }}
-                  {{ field|add_class:'form-control' }}
-                  {% if field.errors %}
-                    <div class="text-danger">{{ field.errors }}</div>
-                  {% endif %}
-                </div>
+                {% if field.name != 'password' %}
+                  <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field|add_class:'form-control' }}
+                    {% if field.errors %}
+                      <div class="text-danger">{{ field.errors }}</div>
+                    {% endif %}
+                  </div>
+                {% endif %}
               {% endfor %}
 
-              <h5 class="mt-4 mb-3">Profile Info</h5>
-
-              {% if profile_form.instance.profile_picture %}
-                <div class="text-center mb-3">
-                  <img src="{{ profile_form.instance.profile_picture.url }}" alt="Profile Pic" class="profile-pic-preview" />
-                </div>
-              {% endif %}
+              <h5 class="mt-4 mb-3 text-center">Profile Info</h5>
 
               {% for field in profile_form %}
                 <div class="mb-3">
@@ -50,4 +46,33 @@
       </div>
     </div>
   </div>
+  <script>
+    // map skill → suggested wages (₹ per 8 hrs)
+    const wageMap = {
+      Construction: 1600,
+      Electrician: 1500,
+      Painter: 1300,
+      'Domestic Worker': 900,
+      Plumber: 1400,
+      Carpenter: 1350,
+      'Electronics Repair': 1500,
+      Mechanic: 1400,
+      Others: 1200
+    }
+    
+    const skillSelect = document.getElementById('id_skill')
+    const wageInput = document.getElementById('id_wages')
+    
+    // when page loads, set wage if a skill is already selected
+    if (skillSelect.value && wageMap[skillSelect.value]) wageInput.value = wageMap[skillSelect.value]
+    
+    skillSelect.addEventListener('change', function () {
+      const selected = this.value
+      if (wageMap[selected]) {
+        wageInput.value = wageMap[selected]
+      } else {
+        wageInput.value = '' // clear if placeholder
+      }
+    })
+  </script>
 {% endblock %}

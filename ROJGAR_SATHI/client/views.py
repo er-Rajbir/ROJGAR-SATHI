@@ -1,14 +1,9 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.utils import timezone
 from django.http import HttpResponseForbidden, Http404
-from datetime import timedelta
 from .models import ClientProfile,Hunarbaaz, PostRequest
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm, ReviewForm
-from django.contrib.auth import login
 from django.contrib import messages
 #for email
 from django.core.mail import send_mail
