@@ -210,9 +210,6 @@ def reschedule_request(request, pk):
 def mark_as_completed(request, request_id):
     post_request = get_object_or_404(PostRequest, id=request_id)
 
-    if post_request.client != request.user:
-        return HttpResponseForbidden("You are not authorized to complete this request.")
-
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=post_request)
         if form.is_valid():

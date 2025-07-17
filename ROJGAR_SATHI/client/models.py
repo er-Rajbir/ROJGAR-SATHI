@@ -5,8 +5,17 @@ from django.contrib.auth.models import User
 from hunarbaaz.models import Hunarbaaz  
 from django.core.validators import MinValueValidator, MaxValueValidator
 from decimal import Decimal
+from django.core.validators import RegexValidator
 from django.utils import timezone
 
+aadhaar_validator = RegexValidator(
+    regex=r'^\d{12}$',
+    message="Aadhaar number must be exactly 12 digits"
+)
+mobile_validator = RegexValidator(
+    regex=r'^\d{10}$',
+    message="mobile number must be exactly 10 digits"
+)
 
 class ClientProfile(models.Model):
     
@@ -24,7 +33,7 @@ class ClientProfile(models.Model):
         default="M",
         verbose_name="Gender",
     )
-    phone = models.CharField(max_length=15, null=True, blank=True)
+    phone = models.CharField(max_length=15, null=True, blank=True,validators=[mobile_validator])
     address = models.TextField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='client/profile_pics/', null=True, blank=True)
 

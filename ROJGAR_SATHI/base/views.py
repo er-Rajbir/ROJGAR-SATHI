@@ -12,7 +12,7 @@ def home(request):
     categories = ['Electrician', 'Plumber', 'Technician', 'Construction', 'Painter', 'Welder']
 
     # ⭐ Get recent completed reviews with rating
-    reviews = PostRequest.objects.filter(is_completed=True, review__isnull=False # ✅ Only reviews with rating 4 or 5
+    reviews = PostRequest.objects.filter(is_completed=True, review__isnull=False # ✅ 
    ).select_related('client').order_by('-created_at')[:9]  # Change limit as needed
 
     return render(request, 'base/home.html', {
@@ -46,7 +46,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            print("User logged in:", user)
+            
 
             # Redirect based on profile
             if hasattr(user, 'hunarbaaz'):
@@ -69,28 +69,3 @@ def access_denied(request):
   
 
 
-# send email concept
-
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.core.mail import send_mail
-from django.conf import settings
-
-def send_mail_page(request):
-    context = {}
-
-    if request.method == 'POST':
-        address = request.POST.get('address')
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-
-        if address and subject and message:
-            try:
-                send_mail(subject, message, settings.EMAIL_HOST_USER, [address])
-                context['result'] = 'Email sent successfully'
-            except Exception as e:
-                context['result'] = f'Error sending email: {e}'
-        else:
-            context['result'] = 'All fields are required'
-    
-    return render(request, "base/index.html", context)
