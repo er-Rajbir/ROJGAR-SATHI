@@ -13,7 +13,7 @@
           <div class="card-body p-4 bg-light">
             <form method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <h5 class="mb-3 text-center">Account Info</h5>
+             
               {% for field in user_form %}
                 {% if field.name != 'password' %}
                   <div class="mb-3">
