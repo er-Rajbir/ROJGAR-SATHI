@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
-from django.http import HttpResponseForbidden, Http404
+from django.http import Http404
 from .models import ClientProfile,Hunarbaaz, PostRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -204,9 +204,6 @@ def reschedule_request(request, pk):
 @login_required
 def mark_as_completed(request, request_id):
     post_request = get_object_or_404(PostRequest, id=request_id)
-
-    if post_request.client != request.user:
-        return HttpResponseForbidden("You are not authorized to complete this request.")
 
     if request.method == 'POST':
         form = ReviewForm(request.POST, instance=post_request)

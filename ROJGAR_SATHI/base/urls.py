@@ -14,6 +14,6 @@ urlpatterns = [
     path('logout/',LogoutView.as_view(next_page='home'), name='logout'),
     path('login/', views.login_view, name='login'),
     path('access_denied/', views.access_denied, name='access_denied'),
-    path('mail/',views.send_mail_page,name='mail')
+    
     
 ]

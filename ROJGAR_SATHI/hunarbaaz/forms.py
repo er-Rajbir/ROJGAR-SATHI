@@ -7,9 +7,7 @@ class HunarbaazUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
-        
-
+        fields = ['username', 'password']
 class HunarbaazProfileForm(forms.ModelForm):
     other_skill = forms.CharField(required=False, label='Other Skill')
     other_location = forms.CharField(required=False, label='Other Location')

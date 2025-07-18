@@ -90,25 +90,20 @@ def edit_profile(request):
     user = request.user
 
     if request.method == 'POST':
-        user_form = HunarbaazUserForm(request.POST, instance=user)
+       
         profile_form = HunarbaazProfileForm(request.POST, request.FILES, instance=hunarbaaz)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            # Handle password securely
-        password = user_form.cleaned_data.get('password')
-        if password:  # only if password was changed
-            user.set_password(password)
-            user.save()
-        profile_form.save()
-        return redirect('login')
+        if  profile_form.is_valid():
+            
+            profile_form.save()
+            return redirect('hunarbaaz:hunarbaaz_dashboard')
 
     else:
-        user_form = HunarbaazUserForm(instance=user)
+        
         profile_form = HunarbaazProfileForm(instance=hunarbaaz)
 
     return render(request, 'hunarbaaz/edit_profile.html', {
-        'user_form': user_form,
+        
         'profile_form': profile_form
     })
 
