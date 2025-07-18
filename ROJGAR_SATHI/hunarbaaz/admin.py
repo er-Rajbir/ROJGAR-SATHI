@@ -7,6 +7,9 @@ class hunarbaaz(admin.ModelAdmin):
     readonly_fields = ['created_at']
     search_fields = ['full_name','skill','location']
     fieldsets = (
+        ('User Association', {
+            'fields': ('user',)
+        }),
         ('Personal Information', {
             'fields': ('full_name', 'mobile', 'gender','aadhaar_number','profile_pic')
         }),

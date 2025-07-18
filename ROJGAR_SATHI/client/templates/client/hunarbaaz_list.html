@@ -6,7 +6,7 @@
 <form method="get" class="search-bar d-flex flex-wrap gap-2 mb-4">
   <!-- Skill Dropdown -->
   <select name="skill" class="form-select">
-    <option value="">Search by Skill</option>
+    <option value="">All Skills</option>
     {% for code, label in skill_choices %}
       <option value="{{ code }}" {% if request.GET.skill == code %}selected{% endif %}>{{ label }}</option>
     {% endfor %}
@@ -14,11 +14,19 @@
 
   <!-- Location Dropdown -->
   <select name="location" class="form-select">
-    <option value="">Search by Location</option>
+    <option value="">All Locations</option>
     {% for code, label in location_choices %}
       <option value="{{ code }}" {% if request.GET.location == code %}selected{% endif %}>{{ label }}</option>
     {% endfor %}
   </select>
+
+  <!-- Verified Filter Dropdown -->
+<select name="is_verified" class="form-select">
+  <option value="">All Profiles</option>
+  <option value="true" {% if request.GET.is_verified == 'true' %}selected{% endif %}>Verified Only</option>
+  <option value="false" {% if request.GET.is_verified == 'false' %}selected{% endif %}>Not Verified</option>
+</select>
+
 
   <button type="submit" class="btn btn-success">Search</button>
 </form>
@@ -45,9 +53,9 @@
         
         <div class="profile-details">
           <h5>{{ profile.full_name }}</h5>
-          <p><strong>Skill:</strong> {{ profile.skill }}</p>
-          <p><strong>Location:</strong> {{ profile.location }}</p>
-          <p><strong>Experience:</strong> {{ profile.experience }} Years</p>
+          <p><i class="bi bi-tools"></i><strong> Skill:</strong> {{ profile.skill }}</p>
+          <p><i class="bi bi-geo-alt"></i><strong> Location:</strong> {{ profile.location }}</p>
+          <p><i class="bi bi-hourglass-split"></i><strong> Experience:</strong> {{ profile.experience }} Years</p>
         </div>
       </div>
     </a>
