@@ -3,7 +3,7 @@ from django.http import Http404
 from .models import ClientProfile,Hunarbaaz, PostRequest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import ClientRegisterForm, ClientProfileForm, UserUpdateForm, PostRequestForm, RescheduleRequestForm, ReviewForm
+from .forms import ClientRegisterForm, ClientProfileForm, PostRequestForm, RescheduleRequestForm, ReviewForm
 from django.contrib import messages
 #for email
 from django.core.mail import send_mail
@@ -16,9 +16,7 @@ def client_dashboard(request):
     profile = ClientProfile.objects.get(user=request.user)
     return render(request, 'client/dashboard_client.html', {'profile': profile})
 
-@login_required
-def edit_profile(request):
-    return render(request, 'client/edit_profile.html')
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -86,18 +84,18 @@ def edit_profile(request):
         profile = ClientProfile.objects.create(user=user)
 
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=user)
+       
         profile_form = ClientProfileForm(request.POST, request.FILES, instance=profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        if profile_form.is_valid():
+           
             profile_form.save()
             return redirect('client:client_dashboard')  
     else:
-        user_form = UserUpdateForm(instance=user)
+       
         profile_form = ClientProfileForm(instance=profile)
 
     return render(request, 'client/edit_profile.html', {
-        'user_form': user_form,
+        
         'profile_form': profile_form
     })
 

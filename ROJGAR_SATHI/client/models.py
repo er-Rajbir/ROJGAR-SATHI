@@ -7,43 +7,46 @@ from decimal import Decimal
 from django.core.validators import RegexValidator
 from django.utils import timezone
 
+
+
 aadhaar_validator = RegexValidator(
     regex=r'^\d{12}$',
     message="Aadhaar number must be exactly 12 digits"
 )
-mobile_validator = RegexValidator(
-    regex=r'^\d{10}$',
-    message="mobile number must be exactly 10 digits"
-)
-
-from django.core.validators import RegexValidator
-
 
 mobile_validator = RegexValidator(
     regex=r'^\d{10}$',
-    message="mobile number must be exactly 10 digits"
+    message="Mobile number must be exactly 10 digits"
 )
+
 class ClientProfile(models.Model):
-    
-    GENDER_CHOICES = [("","-------"),
+    GENDER_CHOICES = [
+        ("", "-------"),
         ("M", "Male"),
         ("F", "Female"),
         ("O", "Other"),
     ]
-    work=[('','<<<--Select-->>>'),('Residential','Residential'),('Commercial','Commercial')]
+
+    WORK_TYPE_CHOICES = [
+        ('', '<<<--Select-->>>'),
+        ('Residential', 'Residential'),
+        ('Commercial', 'Commercial'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    full_name=models.CharField( max_length=20,default='client fullname', blank=False)
+    full_name = models.CharField(max_length=20, default='client fullname')
     gender = models.CharField(
         max_length=1,
         choices=GENDER_CHOICES,
         default="M",
         verbose_name="Gender",
     )
-
-    phone = models.CharField(max_length=15, null=True, blank=True,validators=[mobile_validator])
-
-    phone = models.CharField(max_length=10,unique=True,validators=[mobile_validator])
-
+    phone = models.CharField(
+        max_length=10,
+        unique=True,
+        validators=[mobile_validator],
+        verbose_name="Mobile Number"
+    )
     address = models.TextField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='client/profile_pics/', null=True, blank=True)
 
@@ -51,7 +54,7 @@ class ClientProfile(models.Model):
 
     def __str__(self):
         return f"ClientProfile: {self.user.username}"
-    
+
 class PostRequest(models.Model):
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_requests')
     hunarbaaz = models.ForeignKey('hunarbaaz.Hunarbaaz', on_delete=models.CASCADE, related_name='received_requests')

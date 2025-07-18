@@ -12,7 +12,11 @@ class ClientRegisterForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password',]
 
-
+    def clean_email(self):
+            email = self.cleaned_data.get('email')
+            if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+                raise forms.ValidationError("This email is already registered.")
+            return email
 class ClientProfileForm(forms.ModelForm):
     full_name = forms.CharField(max_length=20, required=True)
     gender = forms.ChoiceField(
@@ -23,12 +27,6 @@ class ClientProfileForm(forms.ModelForm):
         model = ClientProfile
         fields = ['full_name','phone','gender', 'address', 'profile_picture']
 
-
-class UserUpdateForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-        
 
 class PostRequestForm(forms.ModelForm):
     class Meta:
