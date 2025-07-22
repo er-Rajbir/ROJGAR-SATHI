@@ -96,7 +96,7 @@ def edit_profile(request):
         if  profile_form.is_valid():
             
             profile_form.save()
-            return redirect('hunarbaaz:hunarbaaz_dashboard')
+        return redirect('hunarbaaz:hunarbaaz_dashboard')
 
     else:
         
