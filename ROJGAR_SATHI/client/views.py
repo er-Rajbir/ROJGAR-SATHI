@@ -105,7 +105,15 @@ def hunarbaaz_list(request):
     skill_query = request.GET.get('skill', '')
     location_query = request.GET.get('location', '')
 
-    profiles = Hunarbaaz.objects.all()
+    # Get Hunarbaaz IDs that are currently engaged in an ongoing job
+    busy_hunarbaaz_ids = PostRequest.objects.filter(
+        is_accepted=True,
+        is_completed=False,
+        is_cancelled=False
+    ).values_list('hunarbaaz_id', flat=True)
+
+    # Get only free Hunarbaaz (exclude busy ones)
+    profiles = Hunarbaaz.objects.exclude(id__in=busy_hunarbaaz_ids)
 
     if skill_query:
         profiles = profiles.filter(skill__icontains=skill_query)
@@ -115,6 +123,13 @@ def hunarbaaz_list(request):
 
     skill_choices    = [c for c in Hunarbaaz.SKILL_CHOICES if c[0]]   # skip the empty placeholder
     location_choices = [c for c in Hunarbaaz.locations     if c[0]]
+
+    is_verified = request.GET.get('is_verified')
+
+    if is_verified == 'true':
+        profiles = profiles.filter(is_verified=True)
+    elif is_verified == 'false':
+        profiles = profiles.filter(is_verified=False)
 
     context = {
         "profiles": profiles,               
