@@ -1,70 +1,76 @@
+/* base/css/register.css */
 
-    body {
-      background-color: rgb(250, 255, 223);
-      font-family: 'Segoe UI', sans-serif;
-    }
+body {
+  background: linear-gradient(to right, #e0f7fa, #fff3e0);
+  font-family: 'Segoe UI', sans-serif;
+}
 
-    .registration-card {
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      transition: all 0.4s ease;
-    }
+.registration-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  background-color: #ffffffd6;
+  animation: fadeIn 1s ease-in-out;
+}
 
-    .registration-card:hover {
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-    }
+.card-header {
+  background: #009688;
+  color: white;
+  font-weight: 600;
+  font-size: 1.25rem;
+  border-radius: 15px 15px 0 0;
+  text-align: center;
+}
 
-    .card-header {
-      background: linear-gradient(90deg, #656D4A, #414833);
-      color: white;
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+.section-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #00796b;
+  margin-bottom: 1rem;
+}
 
-    .form-label {
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
+label.form-label {
+  font-weight: 500;
+  color: #333;
+}
 
-    .form-control {
-      border-radius: 10px;
-      box-shadow: none;
-      border: 1px solid #ced4da;
-      transition: border-color 0.3s ease;
-    }
+.form-control {
+  border-radius: 10px;
+}
 
-    .form-control:focus {
-      border-color: #4e54c8;
-      box-shadow: 0 0 0 0.2rem rgba(78, 84, 200, 0.25);
-    }
+.btn {
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
 
-    .section-title {
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.8rem;
-      color: #4e54c8;
-      border-bottom: 2px solid #e0e0e0;
-      padding-bottom: 4px;
-    }
+.btn-success {
+  background: linear-gradient(to right, #43cea2, #185a9d);
+  border: none;
+}
 
-    .btn-gradient {
-      background: linear-gradient(90deg, #4e54c8, #8f94fb);
-      border: none;
-      color: white;
-      font-weight: bold;
-      transition: 0.3s ease;
-      border-radius: 30px;
-    }
+.btn-danger {
+  background-color: #ef5350;
+  border: none;
+}
 
-    .btn-gradient:hover {
-      background: linear-gradient(90deg, #3a3fc8, #6f74fb);
-    }
+.btn-success:hover,
+.btn-danger:hover {
+  opacity: 0.85;
+}
 
-    .text-danger {
-      font-size: 0.85rem;
-    }
-  
+#addWorkSampleBtn {
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+

@@ -27,7 +27,6 @@ urlpatterns = [
     path('',include('base.urls')),
     path('client/', include(('client.urls', 'client'), namespace='client')),
      path('hunarbaaz/', include(('hunarbaaz.urls', 'hunarbaaz'), namespace='hunarbaaz')),
-    path('client/', include(('client.urls', 'client'), namespace='client')),
     path('reviews/', include(('reviews.urls', 'reviews'), namespace='reviews')),
     
 

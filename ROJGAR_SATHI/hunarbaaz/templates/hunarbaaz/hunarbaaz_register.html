@@ -14,21 +14,6 @@
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
 
-              <!-- Account Section -->
-              <h5 class="section-title">🧾 Account Details</h5>
-              {% for field in user_form %}
-                <div class="mb-4">
-                  <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-                  <div>{{ field|add_class:'form-control' }}</div>
-                  {% if field.errors %}
-                    <div class="text-danger">{{ field.errors }}</div>
-                  {% endif %}
-                </div>
-              {% endfor %}
-
-              <!-- Profile Section -->
-              <h5 class="section-title mt-4">📝 Profile Details</h5>
-
               {# Render non-sample fields first #}
               {% for field in profile_form %}
                 {% if field.name not in 'work_sample_1,work_sample_2,work_sample_3' %}
@@ -41,8 +26,7 @@
                   </div>
                 {% endif %}
               {% endfor %}
-              <small class="form-text text-danger">*Disclaimer: The wages are determined by the platform and are not manually editable.</small>
-              <br>
+              <div class="text-danger small mb-4">*Disclaimer: Wages are auto-filled and not manually editable.</div>
 
               <!-- Work Samples -->
               <div class="mb-4 mt-4" id="field-work_sample_1">
