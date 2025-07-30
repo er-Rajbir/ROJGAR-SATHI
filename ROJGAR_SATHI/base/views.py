@@ -13,7 +13,7 @@ def home(request):
 
     # ⭐ Get recent completed reviews with rating
     reviews = PostRequest.objects.filter(is_completed=True, review__isnull=False # ✅ 
-   ).select_related('client').order_by('-created_at')[:9]  # Change limit as needed
+   ).select_related('client').order_by('-created_at')[:6]  
 
     return render(request, 'base/home.html', {
         'categories': categories,
