@@ -1,37 +1,69 @@
 {% extends 'base/base.html' %}
+{% load widget_tweaks %}
 {% block content %}
-  <div class="container mt-5 mb-5 p-4 bg-light rounded shadow-sm" style="max-width: 700px;">
-    <h3 class="text-center mb-4 text-primary">Post Work Request</h3>
+<div class="container mt-5 mb-5" style="max-width: 750px;">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-header text-center bg-primary text-white rounded-top-4 py-3">
+      <h3 class="mb-0"><i class="bi bi-briefcase-fill"></i> Post Work Request</h3>
+    </div>
 
-    <form method="post">
-      {% csrf_token %}
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
 
-      <div class="mb-3">{{ form.hunarbaaz.label_tag }}
-        {{ form.hunarbaaz }}</div>
+        <!-- Hunarbaaz -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">{{ form.hunarbaaz.label }}</label>
+          {{ form.hunarbaaz|add_class:"form-control" }}
+        </div>
 
-      <div class="mb-3">{{ form.location.label_tag }}
-        {{ form.location }}</div>
+        <!-- Location -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">{{ form.location.label }}</label>
+          {{ form.location|add_class:"form-control" }}
+        </div>
 
-      <div class="row">
-        <div class="col-md-6 mb-3">{{ form.start_date.label_tag }}
-          {{ form.start_date }}</div>
-        <div class="col-md-6 mb-3">{{ form.end_date.label_tag }}
-          {{ form.end_date }}</div>
-      </div>
-      <div class="mb-3">{{ form.working_hours.label_tag }}
-        {{ form.working_hours }}</div>
+        <!-- Start & End Dates -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">{{ form.start_date.label }}</label>
+            {{ form.start_date|add_class:"form-control" }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">{{ form.end_date.label }}</label>
+            {{ form.end_date|add_class:"form-control" }}
+          </div>
+        </div>
 
+        <!-- Working Hours -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">{{ form.working_hours.label }}</label>
+          {{ form.working_hours|add_class:"form-control" }}
+        </div>
 
-      <div class="mb-3">{{ form.job_type.label_tag }}
-        {{ form.job_type }}</div>
+        <!-- Job Type -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">{{ form.job_type.label }}</label>
+          {{ form.job_type|add_class:"form-select" }}
+        </div>
 
-      <div class="mb-3">{{ form.job_description.label_tag }}
-        {{ form.job_description }}</div>
+        <!-- Job Description -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">{{ form.job_description.label }}</label>
+          {{ form.job_description|add_class:"form-control" }}
+        </div>
 
-      <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-success px-4">Send Request</button>
-        <button type="reset" class="btn btn-secondary px-4">Reset</button>
-      </div>
-    </form>
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+          <button type="submit" class="btn btn-success px-4 fw-semibold">
+            <i class="bi bi-send"></i> Send Request
+          </button>
+          <button type="reset" class="btn btn-outline-secondary px-4 fw-semibold">
+            <i class="bi bi-arrow-counterclockwise"></i> Reset
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
+</div>
 {% endblock %}

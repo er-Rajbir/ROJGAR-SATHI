@@ -7,7 +7,7 @@ class HunarbaazUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'password']
  
     def clean_email(self):
         email = self.cleaned_data.get('email')

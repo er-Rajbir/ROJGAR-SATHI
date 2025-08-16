@@ -1,68 +1,64 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'client/css/hunarbaaz.css' %}">
-<!-- Include AOS CSS & JS -->
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
+  <link rel="stylesheet" href="{% static 'client/css/hunarbaaz.css' %}" />
+  <!-- Include AOS CSS & JS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init()
+  </script>
 
-<style>
-  
-</style>
+  <style></style>
 
-<div class="profile-container" data-aos="fade-up">
-  <h1><b>Hunarbaaz:<i>{{ profile.full_name }}</i></b></h1>
-  <hr>
-  <div class="profile-header" data-aos="fade-right">
-    {% if profile.profile_pic %}
-      <img src="{{ profile.profile_pic.url }}" alt="Profile Pic" class="profile-photo" />
-    {% else %}
-      <img src="{% static 'base/images/man.png' %}" alt="Default Pic" class="profile-photo" />
+  <div class="profile-container" data-aos="fade-up">
+    <h3 align="center"><b>Hunarbaaz: <i>{{ profile.full_name }}</i></b></h3>
+    <hr />
+    <div class="profile-header" data-aos="fade-right">
+      {% if profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" alt="Profile Pic" class="profile-photo" />
+      {% else %}
+        <img src="{% static 'base/images/man.png' %}" alt="Default Pic" class="profile-photo" />
+      {% endif %}
+
+      <div class="info-section">
+        <p style="font-size: x-large;">
+          <strong>Skill:</strong> {{ profile.skill }}
+        </p>
+        <p style="font-size: x-large;">
+          <strong>Location:</strong> {{ profile.location }}
+        </p>
+        <p style="font-size: x-large;">
+          <strong>Experience:</strong> {{ profile.experience }} years
+        </p>
+        <p style="font-size: x-large;">
+          <strong>Wages:</strong> ₹{{ profile.wages }} / 8 hrs
+        </p>
+      </div>
+    </div>
+
+    {% if profile.work_sample_1 or profile.work_sample_2 or profile.work_sample_3 %}
+      <div class="gallery-title">Work Sample Gallery</div>
+      <div class="gallery-scroll">
+        {% if profile.work_sample_1 %}
+          <img src="{{ profile.work_sample_1.url }}" alt="Sample Work 1" />
+        {% endif %}
+        {% if profile.work_sample_2 %}
+          <img src="{{ profile.work_sample_2.url }}" alt="Sample Work 2" />
+        {% endif %}
+        {% if profile.work_sample_3 %}
+          <img src="{{ profile.work_sample_3.url }}" alt="Sample Work 3" />
+        {% endif %}
+      </div>
     {% endif %}
 
-    <div class="info-section">
-      <h2>
-        {{ profile.full_name }}
-        {% if profile.is_verified %}
-          <span class="status-tag verified">✔ Verified</span>
-        {% else %}
-          <span class="status-tag unverified">✖ Not Verified</span>
-        {% endif %}
-      </h2>
-      <p><strong>Skill:</strong> {{ profile.skill }}</p>
-      <p><strong>Location:</strong> {{ profile.location }}</p>
-      <p><strong>Experience:</strong> {{ profile.experience }} years</p>
-      <p><strong>Wages:</strong> ₹{{ profile.wages }} / 8 hrs</p>
+    <div class="action-buttons" data-aos="zoom-in">
+      <a href="{% url 'client:create_request' %}?hunarbaaz_id={{ profile.id }}" class="btn btn-success">📩 Hire Hunarbaaz</a>
+      <a href="{% url 'hunarbaaz:public_work_history' profile.id %}" class="btn btn-outline-primary">📄 Work History</a>
+    </div>
+
+    <div class="back-button" data-aos="fade-up">
+      <a href="{% url 'client:all_profiles' %}" class="btn btn-secondary">← Back to All Profiles</a>
     </div>
   </div>
-
- {% if profile.work_sample_1 or profile.work_sample_2 or profile.work_sample_3 %}
-  <div class="gallery-title" data-aos="fade-down">Work Sample Gallery</div>
-  <div class="gallery-scroll" data-aos="zoom-in">
-    {% if profile.work_sample_1 %}
-      <img src="{{ profile.work_sample_1.url }}" alt="Sample Work 1">
-    {% endif %}
-    {% if profile.work_sample_2 %}
-      <img src="{{ profile.work_sample_2.url }}" alt="Sample Work 2">
-    {% endif %}
-    {% if profile.work_sample_3 %}
-      <img src="{{ profile.work_sample_3.url }}" alt="Sample Work 3">
-    {% endif %}
-  </div>
-{% endif %}
-
-
-  <div class="action-buttons" data-aos="zoom-in">
-    <a href="{% url 'client:create_request' %}?hunarbaaz_id={{ profile.id }}" class="btn btn-success">📩 Hire Hunarbaaz</a>
-    <a href="{% url 'hunarbaaz:public_work_history' profile.id %}" class="btn btn-outline-primary">📄 Work History</a>
-  </div>
-
-  <div class="back-button" data-aos="fade-up">
-    <a href="{% url 'client:all_profiles' %}" class="btn btn-secondary">← Back to All Profiles</a>
-  </div>
-</div>
-
 {% endblock %}

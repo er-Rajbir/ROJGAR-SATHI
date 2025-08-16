@@ -3,103 +3,76 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'hunarbaaz/css/dashboard.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-
-
+<script>AOS.init();</script>
 <div class="container mt-5">
   <div class="dashboard-box mb-5">
 
-    <!-- 🧑‍💼 User Info Block (like Client) -->
-    <div class="row align-items-center mb-4">
+    <!-- Profile Section -->
+    <div class="row align-items-center mb-5 p-4 rounded-4 shadow-lg" style="background: linear-gradient(135deg, #00c6ff, #0072ff);">
+      <div class="col-md-8 text-white">
+        <h2 class="fw-bold mb-2">Welcome, {{ user.hunarbaaz.full_name }}!</h2>
+        <p class="mb-1"><i class="bi bi-telephone-fill"></i> {{ user.hunarbaaz.mobile }}</p>
+        <p class="mb-1"><i class="bi bi-geo-alt-fill"></i> {{ user.hunarbaaz.location }}</p>
+        <p class="mb-0"><i class="bi bi-tools"></i> {{ user.hunarbaaz.skill }}</p>
+        <span class="badge {% if aadhaar_verified %}bg-success{% else %}bg-warning text-dark{% endif %} mt-2">
+          {% if aadhaar_verified %}Verified{% else %}Not Verified{% endif %}
+        </span>
+      </div>
       <div class="col-md-4 text-center">
         {% if user.hunarbaaz.profile_pic %}
-          <img src="{{ user.hunarbaaz.profile_pic.url }}" alt="Profile Picture" class="profile-pic mb-3">
+          <img src="{{ user.hunarbaaz.profile_pic.url }}" alt="Profile Picture" class="profile-pic border border-white shadow-lg rounded-circle" style="width:140px; height:140px; object-fit:cover;">
         {% else %}
-          <img src="{% static 'base/images/default-user.png' %}" alt="Default" class="profile-pic mb-3">
+          <img src="{% static 'base/images/default-user.png' %}" alt="Default" class="profile-pic border border-white shadow-lg rounded-circle" style="width:140px; height:140px; object-fit:cover;">
         {% endif %}
       </div>
+    </div>
 
-      <div class="col-md-8">
-        <h2 class="fw-bold text-primary mb-3">Welcome, {{ user.hunarbaaz.full_name }} 👋</h2>
-        
-        <p><span class="info-label">Phone No. :</span> <span class="info-value">{{ user.hunarbaaz.mobile }}</span></p>
-        <p><span class="info-label">Address:</span> <span class="info-value">{{ user.hunarbaaz.location }}</span></p>
-        
-        <div class="mt-2">
-          {% for skill in skills %}
-            {% if skill != 'Not Set' %}
-              <p><span class="info-label">Skill: </span><span class ="info-value"> {{ skill }}</span>
-            {% endif %}
-          {% endfor %}
-          <p>
-          <span class="info-label"> Profile Status:</span>
-          {% if aadhaar_verified %}
-            <span class="badge bg-success ms-2">Verified</span>
-          {% else %}
-            <span class="badge bg-warning text-dark ms-2">Not Verified</span>
-          {% endif %}
-        </p>
+    <!-- Stats Cards -->
+    <div class="row text-center g-4 mb-5">
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-lg rounded-4 p-3" style="background:linear-gradient(135deg, #3b8dca, #1565c0);">
+          <h3 class="fw-bold text-white">{{ ongoing_jobs }}</h3>
+          <p class="mb-0 text-white"><b>Ongoing Jobs</b></p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-lg rounded-4 p-3" style="background: linear-gradient(135deg, #f7971e, #ffd200);">
+          <h3 class="fw-bold text-dark">{{ pending_requests }}</h3>
+          <p class="mb-0 text-dark">Pending Requests</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-lg rounded-4 p-3" style="background: linear-gradient(135deg, #11998e, #38ef7d);">
+          <h3 class="fw-bold text-white">{{ completed_jobs }}</h3>
+          <p class="mb-0 text-white">Completed Jobs</p>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-lg rounded-4 p-3" style="background: linear-gradient(135deg, #fc6076, #ff9a44);">
+          <h3 class="fw-bold text-white">{{ rating }}/5 ⭐</h3>
+          <p class="mb-0 text-white">Avg Rating</p>
         </div>
       </div>
     </div>
 
-    <!-- 🔢 Stats Cards -->
-    <div class="row text-center mb-4 mt-5">
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card stat-card bg-primary text-white">
-          <div class="card-body">
-            <h4>{{ ongoing_jobs }}</h4>
-            <p class="mb-0">Ongoing Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card stat-card bg-warning text-dark">
-          <div class="card-body">
-            <h4>{{ pending_requests }}</h4>
-            <p class="mb-0">Pending Requests</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card stat-card bg-success text-white">
-          <div class="card-body">
-            <h4>{{ completed_jobs }}</h4>
-            <p class="mb-0">Completed Jobs</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card stat-card bg-info text-white">
-          <div class="card-body">
-            <h4>{{ rating }}/5 ⭐</h4>
-            <p class="mb-0">Average Rating</p>
-          </div>
-        </div>
-      </div>
+    <!-- Quick Links -->
+    <div class="text-center mb-5">
+      <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-primary rounded-pill px-4 m-2 shadow-sm">✏ Edit Profile</a>
+      <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-warning rounded-pill px-4 m-2 shadow-sm">📥 View Requests</a>
+      <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-success rounded-pill px-4 m-2 shadow-sm">📜 Work History</a>
     </div>
 
-    <!-- 🔗 Action Buttons / Quick Links -->
-    <div class="text-center quick-links mb-5 mt-5">
-      <a href="{% url 'hunarbaaz:edit_profile' %}" class="btn btn-outline-primary m-2">✏ Edit Profile</a>
-      <a href="{% url 'hunarbaaz:view_requests' %}" class="btn btn-outline-warning m-2">📥 View Requests</a>
-      <a href="{% url 'hunarbaaz:work_history' %}" class="btn btn-outline-success m-2">📜 Work History</a>
-    </div>
-
-    <!-- 💬 Recent Reviews -->
+    <!-- Recent Reviews -->
     <div class="mt-4">
-      <h5 class="fw-bold text-success mb-3">Recent Reviews</h5>
+      <h4 class="fw-bold text-success mb-3"><i class="bi bi-chat-quote-fill"></i> Recent Reviews</h4>
       <div class="row">
         {% for review in recent_reviews %}
           <div class="col-md-6">
-            <div class="card mb-3 shadow-sm">
+            <div class="card mb-3 shadow-sm rounded-4 border-0">
               <div class="card-body">
-                <p class="mb-1"><strong>{{ review.client.username }}</strong></p>
-                <p class="text-muted">"{{ review.review|truncatechars:100 }}"</p>
+                <p class="fw-bold mb-1">{{ review.client.username }}</p>
+                <p class="text-muted fst-italic">"{{ review.review|truncatechars:100 }}"</p>
                 <p class="text-warning mb-0">
                   {% for i in '12345'|make_list %}
                     {% if forloop.counter <= review.rating %}
@@ -117,25 +90,14 @@
         {% endfor %}
       </div>
     </div>
-<!-- 🔧 Boost Plan Teaser for Hunarbaaz -->
-<div class="rounded-4 shadow-lg mt-5 p-4 text-dark" style="background: linear-gradient(135deg, #ffd600, #ff6f00);" data-aos="zoom-in-up">
-  <h3 class="fw-bold"><i class="bi bi-rocket-fill text-danger"></i> Rozgaar+ – More Clients, More Income 🔥</h3>
-  <p class="fs-5">Stand out with a <strong>Verified Badge</strong>, promote multiple skills, and be seen by more clients with Rozgaar+ membership.</p>
-  <a href="#" class="btn btn-dark btn-lg mt-2 px-4 fw-semibold shadow-sm">🎉 Coming Soon – Stay Tuned!</a>
+</div>
 </div>
 
-    <!-- 💡 Tips -->
-    <div class="card mt-4 shadow-sm">
-      <div class="card-body bg-light">
-        <h5 class="text-info">Tips to Get More Jobs</h5>
-        <ul class="mb-0">
-          <li>Keep your profile updated with correct info and skills.</li>
-          <li>Respond quickly to job requests.</li>
-          <li>Get good reviews by being punctual and professional.</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
+<!-- Rozgaar+ Boost Plan -->
+<div class="shadow-lg mt-5 p-4 text-white" style="background: linear-gradient(135deg, #ff512f, #dd2476);" data-aos="zoom-in-up">
+  <h3 class="fw-bold"><i class="bi bi-rocket-takeoff-fill"></i> Rozgaar+ – Boost Your Reach</h3>
+  <p class="fs-5">Get a Verified Badge, promote multiple skills, and appear at the top of searches with Rozgaar+.</p>
+  <a href="#" class="btn btn-light btn-lg mt-2 px-4 fw-semibold shadow-sm">🚀 Coming Soon – Stay Tuned!</a>
 </div>
+
 {% endblock %}
