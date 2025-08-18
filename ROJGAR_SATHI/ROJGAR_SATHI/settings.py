@@ -146,5 +146,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Auto logout after 15 minutes (900 seconds)
-SESSION_COOKIE_AGE = 900
+SESSION_COOKIE_AGE = 1800
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True  

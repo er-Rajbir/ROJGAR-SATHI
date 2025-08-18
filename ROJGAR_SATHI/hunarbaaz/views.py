@@ -115,7 +115,7 @@ def view_requests(request):
     except Hunarbaaz.DoesNotExist:
         return redirect('hunarbaaz:edit_profile')
 
-    # ❌ Exclude cancelled requests
+    #Exclude cancelled requests
     requests = PostRequest.objects.filter(
         hunarbaaz=profile,
         is_cancelled=False  # This line excludes cancelled ones

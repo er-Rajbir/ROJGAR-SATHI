@@ -24,7 +24,7 @@ class HunarbaazProfileForm(forms.ModelForm):
         choices=Hunarbaaz.SKILL_CHOICES,
         widget=forms.Select(attrs={'id': 'id_skill'})   # ← add id here
     )
-    wages = forms.IntegerField(label="Wages (₹ / 8 hrs) *",
+    wages = forms.IntegerField(label="Wages (₹ /hr) *",
         help_text="These wages are determined by the platform and are not manually editable.",
         widget=forms.NumberInput(attrs={'id': 'id_wages',  "readonly": "readonly", 'min': 0})
     )
@@ -49,6 +49,6 @@ class HunarbaazProfileForm(forms.ModelForm):
         def clean_mobile(self):
                 mobilee = self.cleaned_data['mobile']
                 if not mobilee.isdigit() or len(mobilee) != 10:
-                    raise forms.ValidationError("mobile must be exactly 10 numeric digits.")
+                    raise forms.ValidationError("Mobile must be exactly 10 numeric digits.")
                 return mobilee
         

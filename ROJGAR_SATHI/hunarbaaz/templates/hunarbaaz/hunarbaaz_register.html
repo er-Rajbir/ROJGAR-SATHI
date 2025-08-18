@@ -3,6 +3,8 @@
 {% load widget_tweaks %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'base/css/register.css' %}" />
+<script src="{% static 'hunarbaaz/js/register.js' %}"></script>
+
 
 <div class="container my-5">
   <div class="row justify-content-center">
@@ -102,15 +104,15 @@
 <script>
   // Skill → Wage Mapping
   const wageMap = {
-    Construction: 1600,
-    Electrician: 1500,
-    Painter: 1300,
-    'Domestic Worker': 900,
-    Plumber: 1400,
-    Carpenter: 1350,
-    'Electronics Repair': 1500,
-    Mechanic: 1400,
-    Others: 1200
+    "Construction": 200,     
+  "Electrician": 190,        
+  "Painter": 165,            
+  "Domestic Worker": 115,    
+  "Plumber": 180,            
+  "Carpenter": 170,          
+  "Electronics Repair": 190, 
+  "Mechanic": 180,           
+  "Others": 150 
   }
 
   const skillSelect = document.getElementById('id_skill')
