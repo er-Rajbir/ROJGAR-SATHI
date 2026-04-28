@@ -1,0 +1,299 @@
+.navbar{
+    height: 13vh;
+    margin-bottom: 0.1vh;
+}
+
+
+    
+    
+
+img{
+    height: 70vh;
+
+
+}
+
+
+.hero-img {
+  height: 85vh;
+  object-fit: contain;
+  filter: brightness(60%);
+}
+#popular-text{
+    align-self: center;
+    justify-self: center;
+}
+.image-container h4{
+color: white;
+}
+.scroll-container {
+  display: flex;
+  gap: 5vw;             /* space between images */
+  padding: 5vw;
+  overflow-x: auto;      /* horizontal scrolling enabled */
+  scroll-behavior:smooth;
+  /* hide scrollbars optionally: */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE and Edge */
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;         /* Chrome/Safari hide scrollbar */
+}
+
+.scroll-container img {
+  width: 30vw;
+  height: 40vh;
+  border-radius: 4%;
+  flex-shrink: 0;        /* prevent shrinking */
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.image-container h4{
+    color: black;
+    font-family:monospace;
+}
+
+.scroll-container img:hover{
+  transform: scale(1.09); /* zoom effect on hover */
+}
+.scroll-container p{
+    font-size: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    height:20rem;
+}
+
+.carousel-caption {
+  background-color: none !important;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.category-box {
+  transition: transform 0.3s ease;
+}
+.category-box:hover {
+  transform: scale(1.1);
+}
+
+.counter {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.aos-left {
+  animation: slideInLeft 3s forwards;
+}
+.aos-right {
+  animation: slideInRight 3s forwards;
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.counter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  
+}
+
+.stat-block {
+  font-size: 2.5rem;
+  font-weight: bold;
+  gap: 5px; /* space between number and + */
+}
+
+.plus-sign {
+  font-size: 2rem;
+  line-height: 1;
+  vertical-align: top;
+}
+
+/* login hunarbaaz page css */
+/* 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-form {
+  background: #fff;
+  padding: 40px;
+  height: 70vh;
+  width: 50vw;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+  align-content: center;
+  border-bottom-left-radius: 15%;
+  border-top-right-radius:15% ;
+}
+
+.login-form h2 {
+  margin: 0 0 20px;
+  color: #333;
+
+}
+
+.inputBox {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.inputBox input {
+  width: 300px;
+  padding: 10px 0;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #aaa;
+  outline: none;
+  background: transparent;
+  transition: border-color 0.3s;
+}
+
+.inputBox input:focus {
+  border-color: #2196f3;
+}
+
+.inputBox span {
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  color: #aaa;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.inputBox input:focus ~ span,
+.inputBox input:valid ~ span {
+  transform: translateY(-25px);
+  font-size: 12px;
+  color: #2196f3;
+}
+
+.inputBox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  
+  pointer-events: none;
+  transition: height 0.3s;
+}
+
+.inputBox input:focus ~ i {
+  height: 100%;
+}
+
+.links a {
+  font-size: 14px;
+  color: #2196f3;
+  text-decoration: none;
+}
+
+.login-form .inputBox input[type="submit"] {
+  background: #2196f3;
+  color: #fff;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+.login-form .inputBox input[type="submit"]:hover {
+  background: #1e88e5;
+}
+.login-register{
+    float: right;
+    display: flex;
+    background-color: purple;
+    height:20vh;
+    width: 10vw;
+} */
+/*login css done*/
+#carousel-caption-bg
+{background-color: rgba(0, 0, 0, 0.5);
+   align-items:center ;
+   justify-content: center; 
+   align-content: center;
+   justify-items: center;
+    height:100%;
+    width: 100%;
+    padding:0;
+    margin-left: 0;
+    z-index:2;
+    position:absolute;
+    color: white;
+    font-size: 2rem;
+    
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+
+ /* *{ box-sizing: border-box; margin:0; padding:0; }
+body { font-family: 'Poppins', sans-serif; background: #f2f2f2; display:flex; justify-content:center; align-items:center; height:100vh; } */
+
+.auth-wrapper {
+  width: 800px; height: 500px;
+  position: relative; overflow: hidden;
+  border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.form-box {
+  position: absolute; width: 50%; height:100%;
+  top:0; left:0; padding:40px;
+  transition: left 0.6s ease-in-out;
+  background: #fff;
+}
+
+.wave-panel {
+  position: absolute; right:0; top:0;
+  width:50%; height:100%;
+  background: #E6E6FA;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  display:flex; justify-content:center; align-items:center;
+  transition: right 0.6s ease-in-out;
+}
+
+.wave-content { text-align:center; padding:20px; }
+.wave-content h3 { margin-bottom:10px; color:#4B0082; }
+.wave-content p  { color:#333; }
+
+.form {
+  position:absolute; width:100%; top:50%; transform: translateY(-50%);
+  opacity:0; transition: opacity 0.4s ease;
+}
+.form.active { opacity:1; }
+
+/* Input & button */
+input {
+  display:block; width:100%; padding:12px; margin:12px 0;
+  border:1px solid #ccc; border-radius:6px;
+}
+button {
+  width:100%; padding:12px; border:none; background:#4B0082;
+  color:#fff; border-radius:6px; cursor:pointer;
+  transition: background 0.3s;
+}
+button:hover { background:#3A0066; }
+p { margin-top:20px; }
+p span {
+  color:#4B0082; cursor:pointer;
+  font-weight:500;
+}
+
